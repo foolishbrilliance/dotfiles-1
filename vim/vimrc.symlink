@@ -1,4 +1,73 @@
+" .vimrc
+
+" Enable colors on Solaris
+if $OSTYPE =~ "solaris"
+  set term=xtermc
+endif
+
+" General
+if has('gui_running')   " from http://ethanschoonover.com/solarized/vim-colors-solarized
+  colorscheme solarized
+  set guifont=Consolas:h16
+else
+endif
+set background=dark
+set backspace=2         " allow backspace beyond insertion point
+set backspace=indent,eol,start
+set ic                  " ignore case
+set laststatus=2        " always show status line
+set nocompatible        " disable vi compatibility
+set paste               " don't alter my pasting
+set report=1            " always report changes
+set smartcase           " ignore case on search unless specified
+set statusline=%<%f%h%m%r%w%y%=%l/%L,%c\ %P\ \|\ %n " custom status line
+set undolevels=1000     " large undo history
 syntax on
 
-" Wrap gitcommit file types at the appropriate length
-filetype indent plugin on
+" Turn off system beep
+set vb t_vb=
+
+" Tabs
+set expandtab
+set shiftwidth=2
+set softtabstop=2
+set tabstop=2
+
+"''''' Custom keybindings '''''''
+
+" Transpose words
+nmap <silent> gw    "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<cr><c-o><c-l> *N*
+
+" Change tab settings
+map ,4 :set shiftwidth=4<CR>:set softtabstop=4<CR>:set tabstop=4<CR>
+map ,8 :set shiftwidth=8<CR>:set softtabstop=8<CR>:set tabstop=8<CR>
+
+" Alternate tab navigation
+map tl :tabnext<CR>
+map th :tabprev<CR> 
+map tn :tabnew<CR> 
+
+" " Format paragraph
+imap ,f <Esc>!}fmt<CR>
+map ,f <Esc>!}fmt<CR>
+
+" " Toggle Spell-check
+map ,s <C-o>:setlocal spell! spelllang=en_gb<CR>
+nmap ,s :setlocal spell! spelllang=en_gb<CR>
+
+" Blank line above
+map ,O O<Esc>
+" Blank line below
+map ,o o<Esc>
+
+" Comment and uncomment out a section (uses marks 'a and 'b)
+map ,z :'a,'b s/^/#/
+map ,y :'a,'b s/#//
+
+" Duplicate line, comment original
+map ,n YPi#<Esc>
+
+" Timestamps
+map ,t <Esc>o# Created: TIME<Esc>ASTAMP by foolishbrilliance<CR># Last Modified: TIME<Esc>ASTAMP by foolishbrilliance<Esc>
+
+:nnoremap <Leader>s :let @x=@" \| let @"=@a \| let @a=@b \| let @b=@x<CR>
