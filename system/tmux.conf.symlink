@@ -1,0 +1,24 @@
+# Default
+#set-option -g status-fg color15
+#set-option -g status-bg color0
+
+# Change key binding to C-x
+set-option -g prefix C-x
+
+# Last window
+bind-key C-a last-window
+
+# Set status bar
+set-option -g status-bg black
+set-option -g status-fg white
+set-option -g status-left '#[fg=green]#H'
+
+# Highlight active window
+set-window-option -g window-status-current-bg red
+
+# Show load avg in statusbar
+#set -g status-right '#[fg=yellow]#(uptime | cut -d ',' -f 2-)'
+
+# Set window notifications
+setw -g monitor-activity on
+set -g visual-activity on

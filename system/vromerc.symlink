@@ -1,0 +1,15 @@
+" Example: https://github.com/jinzhu/vrome/wiki/vromerc-example-file
+
+" Please remember the first searchengine is the default one. in the below one, it is google
+set searchengines={"y":"http://yubnub.org/parser/parse?command={{keyword}}", "g":"http://www.google.com/search?q={{keyword}}"}
+
+" Disable autocomplete, the search through my bookmarks was taking too long?
+set noautocomplete
+
+" Change key mapping in normal mode, please check Vrome Features for available key mapping
+map     <M-p>   <S-Enter>   // Previous search
+map     <M-n>   <M-Enter>   // Next search
+unmap   <M-f>               // Use built-in Chrome find instead
+
+" Disable Vrome in those sites, Multiple URLs can be separated with ','
+set disablesites=exchange.amazon.com, facebook.com, mail.google.com     // don't run Vrome in those sites
