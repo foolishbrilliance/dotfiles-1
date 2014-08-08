@@ -27,6 +27,15 @@ fail () {
   exit
 }
 
+setup_ohmyzsh () {
+  if ! [ -d $HOME/.oh-my-zsh ]
+  then
+    info 'setup oh-my-zsh'
+    git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh 
+    success 'oh-my-zsh'
+  fi
+}
+
 setup_gitconfig () {
   if ! [ -f git/gitconfig.symlink ]
   then
@@ -136,6 +145,7 @@ install_dotfiles () {
   done
 }
 
+setup_ohmyzsh
 setup_gitconfig
 install_dotfiles
 
