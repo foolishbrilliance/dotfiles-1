@@ -1,2 +1,4 @@
 git/gitconfig.symlink
 *.log
+
+system/maid.symlink/maid.log
