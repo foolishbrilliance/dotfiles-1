@@ -27,6 +27,7 @@ Maid.rules do
   # My custom folders
   download_archive = '/Volumes/Data/Users/joe/DownloadsArchive/'
   desktop_archive = '/Volumes/Data/Users/joe/tmpslow/'
+  camera_uploads = '/Volumes/Data/Users/joe/Dropbox/Camera Uploads/'
 
   rule 'Clean Downloads folder' do
     
@@ -50,7 +51,7 @@ Maid.rules do
     # Archive old downloads and trash original
     dir('~/Downloads/*').each do |p|
       if 2.week.since?(created_at(p))
-        sync(p, download_archive+File.basename(p))
+        move(p, download_archive+File.basename(p))
         trash(p)
       end
     end
@@ -74,5 +75,9 @@ Maid.rules do
     dir(desktop_archive + '*').each do |p|
       trash(p) if 60.days.since?(accessed_at(p))
     end
+  end
+
+  rule 'Keep only last 100 Dropbox photos for screensaver' do
+    trash dir(camera_uploads + '*.jpg').sort_by { |x| File.stat(x).mtime }[0..-100]
   end
 end
