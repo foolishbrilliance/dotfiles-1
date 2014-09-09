@@ -23,58 +23,41 @@
 # * Check out how others are using Maid in [the Maid wiki](https://github.com/benjaminoakes/maid/wiki)
 
 Maid.rules do
-  # **NOTE:** It's recommended you just use this as a template; if you run these rules on your machine without knowing
-  # what they do, you might run into unwanted results!
 
+  # My custom folders
   download_archive = '/Volumes/Data/Users/joe/DownloadsArchive/'
-  desktop_archive = '/Volumes/Data/Users/joe/tmpslow'
+  desktop_archive = '/Volumes/Data/Users/joe/tmpslow/'
 
-  rule 'Trash duplicate downloads' do
-    dupes_in('~/Downloads/*').each do |dupes|
-      # Keep the dupe with the shortest filename
-      trash dupes.sort_by { |p| File.basename(p).length }[1..-1]
-    end
-  end
-
-  rule 'Mac OS X applications in disk images' do
-    trash(dir('~/Downloads/*.dmg'))
-  end
-
-  rule 'Mac OS X applications in zip files' do
-    found = dir('~/Downloads/*.zip').select { |path|
-      zipfile_contents(path).any? { |c| c.match(/\.app$/) }
-    }
-    trash(found)
-  end
-
-  rule 'Handle downloaded software' do
+  rule 'Clean Downloads folder' do
     
     # These can generally be downloaded again very easily if needed... but just in case, give me a few days before trashing them.
-    dir('~/Downloads/*.{apk,deb,dmg,exe,pkg,rpm}').each do |p|
-      trash(p) if 3.days.since?(accessed_at(p))
+    dir('~/Downloads/*.{apk,deb,dmg,exe,pkg,rpm,app}').each do |p|
+      trash(p) if 7.days.since?(accessed_at(p))
     end
 
+    # Trash .zips with OSX apps inside
     osx_app_extensions = %w(app dmg pkg wdgt mpkg)
     osx_app_patterns = osx_app_extensions.map { |ext| (/\.#{ext}\/$/) }
-    
     zips_with_osx_apps_inside = dir('~/Downloads/*.zip').select do |path|
       candidates = zipfile_contents(path)
       candidates.any? { |c| osx_app_patterns.any? { |re| c.match(re) } }
     end
-    
     trash(zips_with_osx_apps_inside)
-  end
 
-  rule 'Archive downloads' do
-    dir('~/Downloads/*').each do |path|
-      if 1.week.since?(accessed_at(path))
-        move(path, download_archive)
+    # Trash dupes
+    trash(verbose_dupes_in('~/Downloads/*'))
+
+    # Archive old downloads and trash original
+    dir('~/Downloads/*').each do |p|
+      if 2.week.since?(created_at(p))
+        sync(p, download_archive+File.basename(p))
+        trash(p)
       end
     end
   end
 
   rule 'Trash download archives' do
-    dir(download_archive + "/*").each do |p|
+    dir(download_archive + '*').each do |p|
       trash(p) if 60.days.since?(accessed_at(p))
     end
   end
@@ -88,9 +71,8 @@ Maid.rules do
   end
 
   rule 'Trash desktop archives' do
-    dir(desktop_archive + "/*").each do |p|
+    dir(desktop_archive + '*').each do |p|
       trash(p) if 60.days.since?(accessed_at(p))
     end
   end
-
 end
