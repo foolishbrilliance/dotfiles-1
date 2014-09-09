@@ -30,7 +30,6 @@ Maid.rules do
   camera_uploads = '/Volumes/Data/Users/joe/Dropbox/Camera Uploads/'
 
   rule 'Clean Downloads folder' do
-    
     # These can generally be downloaded again very easily if needed... but just in case, give me a few days before trashing them.
     dir('~/Downloads/*.{apk,deb,dmg,exe,pkg,rpm,app}').each do |p|
       trash(p) if 7.days.since?(accessed_at(p))
@@ -55,23 +54,21 @@ Maid.rules do
         trash(p)
       end
     end
-  end
-
-  rule 'Trash download archives' do
+    # Trash old download archive
     dir(download_archive + '*').each do |p|
       trash(p) if 60.days.since?(accessed_at(p))
     end
   end
 
-  rule 'Archive desktop' do
+  rule 'Clean Desktop folder' do
+    # Archive old desktop items
     dir('~/Desktop/*').each do |path|
       if 7.day.since?(accessed_at(path))
         move(path, desktop_archive)
       end
     end
-  end
 
-  rule 'Trash desktop archives' do
+    # Trash old desktop archive
     dir(desktop_archive + '*').each do |p|
       trash(p) if 60.days.since?(accessed_at(p))
     end
