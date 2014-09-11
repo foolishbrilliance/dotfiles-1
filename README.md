@@ -2,6 +2,7 @@
 
     git clone git@github.com:foolishbrilliance/zsh-dotfiles.git ~/.dotfiles
     ~/.dotfiles/script/bootstrap
+    ~/.dotfiles/script/post-bootstrap
 
 # holman does dotfiles
 
