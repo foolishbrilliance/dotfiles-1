@@ -1,3 +1,8 @@
+# Quick start
+
+  git clone git@github.com:foolishbrilliance/zsh-dotfiles.git ~/.dotfiles
+  ~/.dotfiles/script/bootstrap
+
 # holman does dotfiles
 
 ## dotfiles
