@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+#
+# run after bootstrap
+
+cd "$(dirname "$0")/.."
+DOTFILES_ROOT=$(pwd)
+
+set -e
+
+echo ''
+
+info () {
+  printf "  [ \033[00;34m..\033[0m ] $1"
+}
+
+user () {
+  printf "\r  [ \033[0;33m?\033[0m ] $1 "
+}
+
+success () {
+  printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
+}
+
+fail () {
+  printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"
+  echo ''
+  exit
+}
+
+setup_ohmyzsh_theme () {
+  if ! [ -f $HOME/.oh-my-zsh/themes/foolishbrilliance.zsh-theme ]
+  then
+    info 'setup oh-my-zsh custom theme'
+      curl https://raw.githubusercontent.com/foolishbrilliance/zsh-dotfiles/master/zsh/foolishbrilliance.zsh-theme -o $HOME/.oh-my-zsh --create-dirs
+    success 'oh-my-zsh custom theme'
+  fi
+}
+
+setup_ohmyzsh_theme
+
+echo ''
+echo '  All installed!'
