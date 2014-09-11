@@ -8,4 +8,6 @@ export ZSH=$HOME/.dotfiles
 
 cd $ZSH
 git fetch
+$ZSH/script/bootstrap
+$ZSH/script/post-bootstrap
 source $HOME/.zshrc
