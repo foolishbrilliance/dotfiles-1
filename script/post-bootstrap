@@ -31,7 +31,7 @@ setup_ohmyzsh_theme () {
   if ! [ -f $HOME/.oh-my-zsh/themes/foolishbrilliance.zsh-theme ]
   then
     info 'setup oh-my-zsh custom theme'
-      curl https://raw.githubusercontent.com/foolishbrilliance/zsh-dotfiles/master/zsh/foolishbrilliance.zsh-theme -o $HOME/.oh-my-zsh --create-dirs
+      curl -s https://raw.githubusercontent.com/foolishbrilliance/zsh-dotfiles/master/zsh/foolishbrilliance.zsh-theme -o $HOME/.oh-my-zsh/themes/foolishbrilliance.zsh-theme --create-dirs
     success 'oh-my-zsh custom theme'
   fi
 }
