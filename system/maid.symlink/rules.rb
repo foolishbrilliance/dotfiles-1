@@ -31,13 +31,20 @@ Maid.rules do
     # Trash dupes
     trash(verbose_dupes_in('~/Downloads/*'))
 
-    # Archive old downloads and trash original
     dir('~/Downloads/*').each do |p|
+      # Archive old downloads and trash original
       if 2.week.since?(created_at(p))
-        move(p, download_archive+File.basename(p))
+        sync(p, download_archive+File.basename(p))
+        trash(p)
+      end
+
+      # Archive large downloads to slow disk
+      if File.stat(p).size > 1000000000 # 1GB
+        sync(p, download_archive+File.basename(p))
         trash(p)
       end
     end
+
     # Trash old download archive
     dir(download_archive + '*').each do |p|
       trash(p) if 60.days.since?(accessed_at(p))
@@ -58,7 +65,7 @@ Maid.rules do
     end
   end
 
-  rule 'Keep only last 100 Dropbox photos for screensaver' do
-    trash dir(camera_uploads + '*.jpg').sort_by { |x| File.stat(x).mtime }[0..-100]
+  rule 'Keep only last 500 Dropbox photos for screensaver' do
+    trash dir(camera_uploads + '*.jpg').sort_by { |x| File.stat(x).mtime }[0..-500]
   end
 end
