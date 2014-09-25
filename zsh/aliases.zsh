@@ -5,6 +5,7 @@ alias ....='cd ../../../'
 alias .....='cd ../../../../'
 alias ......='cd ../../../../../'
 alias calc='bc <<<'
+alias krbcurl='curl --negotiate -u :'
 alias epoch='date +%s'
 # Usage: epoch2utc 1395249613
 epoch2utc() { perl -e "print scalar(localtime($1)) . ' UTC'" }
