@@ -37,7 +37,9 @@ Maid.rules do
         sync(p, download_archive+File.basename(p))
         trash(p)
       end
+    end
 
+    dir('~/Downloads/*').each do |p|
       # Archive large downloads to slow disk
       if File.stat(p).size > 1000000000 # 1GB
         sync(p, download_archive+File.basename(p))
