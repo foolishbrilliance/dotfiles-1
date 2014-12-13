@@ -35,5 +35,8 @@ setup_ohmyzsh_theme () {
 
 setup_ohmyzsh_theme
 
+# Install Homebrew
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
 echo ''
 echo '  All installed!'
