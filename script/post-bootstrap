@@ -49,7 +49,7 @@ setup_zsh () {
     #     ing a login shell, and not the super-user, the user may not change from a
     #     non-standard shell or to a non-standard shell.  Non-standard is defined
     #     as a shell not found in /etc/shells.
-    chsh -s /usr/local/bin/zsh `whoami`
+    sudo chsh -s /usr/local/bin/zsh `whoami`
     success 'oh-my-zsh custom theme'
 }
 
