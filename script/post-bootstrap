@@ -37,6 +37,18 @@ setup_ohmyzsh_theme
 
 # Install Homebrew
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+brew doctor
+
+# Install zsh
+brew install zsh
+
+# Must use `sudo` with `chsh` here because from `man chsh`:
+#     The shell field is the command interpreter the user prefers.  If the
+#     shell field is empty, the Bourne shell, /bin/sh, is assumed.  When alter-
+#     ing a login shell, and not the super-user, the user may not change from a
+#     non-standard shell or to a non-standard shell.  Non-standard is defined
+#     as a shell not found in /etc/shells.
+chsh -s /usr/local/bin/zsh `whoami`
 
 echo ''
 echo '  All installed!'
