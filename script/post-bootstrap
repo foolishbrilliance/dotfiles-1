@@ -37,7 +37,7 @@ setup_homebrew () {
     info 'install homebrew'
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     brew doctor
-    success 'oh-my-zsh custom theme'
+    success 'homebrew'
 }
 
 setup_zsh () {
@@ -50,7 +50,7 @@ setup_zsh () {
     #     non-standard shell or to a non-standard shell.  Non-standard is defined
     #     as a shell not found in /etc/shells.
     sudo chsh -s /usr/local/bin/zsh `whoami`
-    success 'oh-my-zsh custom theme'
+    success 'zsh'
 }
 
 setup_ohmyzsh_theme
