@@ -28,20 +28,29 @@ fail () {
 }
 
 setup_ohmyzsh_theme () {
-    info 'install oh-my-zsh custom theme'
-    curl -s https://raw.githubusercontent.com/foolishbrilliance/zsh-dotfiles/master/zsh/foolishbrilliance.zsh-theme -o $HOME/.oh-my-zsh/themes/foolishbrilliance.zsh-theme --create-dirs
-    success 'oh-my-zsh custom theme'
+  info 'install oh-my-zsh custom theme'
+  curl -s https://raw.githubusercontent.com/foolishbrilliance/zsh-dotfiles/master/zsh/foolishbrilliance.zsh-theme -o $HOME/.oh-my-zsh/themes/foolishbrilliance.zsh-theme --create-dirs
+  success 'oh-my-zsh custom theme'
 }
 
 setup_homebrew () {
-    info 'install homebrew'
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  info 'install homebrew'
+  if test ! $(which brew)
+  then
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" > /tmp/homebrew-install.log
     brew doctor
-    success 'homebrew'
+    success 'homebrew installed'
+  else
+    success 'skipping. homebrew already installed'
+  fi
+
 }
 
 setup_zsh () {
-    info 'setup zsh'
+  info 'setup zsh'
+  if [[ -n $(brew ls --versions zsh) ]]; then
+    success 'skipping. zsh already installed'
+  else
     brew install zsh
     # Must use `sudo` with `chsh` here because from `man chsh`:
     #     The shell field is the command interpreter the user prefers.  If the
@@ -50,7 +59,9 @@ setup_zsh () {
     #     non-standard shell or to a non-standard shell.  Non-standard is defined
     #     as a shell not found in /etc/shells.
     sudo chsh -s /usr/local/bin/zsh `whoami`
-    success 'zsh'
+    success 'installed zsh'
+  fi
+
 }
 
 setup_ohmyzsh_theme
