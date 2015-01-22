@@ -21,6 +21,7 @@ alias gityolo="git commit -am 'Updating everything.'; git push origin master"
 alias gpm="git push origin master"
 alias lscert=listcert
 alias mt='truecrypt ~/Dropbox/random.things /media/truecrypt1'
+alias ql='qlmanage -p "$@" >& /dev/null'
 alias reload!='. ~/.zshrc'
 alias removetimestamp='sed -i.bak "s/\(.*\)..:..:..$/\1/"'
 alias removetimestampandcopy='sed "s/\(.*\)..:..:..$/\1/" $@ |pbcopy'
