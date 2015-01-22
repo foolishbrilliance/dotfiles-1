@@ -1,6 +1,6 @@
 # Quick start
 
-    git clone git@github.com:foolishbrilliance/zsh-dotfiles.git ~/.dotfiles
+    git clone git@github.com:joech4n/zsh-dotfiles.git ~/.dotfiles
     ~/.dotfiles/script/bootstrap
     ~/.dotfiles/script/post-bootstrap
 
