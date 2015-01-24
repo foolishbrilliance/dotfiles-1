@@ -64,7 +64,6 @@ setup_zsh () {
 
 }
 
-setup_ohmyzsh_theme
 setup_homebrew
 setup_zsh
 
