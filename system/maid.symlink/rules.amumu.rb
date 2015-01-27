@@ -47,7 +47,7 @@ Maid.rules do
   rule 'Clean Desktop folder' do
     # Archive old desktop items
     dir('~/Desktop/*').each do |path|
-      if 1.day.since?(accessed_at(path))
+      if 7.day.since?(accessed_at(path))
         move(path, desktop_archive)
       end
     end
