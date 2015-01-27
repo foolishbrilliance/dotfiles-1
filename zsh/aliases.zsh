@@ -5,22 +5,21 @@ alias ....='cd ../../../'
 alias .....='cd ../../../../'
 alias ......='cd ../../../../../'
 alias calc='bc <<<'
-alias krbcurl='curl --negotiate -u :'
 alias epoch='date +%s'
-# Usage: epoch2utc 1395249613
-epoch2utc() { perl -e "print scalar(localtime($1)) . ' UTC'" }
+epoch2utc() { perl -e "print scalar(localtime($1)) . ' UTC'" } # Usage: epoch2utc 1395249613
 alias e2u=epoch2utc
 alias fpath='[[ `uname` == "Darwin" ]] && cpath || readlink -f' # cpath is another alias, think "canonical path"
-alias irca='growl-irc.sh; ssh -t trundle tmux attach -d'
-alias isearch='ircsearch' # Function to search irssi logs
-alias js='jekyll serve --limit_posts 10 -w'
-# Usage: listcert google.com
-listcert() { openssl s_client -showcerts -connect $1:443 </dev/null 2>/dev/null | openssl x509 -inform PEM -text }
 alias github="open \`git remote -v | grep github.com | grep fetch | head -1 | field 2 | sed 's/git:/http:/g'\`"
 alias gityolo="git commit -am 'Updating everything.'; git push origin master"
 alias gpm="git push origin master"
+alias irca='growl-irc.sh; ssh -t trundle tmux attach -d'
+alias isearch='ircsearch' # Function to search irssi logs
+alias js='jekyll serve --limit_posts 10 -w'
+alias krbcurl='curl --negotiate -u :'
+listcert() { openssl s_client -showcerts -connect $1:443 </dev/null 2>/dev/null | openssl x509 -inform PEM -text } # Usage: listcert google.com
 alias lscert=listcert
 alias mt='truecrypt ~/Dropbox/random.things /media/truecrypt1'
+alias myip='curl -s checkip.amazonaws.com'
 alias ql='qlmanage -p "$@" >& /dev/null'
 alias reload!='. ~/.zshrc'
 alias removetimestamp='sed -i.bak "s/\(.*\)..:..:..$/\1/"'
