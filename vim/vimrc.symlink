@@ -21,7 +21,7 @@ endif
 " Turn on persistent undo
 " Thanks, Mr Wadsten: github.com/mikewadsten/dotfiles/
 if has('persistent_undo')
-    set undodir=~/.vim/undo//
+    set undodir=~/.vim.private/undo//
     set undofile
     set undolevels=1000
     set undoreload=10000
@@ -32,12 +32,12 @@ endif
 "   http://stackoverflow.com/a/15317146
 set backup
 set writebackup
-set backupdir=~/.vim/backup//
+set backupdir=~/.vim.private/backup//
 
 " Use a specified swap folder
 " Source:
 "   http://stackoverflow.com/a/15317146
-set directory=~/.vim/swap//
+set directory=~/.vim.private/swap//
 
 " Enable colors on Solaris
 if $OSTYPE =~ "solaris"
@@ -50,6 +50,7 @@ endif
 if has('gui_running')   " from http://ethanschoonover.com/solarized/vim-colors-solarized
   colorscheme solarized
   set guifont=Consolas:h16
+  set clipboard=unnamed " share clipboard with OSX
 else
 endif
 
@@ -61,9 +62,13 @@ set laststatus=2        " always show status line
 set nocompatible        " disable vi compatibility
 set paste               " don't alter my pasting
 set report=1            " always report changes
-set smartcase           " ignore case on search unless specified
+set smartcase           " Ignore case when doing a search...
+set hlsearch            " ...as well as highlight it...
+set incsearch           " ...as it is typed
+set report=0            " Report when more than 0 lines affected
+set showmatch           " Highlight matching brace when typing second one
+set shortmess=I         " Don't show the startup message
 set statusline=%<%f%h%m%r%w%y%=%l/%L,%c\ %P\ \|\ %n " custom status line
-set undolevels=1000     " large undo history
 syntax on
 
 " Turn off system beep
@@ -89,8 +94,9 @@ nmap <silent> <leader>sv :so $MYVIMRC<CR>
 nmap <silent> gw    "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<cr><c-o><c-l> *N*
 
 " Change tab settings
-map ,4 :set shiftwidth=4<CR>:set softtabstop=4<CR>:set tabstop=4<CR>
-map ,8 :set shiftwidth=8<CR>:set softtabstop=8<CR>:set tabstop=8<CR>
+nmap <leader>2:set shiftwidth=2<CR>:set softtabstop=2<CR>:set tabstop=2<CR>
+nmap <leader>4:set shiftwidth=4<CR>:set softtabstop=4<CR>:set tabstop=4<CR>
+nmap <leader>8:set shiftwidth=8<CR>:set softtabstop=8<CR>:set tabstop=8<CR>
 
 "
 " tabs
@@ -116,8 +122,21 @@ nmap <leader>i :bprevious<CR>
 " Close the current buffer and move to the previous one
 " This replicates the idea of closing a tab
 nmap <leader>bq :bp <BAR> bd #<CR>
+
+" Cycle through MRU buffers
+nmap <leader>jj :BuffergatorMruCyclePrev<cr>
+nmap <leader>kk :BuffergatorMruCycleNext<cr>
+
 " Show all open buffers and their status
-nmap <leader>bl :ls<CR>
+
+" Buffer search
+nmap <leader>bb :CtrlPBuffer<cr>
+nmap <leader>bm :CtrlPMixed<cr>
+nmap <leader>bs :CtrlPMRU<cr>
+nmap <leader>bl :CtrlPBuffer<CR>
+
+" Unhighlight the last search pattern on Enter
+nnoremap <silent><CR> :noh<return><CR>
 
 " Format paragraph
 imap <leader>f <Esc>!}fmt<CR>
@@ -149,22 +168,8 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 Plugin 'bling/vim-airline'
-
-" The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
-" plugin on GitHub repo
-" Plugin 'tpope/vim-fugitive'
-" plugin from http://vim-scripts.org/vim/scripts.html
-" Plugin 'L9'
-" Git plugin not hosted on GitHub
-" Plugin 'git://git.wincent.com/command-t.git'
-" git repos on your local machine (i.e. when working on your own plugin)
-" Plugin 'file:///home/gmarik/path/to/plugin'
-" The sparkup vim script is in a subdirectory of this repo called vim.
-" Pass the path to set the runtimepath properly.
-" Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-" Avoid a name conflict with L9
-" Plugin 'user/L9', {'name': 'newL9'}
+Plugin 'kien/ctrlp.vim'
+Plugin 'jeetsukumaran/vim-buffergator'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -180,16 +185,33 @@ filetype plugin indent on    " required
 "
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin configs
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
 " For airline
+"
+
 " Enable the list of buffers
 let g:airline#extensions#tabline#enabled = 1
 
 " Show just the filename
 let g:airline#extensions#tabline#fnamemod = ':t'
+
+"
+" CtrlP Settings
+"
+let g:ctrlp_user_command = {
+            \ 'types': {
+            \ 1: ['.git', 'cd %s && git ls-files'],
+            \ },
+            \ 'fallback': 'find %s -type f'
+            \ }
+
+" Use nearest .git dir
+let g:ctrlp_working_path_mode = 'r'
+
+nmap <leader>p :CtrlP<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Deprecated
