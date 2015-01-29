@@ -1,16 +1,58 @@
 " .vimrc
+" This must be first uncommented line, because it changes other options as side effect
+set nocompatible
+
+"
+" Setup folder structure
+"
+
+if !isdirectory(expand('~/.vim.private/undo/', 1))
+    silent call mkdir(expand('~/.vim.private/undo', 1), 'p')
+endif
+
+if !isdirectory(expand('~/.vim.private/backup/', 1))
+    silent call mkdir(expand('~/.vim.private/backup', 1), 'p')
+endif
+
+if !isdirectory(expand('~/.vim.private/swap/', 1))
+    silent call mkdir(expand('~/.vim.private/swap', 1), 'p')
+endif
+
+" Turn on persistent undo
+" Thanks, Mr Wadsten: github.com/mikewadsten/dotfiles/
+if has('persistent_undo')
+    set undodir=~/.vim/undo//
+    set undofile
+    set undolevels=1000
+    set undoreload=10000
+endif
+
+" Use backups
+" Source:
+"   http://stackoverflow.com/a/15317146
+set backup
+set writebackup
+set backupdir=~/.vim/backup//
+
+" Use a specified swap folder
+" Source:
+"   http://stackoverflow.com/a/15317146
+set directory=~/.vim/swap//
 
 " Enable colors on Solaris
 if $OSTYPE =~ "solaris"
   set term=xtermc
 endif
 
-" General
+"
+" gVIM
+"
 if has('gui_running')   " from http://ethanschoonover.com/solarized/vim-colors-solarized
   colorscheme solarized
   set guifont=Consolas:h16
 else
 endif
+
 set background=dark
 set backspace=2         " allow backspace beyond insertion point
 set backspace=indent,eol,start
@@ -33,7 +75,15 @@ set shiftwidth=2
 set softtabstop=2
 set tabstop=2
 
-"''''' Custom keybindings '''''''
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Custom keybindings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" change the mapleader from \ to , (mapleader will be used for custom mappings)
+let mapleader=","
+
+" Quickly edit/reload the vimrc file
+nmap <silent> <leader>ev :e $MYVIMRC<CR>
+nmap <silent> <leader>sv :so $MYVIMRC<CR>
 
 " Transpose words
 nmap <silent> gw    "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<cr><c-o><c-l> *N*
@@ -42,18 +92,36 @@ nmap <silent> gw    "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<cr><c-o><c-l> *
 map ,4 :set shiftwidth=4<CR>:set softtabstop=4<CR>:set tabstop=4<CR>
 map ,8 :set shiftwidth=8<CR>:set softtabstop=8<CR>:set tabstop=8<CR>
 
-" Alternate tab navigation
-map tl :tabnext<CR>
-map th :tabprev<CR> 
-map tn :tabnew<CR> 
+"
+" tabs
+"
+nmap <leader>tl :tabnext<CR>
+nmap <leader>th :tabprev<CR> 
+nmap <leader>tn :tabnew<CR> 
 
-" " Format paragraph
-imap ,f <Esc>!}fmt<CR>
-map ,f <Esc>!}fmt<CR>
+" This allows buffers to be hidden if you've modified a buffer.
+" This is almost a must if you wish to use buffers in this way.
+set hidden
 
-" " Toggle Spell-check
-map ,s <C-o>:setlocal spell! spelllang=en_gb<CR>
-nmap ,s :setlocal spell! spelllang=en_gb<CR>
+"
+" buffers
+"
+
+" To open a new empty buffer
+nmap <leader>T :enew<cr>
+" Move to the next buffer
+nmap <leader>h :bnext<CR>
+" Move to the previous buffer
+nmap <leader>i :bprevious<CR>
+" Close the current buffer and move to the previous one
+" This replicates the idea of closing a tab
+nmap <leader>bq :bp <BAR> bd #<CR>
+" Show all open buffers and their status
+nmap <leader>bl :ls<CR>
+
+" Format paragraph
+imap <leader>f <Esc>!}fmt<CR>
+nmap <leader>f <Esc>!}fmt<CR>
 
 " Blank line above
 map ,O O<Esc>
@@ -61,13 +129,77 @@ map ,O O<Esc>
 map ,o o<Esc>
 
 " Comment and uncomment out a section (uses marks 'a and 'b)
-map ,z :'a,'b s/^/#/
-map ,y :'a,'b s/#//
+nmap ,z :'a,'b s/^/#/
+nmap ,y :'a,'b s/#//
 
 " Duplicate line, comment original
-map ,n YPi#<Esc>
+nmap ,n YPi#<Esc>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Vundle
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+Plugin 'bling/vim-airline'
+
+" The following are examples of different formats supported.
+" Keep Plugin commands between vundle#begin/end.
+" plugin on GitHub repo
+" Plugin 'tpope/vim-fugitive'
+" plugin from http://vim-scripts.org/vim/scripts.html
+" Plugin 'L9'
+" Git plugin not hosted on GitHub
+" Plugin 'git://git.wincent.com/command-t.git'
+" git repos on your local machine (i.e. when working on your own plugin)
+" Plugin 'file:///home/gmarik/path/to/plugin'
+" The sparkup vim script is in a subdirectory of this repo called vim.
+" Pass the path to set the runtimepath properly.
+" Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+" Avoid a name conflict with L9
+" Plugin 'user/L9', {'name': 'newL9'}
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Plugin configs
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" For airline
+" Enable the list of buffers
+let g:airline#extensions#tabline#enabled = 1
+
+" Show just the filename
+let g:airline#extensions#tabline#fnamemod = ':t'
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Deprecated
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Not sure why I have this... research later
+" :nnoremap <Leader>s :let @x=@" \| let @"=@a \| let @a=@b \| let @b=@x<CR>
 
 " Timestamps
-map ,t <Esc>o# Created: TIME<Esc>ASTAMP by foolishbrilliance<CR># Last Modified: TIME<Esc>ASTAMP by foolishbrilliance<Esc>
+" map ,t <Esc>o# Created: TIME<Esc>ASTAMP by foolishbrilliance<CR># Last Modified: TIME<Esc>ASTAMP by foolishbrilliance<Esc>
 
-:nnoremap <Leader>s :let @x=@" \| let @"=@a \| let @a=@b \| let @b=@x<CR>
+" Toggle Spell-check
+" nmap ,s <C-o>:setlocal spell! spelllang=en_gb<CR>
+" nmap ,s :setlocal spell! spelllang=en_gb<CR>
