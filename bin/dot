@@ -9,5 +9,4 @@ export ZSH=$HOME/.dotfiles
 cd $ZSH
 git pull
 $ZSH/script/bootstrap
-$ZSH/script/post-bootstrap
 source $HOME/.zshrc
