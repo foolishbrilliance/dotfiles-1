@@ -55,19 +55,20 @@ endif
 " gVIM
 "
 if has('gui_running')   " from http://ethanschoonover.com/solarized/vim-colors-solarized
-  colorscheme solarized
+  set background=light
   set guifont=Consolas:h18
   set clipboard=unnamed " share clipboard with OSX
 else
 endif
 
-set background=dark
+set autochdir           " set working directory to file in buffer
 set backspace=2         " allow backspace beyond insertion point
 set backspace=indent,eol,start
 set ic                  " ignore case
 set laststatus=2        " always show status line
 set nocompatible        " disable vi compatibility
-set paste               " don't alter my pasting
+" set paste               " don't alter my pasting
+set pastetoggle=<F2>
 set report=1            " always report changes
 set smartcase           " Ignore case when doing a search...
 set hlsearch            " ...as well as highlight it...
@@ -76,7 +77,6 @@ set report=0            " Report when more than 0 lines affected
 set showmatch           " Highlight matching brace when typing second one
 set shortmess=I         " Don't show the startup message
 set statusline=%<%f%h%m%r%w%y%=%l/%L,%c\ %P\ \|\ %n " custom status line
-syntax on
 
 " Turn off system beep
 set vb t_vb=
@@ -109,9 +109,13 @@ endfunction
 " change the mapleader from \ to , (mapleader will be used for custom mappings)
 let mapleader=","
 
+" disable some keys
+nmap ZZ <Nop>
+nmap <space> <Nop>
+
 " Quickly edit/reload the vimrc file
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
-nmap <silent> <leader>sv :so $MYVIMRC<CR>
+nmap <silent> <leader>sv :so $MYVIMRC<CR><CR>k:echom 'Reloaded .vimrc...'<CR>
 
 " Transpose words
 nmap <silent> gw    "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<cr><c-o><c-l> *N*
@@ -220,6 +224,7 @@ Plugin 'tpope/vim-unimpaired'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-fugitive'
+Plugin 'altercation/vim-colors-solarized'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -278,6 +283,15 @@ map *  <Plug>(incsearch-nohl-*)
 map #  <Plug>(incsearch-nohl-#)
 map g* <Plug>(incsearch-nohl-g*)
 map g# <Plug>(incsearch-nohl-g#)
+
+"
+" Solarized
+" Theme not accessible until Bundle comamnd is run per
+" https://github.com/gmarik/Vundle.vim/issues/119#issuecomment-3089931
+call togglebg#map("<F5>")
+syntax enable
+set background=dark
+colorscheme solarized
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Deprecated
