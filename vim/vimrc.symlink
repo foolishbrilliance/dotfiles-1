@@ -172,7 +172,7 @@ nmap <leader>bs :CtrlPMRU<cr>
 nmap <leader>bl :CtrlPBuffer<CR>
 nmap <leader>bg :BuffergatorToggle<cr>
 
-nmap <leader>p :CtrlP<cr>
+nmap <leader>p :CtrlPBuffer<CR>
 
 " Unhighlight the last search pattern on Enter
 nnoremap <silent><CR> :noh<return><CR>
@@ -219,6 +219,7 @@ Plugin 'tpope/vim-sleuth'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-fugitive'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -244,7 +245,7 @@ let g:airline_theme='solarized'
 " CtrlP
 "
 let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlPBuffer' " quick buffer switching
+let g:ctrlp_cmd = 'CtrlP' " quick buffer switching
 
 let g:ctrlp_user_command = {
             \ 'types': {
