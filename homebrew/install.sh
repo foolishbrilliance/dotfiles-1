@@ -46,6 +46,9 @@ brew install homebrew/dupes/openssh
  
 # Install some CTF tools; see https://github.com/ctfs/write-ups.
 brew install ucspi-tcp # `tcpserver` etc.
+
+# For pbcopy support in tmux per http://superuser.com/a/413233
+brew install reattach-to-user-namespace --wrap-pbcopy-and-pbpaste
  
 # Ruby
 # for fish support per https://coderwall.com/p/hmousw/using-rbenv-with-fish-the-right-way
@@ -57,6 +60,7 @@ brew install ack
 brew install fish
 brew install git
 brew install jq
+brew install mtr
 brew install p7zip
 brew install pv
 brew install rename
