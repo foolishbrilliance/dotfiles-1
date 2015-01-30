@@ -1,6 +1,12 @@
 " .vimrc
-" This must be first uncommented line, because it changes other options as side effect
+" This must be first uncommented line, because it changes other options as a side effect
 set nocompatible
+
+" The fish shell is not supported before 7.4.276
+" https://code.google.com/p/vim/source/detail?r=a6b59ee633a355095e6473ec5e2a7d9088bfb853
+if v:version < 704 || (v:version == 704 && !has('patch276'))  
+  if $SHELL =~ 'bin/fish' | set shell=/bin/sh | endif
+endif
 
 "
 " Setup folder structure
@@ -49,7 +55,7 @@ endif
 "
 if has('gui_running')   " from http://ethanschoonover.com/solarized/vim-colors-solarized
   colorscheme solarized
-  set guifont=Consolas:h16
+  set guifont=Consolas:h18
   set clipboard=unnamed " share clipboard with OSX
 else
 endif
@@ -81,6 +87,22 @@ set softtabstop=2
 set tabstop=2
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Custom functions
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Remove trailing whitespace
+" http://vim.wikia.com/wiki/Remove_unwanted_spaces
+function! StripTrailingWhitespace()
+    if !&binary && &filetype != 'diff'
+        normal mz
+        normal Hmy
+        %s/\s\+$//e
+        normal 'yz<cr>
+        normal `z
+        retab
+    endif
+endfunction
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Custom keybindings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " change the mapleader from \ to , (mapleader will be used for custom mappings)
@@ -101,9 +123,23 @@ nmap <leader>8:set shiftwidth=8<CR>:set softtabstop=8<CR>:set tabstop=8<CR>
 "
 " tabs
 "
-nmap <leader>tl :tabnext<CR>
-nmap <leader>th :tabprev<CR> 
-nmap <leader>tn :tabnew<CR> 
+
+" BuffergatorTabsToggle seems to be broken (https://github.com/jeetsukumaran/vim-buffergator/issues/32), here's a hack to recreate it
+nnoremap <leader>tl :call BgTabCabinetToggle()<cr>
+let g:bgTabCabinet_is_open = 1
+function! BgTabCabinetToggle()
+    if g:bgTabCabinet_is_open
+        BuffergatorTabsOpen
+        let g:bgTabCabinet_is_open = 0
+    else
+        BuffergatorTabsClose
+        let g:bgTabCabinet_is_open = 1
+    endif
+endfunction
+
+nmap <leader>ti :tabnext<CR>
+nmap <leader>th :tabprev<CR>
+nmap <leader>tn :tabnew<CR>
 
 " This allows buffers to be hidden if you've modified a buffer.
 " This is almost a must if you wish to use buffers in this way.
@@ -114,7 +150,7 @@ set hidden
 "
 
 " To open a new empty buffer
-nmap <leader>T :enew<cr>
+nmap <leader>bn :enew<cr>
 " Move to the next buffer
 nmap <leader>h :bnext<CR>
 " Move to the previous buffer
@@ -124,16 +160,18 @@ nmap <leader>i :bprevious<CR>
 nmap <leader>bq :bp <BAR> bd #<CR>
 
 " Cycle through MRU buffers
-nmap <leader>jj :BuffergatorMruCyclePrev<cr>
-nmap <leader>kk :BuffergatorMruCycleNext<cr>
+nmap <leader>nn :BuffergatorMruCyclePrev<cr>
+nmap <leader>ee :BuffergatorMruCycleNext<cr>
 
 " Show all open buffers and their status
 
 " Buffer search
-nmap <leader>bb :CtrlPBuffer<cr>
 nmap <leader>bm :CtrlPMixed<cr>
 nmap <leader>bs :CtrlPMRU<cr>
 nmap <leader>bl :CtrlPBuffer<CR>
+nmap <leader>bg :BuffergatorToggle<cr>
+
+nmap <leader>p :CtrlP<cr>
 
 " Unhighlight the last search pattern on Enter
 nnoremap <silent><CR> :noh<return><CR>
@@ -142,17 +180,20 @@ nnoremap <silent><CR> :noh<return><CR>
 imap <leader>f <Esc>!}fmt<CR>
 nmap <leader>f <Esc>!}fmt<CR>
 
+" Remove trailing whitespace
+nmap <leader>W :cal StripTrailingWhitespace()<cr>
+
 " Blank line above
-map ,O O<Esc>
+nmap <space>O O<Esc>
 " Blank line below
-map ,o o<Esc>
+nmap <space>o o<Esc>
 
 " Comment and uncomment out a section (uses marks 'a and 'b)
-nmap ,z :'a,'b s/^/#/
-nmap ,y :'a,'b s/#//
+nmap <space>z :'a,'b s/^/#/
+nmap <space>y :'a,'b s/#//
 
 " Duplicate line, comment original
-nmap ,n YPi#<Esc>
+nmap <space>n YPi#<Esc>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vundle
@@ -174,22 +215,12 @@ Plugin 'jeetsukumaran/vim-buffergator'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin configs
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-" For airline
+" vim-airline
 "
 
 " Enable the list of buffers
@@ -199,8 +230,11 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
 
 "
-" CtrlP Settings
+" CtrlP
 "
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlPBuffer' " quick buffer switching
+
 let g:ctrlp_user_command = {
             \ 'types': {
             \ 1: ['.git', 'cd %s && git ls-files'],
@@ -209,9 +243,12 @@ let g:ctrlp_user_command = {
             \ }
 
 " Use nearest .git dir
-let g:ctrlp_working_path_mode = 'r'
+let g:ctrlp_working_path_mode = 'ra'
 
-nmap <leader>p :CtrlP<cr>
+"
+" Buffergator
+"
+let g:buffergator_suppress_keymaps = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Deprecated
