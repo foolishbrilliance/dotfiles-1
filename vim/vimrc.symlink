@@ -1,12 +1,13 @@
-" .vimrc
+" vimr
 " This must be first uncommented line, because it changes other options as a side effect
 set nocompatible
 
 " The fish shell is not supported before 7.4.276
 " https://code.google.com/p/vim/source/detail?r=a6b59ee633a355095e6473ec5e2a7d9088bfb853
-if v:version < 704 || (v:version == 704 && !has('patch276'))  
-  if $SHELL =~ 'bin/fish' | set shell=/bin/sh | endif
+if v:version < 704 || (v:version == 704 && !has('patch276'))
 endif
+" Do it anyway because Vundle breaks with fish
+if $SHELL =~ 'bin/fish' | set shell=/bin/sh | endif
 
 "
 " Setup folder structure
@@ -152,9 +153,9 @@ set hidden
 " To open a new empty buffer
 nmap <leader>bn :enew<cr>
 " Move to the next buffer
-nmap <leader>h :bnext<CR>
+nmap <leader>i :bnext<CR>
 " Move to the previous buffer
-nmap <leader>i :bprevious<CR>
+nmap <leader>h :bprevious<CR>
 " Close the current buffer and move to the previous one
 " This replicates the idea of closing a tab
 nmap <leader>bq :bp <BAR> bd #<CR>
@@ -211,6 +212,13 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'bling/vim-airline'
 Plugin 'kien/ctrlp.vim'
 Plugin 'jeetsukumaran/vim-buffergator'
+Plugin 'haya14busa/incsearch.vim'
+Plugin 'tpope/vim-abolish'
+Plugin 'tpope/vim-sensible'
+Plugin 'tpope/vim-sleuth'
+Plugin 'tpope/vim-unimpaired'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-repeat'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -228,6 +236,9 @@ let g:airline#extensions#tabline#enabled = 1
 
 " Show just the filename
 let g:airline#extensions#tabline#fnamemod = ':t'
+
+let g:airline_theme='solarized'
+" let g:airline_powerline_fonts = 1
 
 "
 " CtrlP
@@ -249,6 +260,23 @@ let g:ctrlp_working_path_mode = 'ra'
 " Buffergator
 "
 let g:buffergator_suppress_keymaps = 1
+
+"
+" incsearch.vim
+"
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
+
+" :h g:incsearch#auto_nohlsearch
+set hlsearch
+let g:incsearch#auto_nohlsearch = 1
+map n  <Plug>(incsearch-nohl-n)
+map N  <Plug>(incsearch-nohl-N)
+map *  <Plug>(incsearch-nohl-*)
+map #  <Plug>(incsearch-nohl-#)
+map g* <Plug>(incsearch-nohl-g*)
+map g# <Plug>(incsearch-nohl-g#)
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Deprecated
