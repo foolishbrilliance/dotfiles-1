@@ -1,4 +1,4 @@
-" vimr
+" vimrc
 " This must be first uncommented line, because it changes other options as a side effect
 set nocompatible
 
@@ -109,16 +109,20 @@ endfunction
 " change the mapleader from \ to , (mapleader will be used for custom mappings)
 let mapleader=","
 
-" disable some keys
+" use :wq! instead
 nmap ZZ <Nop>
-nmap <space> <Nop>
 
-" <Alt-:> to jump from insert to command mode
+" <alt-space> turns into <Esc>
+map <Esc><20> <Nop>
+" <Alt-:> to jump from insert/visual to command mode
 inoremap <Esc>; <Esc>:
+vnoremap <Esc>; <Esc>:
 
 " Quickly edit/reload the vimrc file
-nmap <silent> <leader>ev :e $MYVIMRC<CR>
-nmap <silent> <leader>sv :so $MYVIMRC<CR><CR>k:echom 'Reloaded .vimrc...'<CR>
+"nmap <silent> <leader>sv :e $MYVIMRC<CR>
+map <Leader>v  :so ~/.vimrc<CR>
+" Auto load .vimrc on write
+au! BufWritePost .vimrc source %
 
 " Transpose words
 nmap <silent> gw    "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<cr><c-o><c-l> *N*
@@ -132,7 +136,9 @@ nmap <leader>8:set shiftwidth=8<CR>:set softtabstop=8<CR>:set tabstop=8<CR>
 " tabs
 "
 
-" BuffergatorTabsToggle seems to be broken (https://github.com/jeetsukumaran/vim-buffergator/issues/32), here's a hack to recreate it
+" BuffergatorTabsToggle seems to be broken
+" (https://github.com/jeetsukumaran/vim-buffergator/issues/32), here's a hack to
+" recreate it
 nnoremap <leader>tl :call BgTabCabinetToggle()<cr>
 let g:bgTabCabinet_is_open = 1
 function! BgTabCabinetToggle()
@@ -200,8 +206,22 @@ nmap <space>o o<Esc>
 nmap <space>z :'a,'b s/^/#/
 nmap <space>y :'a,'b s/#//
 
-" Duplicate line, comment original
-nmap <space>n YPi#<Esc>
+" Duplicate line, comment original using vim-commentary
+nmap <space>n YPgccj<Esc>
+
+" Insert timestamps
+inoremap <silent> <C-G><C-T> <C-R>=repeat(complete(col('.'),map(["%Y-%m-%d %H:%M:%S","%a, %d %b %Y %H:%M:%S %z","%Y %b %d","%d-%b-%y","%a %b %d %T %Z %Y"],'strftime(v:val)')+[localtime()]),0)<CR>
+
+" Automatically set paste mode in Vim when pasting in insert mode per
+" https://coderwall.com/p/if9mda/automatically-set-paste-mode-in-vim-when-pasting-in-insert-mode
+let &t_SI .= "\<Esc>[?2004h"
+let &t_EI .= "\<Esc>[?2004l"
+inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
+function! XTermPasteBegin()
+    set pastetoggle=<Esc>[201~
+    set paste
+    return ""
+endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vundle
@@ -219,7 +239,6 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'bling/vim-airline'
 Plugin 'kien/ctrlp.vim'
 Plugin 'jeetsukumaran/vim-buffergator'
-Plugin 'haya14busa/incsearch.vim'
 Plugin 'tpope/vim-abolish'
 Plugin 'tpope/vim-sensible'
 Plugin 'tpope/vim-sleuth'
@@ -227,7 +246,12 @@ Plugin 'tpope/vim-unimpaired'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-commentary'
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'justinmk/vim-sneak'
+Plugin 'haya14busa/incsearch.vim'
+Plugin 'michaeljsmith/vim-indent-object'
+"Plugin 'Lokaltog/vim-easymotion'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -294,9 +318,57 @@ map g# <Plug>(incsearch-nohl-g#)
 call togglebg#map("<F5>")
 syntax enable
 set background=dark
-colorscheme solarized
+"let g:solarized_termcolors=256
+colorscheme joe
+
+"
+" EasyMotion
+"
+"let g:EasyMotion_do_mapping = 0 " Disable default mappings
+"
+"" Bi-directional find motion
+"" Jump to anywhere you want with minimal keystrokes, with just one key binding.
+"" `s{char}{label}`
+"nmap s <Plug>(easymotion-s2)
+"nmap t <Plug>(easymotion-t2)
+"
+"" `s{char}{char}{label}`
+"" Need one more keystroke, but on average, it may be more comfortable.
+""nmap s <Plug>(easymotion-s2)
+"
+"" Turn on case sensitive feature
+"let g:EasyMotion_smartcase = 1
+"
+"" JK motions: Line motions
+"map <Leader>j <Plug>(easymotion-j)
+"map <Leader>k <Plug>(easymotion-k)
+
+"
+" Sneak
+"
+let g:sneak#streak = 1
+let g:sneak#s_next = 1
+let g:sneak#use_ic_scs = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" AutoCommands
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Move help to right, resize 80
+if has('autocmd')
+  function! ILikeHelpToTheRight()
+    if !exists('w:help_is_moved') || w:help_is_moved != "right"
+      wincmd L
+      vertical resize 80
+      let w:help_is_moved = "right"
+    endif
+  endfunction
+
+  augroup HelpPages
+    autocmd FileType help nested call ILikeHelpToTheRight()
+  augroup END
+endif
+
 " Deprecated
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Not sure why I have this... research later
