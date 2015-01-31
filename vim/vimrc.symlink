@@ -113,6 +113,9 @@ let mapleader=","
 nmap ZZ <Nop>
 nmap <space> <Nop>
 
+" <Alt-:> to jump from insert to command mode
+inoremap <Esc>; <Esc>:
+
 " Quickly edit/reload the vimrc file
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
 nmap <silent> <leader>sv :so $MYVIMRC<CR><CR>k:echom 'Reloaded .vimrc...'<CR>
