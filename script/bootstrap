@@ -159,9 +159,16 @@ install_dotfiles () {
   done
 }
 
+install_vim_plugins () {
+  info 'installing vim plugins'
+  vim +PluginInstall +qall
+  success "vim plugins now up to date"
+}
+
 setup_ohmyzsh
 setup_gitconfig
 install_dotfiles
+install_vim_plugins
 
 echo ''
 echo '  All installed!'
