@@ -25,8 +25,8 @@ Run this:
 
 ```sh
 git clone https://github.com/holman/dotfiles.git ~/.dotfiles
-cd ~/.dotfiles
-script/bootstrap
+git clone https://github.com/gmarik/Vundle.vim.git ~/.dotfiles/vim/vim.symlink/bundle/Vundle.vim
+~/.dotfiles/script/bootstrap
 ```
 
 This will symlink the appropriate files in `.dotfiles` to your home directory.
