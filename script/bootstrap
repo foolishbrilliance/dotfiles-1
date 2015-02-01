@@ -147,8 +147,13 @@ install_dotfiles () {
 
 setup_vim () {
   info 'installing vundle'
-  git clone https://github.com/gmarik/Vundle.vim.git ~/.dotfiles/vim/vim.symlink/bundle/Vundle.vim
-  success "vundle installed"
+  VUNDLE_DIR=~/.dotfiles/vim/vim.symlink/bundle/Vundle.vim
+  if [[ ! -d $VUNDLE_DIR ]]; then
+    git clone https://github.com/gmarik/Vundle.vim.git $VUNDLE_DIR
+    success "vundle installed"
+  else
+    success "skipping. vundle already installed"
+  fi
   info 'installing vim plugins'
   vim +PluginInstall +qall
   success "vim plugins now up to date"
@@ -167,29 +172,22 @@ install_homebrew () {
   fi
 }
 
-install_fish () {
-  info 'install fish'
-  if ! command -v fish >/dev/null 2>&1
-  then
-    brew install fish || sudo apt-get install -y fish || sudo yum install -y fish
-    success 'fish installed'
-  else
-    success 'skipping. fish already installed'
-  fi
-}
-
 setup_fish () {
   info 'setup fish'
-  if [ "$(uname)" == "Darwin" ]; then
-    if [[ "$(dscl . -read /Users/chanjoe UserShell)" =~ fish ]]; then
-    fi
-  fi
   if ! command -v fish >/dev/null 2>&1
   then
     brew install fish || sudo apt-get install -y fish || sudo yum install -y fish
     success 'fish installed'
   else
     success 'skipping. fish already installed'
+  fi
+
+  info 'setting fish default shell'
+  if [[ ! "$(dscl . -read $HOME UserShell)" =~ fish ]] && [[ ! "$(getent passwd $LOGNAME | cut -d: -f7)" =~ fish ]]; then
+    sudo chsh -s $(which fish) $USER
+    success 'fish is now the default shell'
+  else
+    success 'skipping. fish is already the default shell'
   fi
 }
 
@@ -204,7 +202,7 @@ fi
 setup_ohmyzsh
 install_dotfiles
 setup_vim
-install_fish
+setup_fish
 
 echo ''
 echo '  All installed!'
