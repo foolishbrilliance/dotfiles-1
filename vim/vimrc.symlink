@@ -153,18 +153,17 @@ endfunction
 
 nmap <leader>ti :tabnext<CR>
 nmap <leader>th :tabprev<CR>
-nmap <leader>tn :tabnew<CR>
-
-" This allows buffers to be hidden if you've modified a buffer.
-" This is almost a must if you wish to use buffers in this way.
-set hidden
+nmap <leader>nt :tabnew<CR>
 
 "
 " buffers
 "
+" This allows buffers to be hidden if you've modified a buffer.
+" This is almost a must if you wish to use buffers in this way.
+set hidden
 
 " To open a new empty buffer
-nmap <leader>bn :enew<cr>
+nmap <leader>nb :enew<cr>
 " Move to the next buffer
 nmap <leader>i :bnext<CR>
 " Move to the previous buffer
@@ -185,7 +184,7 @@ nmap <leader>bs :CtrlPMRU<cr>
 nmap <leader>bl :CtrlPBuffer<CR>
 nmap <leader>bg :BuffergatorToggle<cr>
 
-nmap <leader>p :CtrlPBuffer<CR>
+nmap <leader>p :CtrlPMRU<CR>
 
 " Unhighlight the last search pattern on Enter
 nnoremap <silent><CR> :noh<return><CR>
