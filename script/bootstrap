@@ -168,7 +168,10 @@ if [ "$(uname)" == "Darwin" ]; then
   install_homebrew
 fi
 setup_ohmyzsh
-setup_gitconfig
+if [ $# -eq 0 ]
+  then
+    setup_gitconfig
+fi
 install_dotfiles
 install_vim_plugins
 
