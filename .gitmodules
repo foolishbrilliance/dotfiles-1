@@ -1,0 +1,48 @@
+[submodule "vim/vim.symlink/bundle/Vundle.vim"]
+	path = vim/vim.symlink/bundle/Vundle.vim
+	url = http://github.com/gmarik/Vundle.vim.git
+[submodule "vim/vim.symlink/bundle/vim-airline"]
+	path = vim/vim.symlink/bundle/vim-airline
+	url = http://github.com/bling/vim-airline.git
+[submodule "vim/vim.symlink/bundle/ctrlp.vim"]
+	path = vim/vim.symlink/bundle/ctrlp.vim
+	url = http://github.com/kien/ctrlp.vim.git
+[submodule "vim/vim.symlink/bundle/vim-buffergator"]
+	path = vim/vim.symlink/bundle/vim-buffergator
+	url = http://github.com/jeetsukumaran/vim-buffergator.git
+[submodule "vim/vim.symlink/bundle/vim-abolish"]
+	path = vim/vim.symlink/bundle/vim-abolish
+	url = http://github.com/tpope/vim-abolish.git
+[submodule "vim/vim.symlink/bundle/vim-sensible"]
+	path = vim/vim.symlink/bundle/vim-sensible
+	url = http://github.com/tpope/vim-sensible.git
+[submodule "vim/vim.symlink/bundle/vim-sleuth"]
+	path = vim/vim.symlink/bundle/vim-sleuth
+	url = http://github.com/tpope/vim-sleuth.git
+[submodule "vim/vim.symlink/bundle/vim-unimpaired"]
+	path = vim/vim.symlink/bundle/vim-unimpaired
+	url = http://github.com/tpope/vim-unimpaired.git
+[submodule "vim/vim.symlink/bundle/vim-surround"]
+	path = vim/vim.symlink/bundle/vim-surround
+	url = http://github.com/tpope/vim-surround.git
+[submodule "vim/vim.symlink/bundle/vim-repeat"]
+	path = vim/vim.symlink/bundle/vim-repeat
+	url = http://github.com/tpope/vim-repeat.git
+[submodule "vim/vim.symlink/bundle/vim-fugitive"]
+	path = vim/vim.symlink/bundle/vim-fugitive
+	url = http://github.com/tpope/vim-fugitive.git
+[submodule "vim/vim.symlink/bundle/vim-commentary"]
+	path = vim/vim.symlink/bundle/vim-commentary
+	url = http://github.com/tpope/vim-commentary.git
+[submodule "vim/vim.symlink/bundle/vim-colors-solarized"]
+	path = vim/vim.symlink/bundle/vim-colors-solarized
+	url = http://github.com/altercation/vim-colors-solarized.git
+[submodule "vim/vim.symlink/bundle/vim-sneak"]
+	path = vim/vim.symlink/bundle/vim-sneak
+	url = http://github.com/justinmk/vim-sneak.git
+[submodule "vim/vim.symlink/bundle/incsearch.vim"]
+	path = vim/vim.symlink/bundle/incsearch.vim
+	url = http://github.com/haya14busa/incsearch.vim.git
+[submodule "vim/vim.symlink/bundle/vim-indent-object"]
+	path = vim/vim.symlink/bundle/vim-indent-object
+	url = http://github.com/michaeljsmith/vim-indent-object.git
