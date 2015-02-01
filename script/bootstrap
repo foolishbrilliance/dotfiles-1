@@ -49,20 +49,6 @@ setup_gitconfig () {
   fi
 }
 
-# Required for other install.sh scripts
-setup_homebrew () {
-  info 'install homebrew'
-  if test ! $(which brew)
-  then
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" > /tmp/homebrew-install.log
-    brew doctor
-    success 'homebrew installed'
-  else
-    success 'skipping. homebrew already installed'
-  fi
-
-}
-
 setup_ohmyzsh () {
   if ! [ -d $HOME/.oh-my-zsh ]
   then
@@ -165,6 +151,22 @@ install_vim_plugins () {
   success "vim plugins now up to date"
 }
 
+# Required for other install-Darwin.sh scripts
+install_homebrew () {
+  info 'install homebrew'
+  if ! command -v brew >/dev/null 2>&1
+  then
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" > /tmp/homebrew-install.log
+    brew doctor
+    success 'homebrew installed'
+  else
+    success 'skipping. homebrew already installed'
+  fi
+}
+
+if [ "$(uname)" == "Darwin" ]; then
+  install_homebrew
+fi
 setup_ohmyzsh
 setup_gitconfig
 install_dotfiles
@@ -172,7 +174,3 @@ install_vim_plugins
 
 echo ''
 echo '  All installed!'
-
-
-
-

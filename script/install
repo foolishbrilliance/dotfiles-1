@@ -6,18 +6,21 @@ set -e
 
 cd "$(dirname $0)"/..
 
-# Install homebrew before running other installers
-if test ! $(which brew)
+if ! command -v brew >/dev/null 2>&1
 then
   echo "  Installing Homebrew for you."
   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" > /tmp/homebrew-install.log
 fi
 
-# find the installers and run them iteratively
+
+# find the OS specific (Darwin|Linux) installers and run them iteratively
+echo "  Running */install-$(uname).sh"
+find . -name install-$(uname).sh | while read installer ; do sh -c "${installer}" ; done
+echo "  Running */post-install-$(uname).sh"
+find . -name post-install-$(uname).sh | while read installer ; do sh -c "${installer}" ; done
+
 echo "  Running */install.sh"
 find . -name install.sh | while read installer ; do sh -c "${installer}" ; done
-
-# run post-install scripts (after dependencies have been installed by */install.sh)
 echo "  Running */post-install.sh"
 find . -name post-install.sh | while read installer ; do sh -c "${installer}" ; done
 
