@@ -59,6 +59,7 @@ if has('gui_running')   " from http://ethanschoonover.com/solarized/vim-colors-s
   set guifont=Consolas:h18
   set clipboard=unnamed " share clipboard with OSX
 else
+  set background=dark
 endif
 
 set autochdir           " set working directory to file in buffer
@@ -316,7 +317,6 @@ map g# <Plug>(incsearch-nohl-g#)
 " https://github.com/gmarik/Vundle.vim/issues/119#issuecomment-3089931
 call togglebg#map("<F5>")
 syntax enable
-set background=dark
 "let g:solarized_termcolors=256
 colorscheme joe
 
