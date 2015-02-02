@@ -136,22 +136,7 @@ nmap <leader>8:set shiftwidth=8<CR>:set softtabstop=8<CR>:set tabstop=8<CR>
 "
 " tabs
 "
-
-" BuffergatorTabsToggle seems to be broken
-" (https://github.com/jeetsukumaran/vim-buffergator/issues/32), here's a hack to
-" recreate it
-nnoremap <leader>tl :call BgTabCabinetToggle()<cr>
-let g:bgTabCabinet_is_open = 1
-function! BgTabCabinetToggle()
-    if g:bgTabCabinet_is_open
-        BuffergatorTabsOpen
-        let g:bgTabCabinet_is_open = 0
-    else
-        BuffergatorTabsClose
-        let g:bgTabCabinet_is_open = 1
-    endif
-endfunction
-
+nnoremap <leader>tl :BuffergatorTabsToggle<cr>
 nmap <leader>ti :tabnext<CR>
 nmap <leader>th :tabprev<CR>
 nmap <leader>nt :tabnew<CR>
@@ -252,6 +237,10 @@ Plugin 'justinmk/vim-sneak'
 Plugin 'haya14busa/incsearch.vim'
 Plugin 'michaeljsmith/vim-indent-object'
 "Plugin 'Lokaltog/vim-easymotion'
+Plugin 'airblade/vim-gitgutter'
+"Plugin 'scrooloose/syntastic'
+Plugin 'scrooloose/nerdtree'
+Plugin 'sjl/gundo.vim.git'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -315,7 +304,7 @@ map g# <Plug>(incsearch-nohl-g#)
 " Solarized
 " Theme not accessible until Bundle comamnd is run per
 " https://github.com/gmarik/Vundle.vim/issues/119#issuecomment-3089931
-call togglebg#map("<F5>")
+call togglebg#map("<F4>")
 syntax enable
 "let g:solarized_termcolors=256
 colorscheme joe
@@ -348,6 +337,17 @@ colorscheme joe
 let g:sneak#streak = 1
 let g:sneak#s_next = 1
 let g:sneak#use_ic_scs = 1
+
+"
+" gitgutter
+"
+" For the same appearance as your line number column
+highlight clear SignColumn
+
+"
+" Gundo
+"
+nnoremap <F5> :GundoToggle<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " AutoCommands
