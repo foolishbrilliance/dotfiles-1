@@ -1,5 +1,6 @@
 " vimrc
-" This must be first uncommented line, because it changes other options as a side effect
+
+" Must be first uncommented line as it affects other options
 set nocompatible
 
 " The fish shell is not supported before 7.4.276
@@ -175,9 +176,8 @@ nmap <leader>p :CtrlPMRU<CR>
 " Unhighlight the last search pattern on Enter
 nnoremap <silent><CR> :noh<return><CR>
 
-" Format paragraph
-imap <leader>f <Esc>!}fmt<CR>
-nmap <leader>f <Esc>!}fmt<CR>
+" Format paragraph to textwidth
+nmap <leader>f <Esc>gq}<CR>
 
 " Remove trailing whitespace
 nmap <leader>W :cal StripTrailingWhitespace()<cr>
