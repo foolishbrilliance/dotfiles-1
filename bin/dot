@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 #
 # dot
 #
@@ -9,4 +9,3 @@ export ZSH=$HOME/.dotfiles
 cd $ZSH
 git pull
 $ZSH/script/bootstrap
-source $HOME/.zshrc
