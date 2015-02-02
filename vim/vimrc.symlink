@@ -83,6 +83,10 @@ set statusline=%<%f%h%m%r%w%y%=%l/%L,%c\ %P\ \|\ %n " custom status line
 " Turn off system beep
 set vb t_vb=
 
+" Splits
+set splitbelow          " Open to bottom first
+set splitright          " Open to right first
+
 " Tabs
 set expandtab
 set shiftwidth=2
