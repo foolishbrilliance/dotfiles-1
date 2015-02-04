@@ -135,8 +135,10 @@ unset config_files
 # My custom config
 ################################################################################
 
-# Newer GNU core utilities (those that come with OS X are outdated)
-export PATH=$(brew --prefix coreutils)/libexec/gnubin:$PATH
+if command -v brew &>/dev/null; then
+  # Newer GNU core utilities (those that come with OS X are outdated)
+  export PATH=$(brew --prefix coreutils)/libexec/gnubin:$PATH
+fi
 export PATH="$HOME/.dotfiles/bin:$HOME/bin.private:$HOME/bin:$HOME/bin.linux:/usr/local/bin:/usr/local/sbin:$PATH"
 export MANPATH="/usr/local/man:$MANPATH"
 

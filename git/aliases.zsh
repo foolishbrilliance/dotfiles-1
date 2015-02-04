@@ -1,9 +1,11 @@
-# Use `hub` as our git wrapper:
+# Use `hub` as our git wrapper if it exists:
 #   http://defunkt.github.com/hub/
-hub_path=$(which hub)
-if (( $+commands[hub] ))
-then
-  alias git=$hub_path
+if command -v hub &>/dev/null; then
+  hub_path=$(which hub)
+  if (( $+commands[hub] ))
+  then
+    alias git=$hub_path
+  fi
 fi
 
 # The rest of my fun git aliases
