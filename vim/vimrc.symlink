@@ -59,29 +59,36 @@ if has('gui_running')   " from http://ethanschoonover.com/solarized/vim-colors-s
   set background=light
   set guifont=Consolas:h18
   "set clipboard=unnamed " share clipboard with OSX
+  if exists('+macmeta')
+    set macmeta
+  endif
 else
   set background=dark
 endif
 
+set autoindent
 set autochdir           " set working directory to file in buffer
 set backspace=2         " allow backspace beyond insertion point
 set backspace=indent,eol,start
+set display=lastline
+set fileformats=unix,dos,mac
 set ic                  " ignore case
 set laststatus=2        " always show status line
 set nocompatible        " disable vi compatibility
-" set paste               " don't alter my pasting
-set pastetoggle=<F2>
+set mouse=nvi
+set mousemodel=popup
+set pastetoggle=<F2>    " don't alter my pasting
 set report=1            " always report changes
 set smartcase           " Ignore case when doing a search...
 set hlsearch            " ...as well as highlight it...
 set incsearch           " ...as it is typed
 set report=0            " Report when more than 0 lines affected
+set scrolloff=1         " Always show one line below or above cursor for context
 set showmatch           " Highlight matching brace when typing second one
 set shortmess=I         " Don't show the startup message
+set sidescrolloff=5
 set statusline=%<%f%h%m%r%w%y%=%l/%L,%c\ %P\ \|\ %n " custom status line
-
-" Turn off system beep
-set vb t_vb=
+set vb t_vb=            " Turn off system beep
 
 " Splits
 set splitbelow          " Open to bottom first
@@ -92,6 +99,10 @@ set expandtab
 set shiftwidth=2
 set softtabstop=2
 set tabstop=2
+
+if !has("gui_running") && $DISPLAY == '' || !has("gui")
+  set mouse=
+endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Custom functions
@@ -119,29 +130,40 @@ let mapleader=","
 nmap ZZ <Nop>
 
 " avoid <esc>
-" <alt-space> turns into <Esc>
-"map <Esc><20> <Nop>
-" <Alt-:> to jump from insert/visual to command mode
-"inoremap <Esc>; <Esc>:
-"vnoremap <Esc>; <Esc>:
-map ,, <Esc>
+inoremap <Leader>i <Esc>`^
+inoremap <C-C> <Esc>`^
+inoremap <Esc><Leader> <Esc>`^
+map  <F1>   <Esc>
+map! <F1>   <Esc>
+
 " quick write
 imap zne <Esc>:w<CR>
 nmap zne <Esc>:w<CR>
 
-" Quickly edit/reload the vimrc file
-"nmap <silent> <leader>sv :e $MYVIMRC<CR>
-map <Leader>v  :so ~/.vimrc<CR>
-" Auto load .vimrc on write
-au! BufWritePost .source vimrc %
+" call actions from other modes
+cnoremap <C-O>      <Up>
+inoremap <M-o>      <C-O>o
+inoremap <M-O>      <C-O>O
+inoremap <M-i>      <Left>
+inoremap <M-I>      <C-O>^
+inoremap <M-A>      <C-O>$
+noremap! <C-J>      <Down>
+noremap! <C-K><C-K> <Up>
+
+nnoremap Y  y$
+
+"set timeoutlen=1200 " A little bit more time for macros
+set ttimeoutlen=50  " Make Esc work faster
+
+if exists(":nohls")
+  nnoremap <silent> <C-L> :nohls<CR><C-L>
+endif
+
+" Invert background
+command! -bar Invert :let &background = (&background=="light"?"dark":"light")
 
 " Transpose words
 nmap <silent> gw    "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<cr><c-o><c-l>
-
-" Change tab settings
-nmap <leader>2:set shiftwidth=2<CR>:set softtabstop=2<CR>:set tabstop=2<CR>
-nmap <leader>4:set shiftwidth=4<CR>:set softtabstop=4<CR>:set tabstop=4<CR>
-nmap <leader>8:set shiftwidth=8<CR>:set softtabstop=8<CR>:set tabstop=8<CR>
 
 "
 " tabs
@@ -236,6 +258,17 @@ endfunction
 
 " change textwidth
 nmap <leader>tw :set textwidth=
+
+" change tab settings
+nmap <leader>2:set shiftwidth=2<CR>:set softtabstop=2<CR>:set tabstop=2<CR>
+nmap <leader>4:set shiftwidth=4<CR>:set softtabstop=4<CR>:set tabstop=4<CR>
+nmap <leader>8:set shiftwidth=8<CR>:set softtabstop=8<CR>:set tabstop=8<CR>
+
+" Quickly edit/reload the vimrc file
+"nmap <silent> <leader>sv :e $MYVIMRC<CR>
+map <Leader>v  :so ~/.vimrc<CR>
+" Auto load .vimrc on write
+au! BufWritePost .source vimrc %
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vundle
@@ -379,7 +412,7 @@ highlight clear SignColumn
 "
 " Gundo
 "
-nnoremap <F5> :GundoToggle<CR>
+"nnoremap <F5> :GundoToggle<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " AutoCommands
@@ -427,3 +460,7 @@ endif
 " use Vundle or Pathogen, I suggest adding a line to reload the script at the
 " bottom of your Vim configuration file.
 "silent! source "$HOME/.vim/bundle/vim-colemak/plugin/colemak.vim"
+
+if filereadable(expand("~/.vimrc.local"))
+  source ~/.vimrc.local
+endif
