@@ -58,7 +58,7 @@ endif
 if has('gui_running')   " from http://ethanschoonover.com/solarized/vim-colors-solarized
   set background=light
   set guifont=Consolas:h18
-  set clipboard=unnamed " share clipboard with OSX
+  "set clipboard=unnamed " share clipboard with OSX
 else
   set background=dark
 endif
@@ -118,20 +118,25 @@ let mapleader=","
 " use :wq! instead
 nmap ZZ <Nop>
 
+" avoid <esc>
 " <alt-space> turns into <Esc>
-map <Esc><20> <Nop>
+"map <Esc><20> <Nop>
 " <Alt-:> to jump from insert/visual to command mode
-inoremap <Esc>; <Esc>:
-vnoremap <Esc>; <Esc>:
+"inoremap <Esc>; <Esc>:
+"vnoremap <Esc>; <Esc>:
+map ,, <Esc>
+" quick write
+imap zne <Esc>:w<CR>
+nmap zne <Esc>:w<CR>
 
 " Quickly edit/reload the vimrc file
 "nmap <silent> <leader>sv :e $MYVIMRC<CR>
 map <Leader>v  :so ~/.vimrc<CR>
 " Auto load .vimrc on write
-au! BufWritePost .vimrc source %
+au! BufWritePost .source vimrc %
 
 " Transpose words
-nmap <silent> gw    "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<cr><c-o><c-l> *N*
+nmap <silent> gw    "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<cr><c-o><c-l>
 
 " Change tab settings
 nmap <leader>2:set shiftwidth=2<CR>:set softtabstop=2<CR>:set tabstop=2<CR>
@@ -144,7 +149,7 @@ nmap <leader>8:set shiftwidth=8<CR>:set softtabstop=8<CR>:set tabstop=8<CR>
 nnoremap <leader>tl :BuffergatorTabsToggle<cr>
 nmap <leader>ti :tabnext<CR>
 nmap <leader>th :tabprev<CR>
-nmap <leader>nt :tabnew<CR>
+nmap <leader>tn :tabnew<CR>
 
 "
 " buffers
@@ -154,7 +159,7 @@ nmap <leader>nt :tabnew<CR>
 set hidden
 
 " To open a new empty buffer
-nmap <leader>nb :enew<cr>
+nmap <leader>bn :enew<cr>
 " Move to the next buffer
 nmap <leader>i :bnext<CR>
 " Move to the previous buffer
@@ -162,20 +167,37 @@ nmap <leader>h :bprevious<CR>
 " Close the current buffer and move to the previous one
 " This replicates the idea of closing a tab
 nmap <leader>bq :bp <BAR> bd #<CR>
+" delete buffer
+nmap <leader>bd :bd<CR>
+nmap <leader>b!! :bd!<CR>
+" last active buffer
+nmap <BS> :b#<CR>
 
-" Cycle through MRU buffers
-nmap <leader>nn :BuffergatorMruCyclePrev<cr>
-nmap <leader>ee :BuffergatorMruCycleNext<cr>
-
-" Show all open buffers and their status
-
-" Buffer search
+" buffer search
+nmap <leader>bf :CtrlP<cr>
 nmap <leader>bm :CtrlPMixed<cr>
 nmap <leader>bs :CtrlPMRU<cr>
 nmap <leader>bl :CtrlPBuffer<CR>
 nmap <leader>bg :BuffergatorToggle<cr>
-
 nmap <leader>p :CtrlPMRU<CR>
+" Cycle through MRU buffers
+nmap <leader>nn :BuffergatorMruCyclePrev<cr>
+nmap <leader>ee :BuffergatorMruCycleNext<cr>
+
+"
+" windows
+"
+nnoremap <C-h> <C-w>h
+nnoremap <C-n> <C-w>j
+nnoremap <C-e> <C-w>k
+nnoremap <C-i> <C-w>l
+
+" [S]plit line (sister to [J]oin lines)
+" cc still substitutes the line like S would
+nnoremap S i<CR><Esc>^mwgk:silent! s/\v +$//<CR>:noh<CR>
+
+" visually select the last paste or change
+nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 
 " Unhighlight the last search pattern on Enter
 nnoremap <silent><CR> :noh<return><CR>
@@ -212,6 +234,9 @@ function! XTermPasteBegin()
     return ""
 endfunction
 
+" change textwidth
+nmap <leader>tw :set textwidth=
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vundle
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -243,9 +268,11 @@ Plugin 'michaeljsmith/vim-indent-object'
 "Plugin 'Lokaltog/vim-easymotion'
 Plugin 'airblade/vim-gitgutter'
 "Plugin 'scrooloose/syntastic'
-Plugin 'scrooloose/nerdtree'
-Plugin 'sjl/gundo.vim.git'
+"Plugin 'scrooloose/nerdtree'
+"Plugin 'sjl/gundo.vim.git'
 "Plugin 'jooize/vim-colemak'
+Plugin 'tpope/vim-vinegar'
+Plugin 'mbbill/undotree'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
