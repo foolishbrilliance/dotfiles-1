@@ -52,43 +52,43 @@ if $OSTYPE =~ "solaris"
   set term=xtermc
 endif
 
-"
-" gVIM
-"
-if has('gui_running')   " from http://ethanschoonover.com/solarized/vim-colors-solarized
-  set background=light
-  set guifont=Consolas:h18
-  "set clipboard=unnamed " share clipboard with OSX
-  if exists('+macmeta')
-    set macmeta
-  endif
-else
-  set background=dark
-endif
-
-set autoindent
 set autochdir           " set working directory to file in buffer
+set autoindent
 set backspace=2         " allow backspace beyond insertion point
 set backspace=indent,eol,start
 set display=lastline
 set fileformats=unix,dos,mac
+if executable('ag')
+  set grepprg=ag\ --nogroup\ --nocolor\ --column
+  if &grepformat !~# '%c'
+    set grepformat^=%f:%l:%c:%m
+  endif
+endif
+set hlsearch            " ...as well as highlight it...
+if has("eval")
+  let &highlight = substitute(&highlight,'NonText','SpecialKey','g')
+endif
 set ic                  " ignore case
+set incsearch           " ...as it is typed
 set laststatus=2        " always show status line
-set nocompatible        " disable vi compatibility
 set mouse=nvi
 set mousemodel=popup
+set nocompatible        " disable vi compatibility
 set pastetoggle=<F2>    " don't alter my pasting
-set report=1            " always report changes
-set smartcase           " Ignore case when doing a search...
-set hlsearch            " ...as well as highlight it...
-set incsearch           " ...as it is typed
 set report=0            " Report when more than 0 lines affected
+set report=1            " always report changes
 set scrolloff=1         " Always show one line below or above cursor for context
-set showmatch           " Highlight matching brace when typing second one
 set shortmess=I         " Don't show the startup message
+set showmatch           " Highlight matching brace when typing second one
 set sidescrolloff=5
+set smartcase           " Ignore case when doing a search...
 set statusline=%<%f%h%m%r%w%y%=%l/%L,%c\ %P\ \|\ %n " custom status line
+set timeoutlen=1200 " A little bit more time for macros
+set ttimeoutlen=50  " Make Esc work faster
 set vb t_vb=            " Turn off system beep
+set wrap
+set textwidth=0
+set wrapmargin=0
 
 " Splits
 set splitbelow          " Open to bottom first
@@ -100,25 +100,33 @@ set shiftwidth=2
 set softtabstop=2
 set tabstop=2
 
+"
+" gVIM
+"
+if has('gui_running')   " from http://ethanschoonover.com/solarized/vim-colors-solarized
+  cabbrev q <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'close' : 'q')<CR>
+  set background=light
+  set guifont=Consolas:h18
+  "set clipboard=unnamed " share clipboard with OSX
+  if exists('+macmeta')
+    set macmeta
+  endif
+else
+  set background=dark
+endif
+
 if !has("gui_running") && $DISPLAY == '' || !has("gui")
   set mouse=
 endif
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Custom functions
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Remove trailing whitespace
-" http://vim.wikia.com/wiki/Remove_unwanted_spaces
-function! StripTrailingWhitespace()
-    if !&binary && &filetype != 'diff'
-        normal mz
-        normal Hmy
-        %s/\s\+$//e
-        normal 'yz<cr>
-        normal `z
-        retab
-    endif
-endfunction
+if has("dos16") || has("dos32") || has("win32") || has("win64")
+  if $PATH =~? 'cygwin' && ! exists("g:no_cygwin_shell")
+    set shell=bash
+    set shellpipe=2>&1\|tee
+    set shellslash
+  endif
+elseif has("mac")
+endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Custom keybindings
@@ -130,7 +138,7 @@ let mapleader=","
 nmap ZZ <Nop>
 
 " avoid <esc>
-inoremap <Leader>i <Esc>`^
+inoremap <Leader><Leader> <Esc>`^
 inoremap <C-C> <Esc>`^
 inoremap <Esc><Leader> <Esc>`^
 map  <F1>   <Esc>
@@ -146,14 +154,27 @@ inoremap <M-o>      <C-O>o
 inoremap <M-O>      <C-O>O
 inoremap <M-i>      <Left>
 inoremap <M-I>      <C-O>^
-inoremap <M-A>      <C-O>$
+inoremap <M-a>      <C-O>$
 noremap! <C-J>      <Down>
 noremap! <C-K><C-K> <Up>
 
 nnoremap Y  y$
 
-"set timeoutlen=1200 " A little bit more time for macros
-set ttimeoutlen=50  " Make Esc work faster
+" [S]plit line (sister to [J]oin lines)
+" cc still substitutes the line like S would
+nnoremap S i<CR><Esc>^mwgk:silent! s/\v +$//<CR>:noh<CR>
+
+" visually select the last paste or change
+nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
+
+" Unhighlight the last search pattern on Enter
+nnoremap <silent><CR> :noh<return><CR>
+
+" Format paragraph to textwidth
+nmap <leader>f <Esc>gq}<CR>
+
+" Print modeline
+inoremap <C-X>^ <C-R>=substitute(&commentstring,' \=%s\>'," -*- ".&ft." -*- vim:set ft=".&ft." ".(&et?"et":"noet")." sw=".&sw." sts=".&sts.':','')<CR>
 
 if exists(":nohls")
   nnoremap <silent> <C-L> :nohls<CR><C-L>
@@ -182,6 +203,7 @@ set hidden
 
 " To open a new empty buffer
 nmap <leader>bn :enew<cr>
+nmap <leader>nb :enew<cr>
 " Move to the next buffer
 nmap <leader>i :bnext<CR>
 " Move to the previous buffer
@@ -194,6 +216,9 @@ nmap <leader>bd :bd<CR>
 nmap <leader>b!! :bd!<CR>
 " last active buffer
 nmap <BS> :b#<CR>
+nnoremap gb :ls<CR>:b
+nnoremap gsh :ls<CR>:sb
+nnoremap gsv :ls<CR>:vert sb
 
 " buffer search
 nmap <leader>bf :CtrlP<cr>
@@ -214,21 +239,19 @@ nnoremap <C-n> <C-w>j
 nnoremap <C-e> <C-w>k
 nnoremap <C-i> <C-w>l
 
-" [S]plit line (sister to [J]oin lines)
-" cc still substitutes the line like S would
-nnoremap S i<CR><Esc>^mwgk:silent! s/\v +$//<CR>:noh<CR>
-
-" visually select the last paste or change
-nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
-
-" Unhighlight the last search pattern on Enter
-nnoremap <silent><CR> :noh<return><CR>
-
-" Format paragraph to textwidth
-nmap <leader>f <Esc>gq}<CR>
-
 " Remove trailing whitespace
+" http://vim.wikia.com/wiki/Remove_unwanted_spaces
 nmap <leader>W :cal StripTrailingWhitespace()<cr>
+function! StripTrailingWhitespace()
+    if !&binary && &filetype != 'diff'
+        normal mz
+        normal Hmy
+        %s/\s\+$//e
+        normal 'yz<cr>
+        normal `z
+        retab
+    endif
+endfunction
 
 " Blank line above
 nmap <space>O O<Esc>
@@ -245,16 +268,16 @@ nmap <space>n YPgccj<Esc>
 " Insert timestamps
 inoremap <silent> <C-G><C-T> <C-R>=repeat(complete(col('.'),map(["%Y-%m-%d %H:%M:%S","%a, %d %b %Y %H:%M:%S %z","%Y %b %d","%d-%b-%y","%a %b %d %T %Z %Y"],'strftime(v:val)')+[localtime()]),0)<CR>
 
-" Automatically set paste mode in Vim when pasting in insert mode per
-" https://coderwall.com/p/if9mda/automatically-set-paste-mode-in-vim-when-pasting-in-insert-mode
-let &t_SI .= "\<Esc>[?2004h"
-let &t_EI .= "\<Esc>[?2004l"
-inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
-function! XTermPasteBegin()
-    set pastetoggle=<Esc>[201~
-    set paste
-    return ""
-endfunction
+" " Automatically set paste mode in Vim when pasting in insert mode per
+" " https://coderwall.com/p/if9mda/automatically-set-paste-mode-in-vim-when-pasting-in-insert-mode
+" let &t_SI .= "\<Esc>[?2004h"
+" let &t_EI .= "\<Esc>[?2004l"
+" inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
+" function! XTermPasteBegin()
+"     set pastetoggle=<Esc>[201~
+"     set paste
+"     return ""
+" endfunction
 
 " change textwidth
 nmap <leader>tw :set textwidth=
@@ -263,6 +286,26 @@ nmap <leader>tw :set textwidth=
 nmap <leader>2:set shiftwidth=2<CR>:set softtabstop=2<CR>:set tabstop=2<CR>
 nmap <leader>4:set shiftwidth=4<CR>:set softtabstop=4<CR>:set tabstop=4<CR>
 nmap <leader>8:set shiftwidth=8<CR>:set softtabstop=8<CR>:set tabstop=8<CR>
+
+" Copy paths
+if has('win32')
+  nmap <Leader>cs :let @*=substitute(expand("%"), "/", "\\", "g")<CR>:echom expand("%:p") "copied to clipboard"<CR>
+  nmap <Leader>cl :let @*=substitute(expand("%:p"), "/", "\\", "g")<CR>:echom expand("%:p") "copied to clipboard"<CR>
+  " This will copy the path in 8.3 short format, for DOS and Windows 9x
+  nmap <Leader>c8 :let @*=substitute(expand("%:p:8"), "/", "\\", "g")<CR>:echom expand("%:p:8") "copied to clipboard"<CR>
+elseif has('gui_running') && has('mac')
+  nmap <Leader>cs :let @*=expand("%")<CR>:echom expand("%") "copied to clipboard"<CR>
+  nmap <Leader>cl :let @*=expand("%:p")<CR>:echom expand("%:p") "copied to clipboard"<CR>
+endif
+
+command! -bar -nargs=1 -complete=file E :exe "edit ".substitute(<q-args>,'\(.*\):\(\d\+\):\=$','+\2 \1','')
+command! -bar -nargs=? -bang Scratch :silent enew<bang>|set buftype=nofile bufhidden=hide noswapfile buflisted filetype=<args> modifiable
+function! s:scratch_maps() abort
+  nnoremap <silent> <buffer> == :Scratch<CR>
+  nnoremap <silent> <buffer> =" :Scratch<Bar>put<Bar>1delete _<Bar>filetype detect<CR>
+  nnoremap <silent> <buffer> =* :Scratch<Bar>put *<Bar>1delete _<Bar>filetype detect<CR>
+  nnoremap          <buffer> =f :Scratch<Bar>setfiletype<Space>
+endfunction
 
 " Quickly edit/reload the vimrc file
 "nmap <silent> <leader>sv :e $MYVIMRC<CR>
@@ -285,7 +328,7 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 Plugin 'bling/vim-airline'
 Plugin 'kien/ctrlp.vim'
-Plugin 'jeetsukumaran/vim-buffergator'
+"Plugin 'jeetsukumaran/vim-buffergator'
 Plugin 'tpope/vim-abolish'
 Plugin 'tpope/vim-sensible'
 Plugin 'tpope/vim-sleuth'
@@ -367,7 +410,7 @@ map g# <Plug>(incsearch-nohl-g#)
 
 "
 " Solarized
-" Theme not accessible until Bundle comamnd is run per
+" Theme not accessible until Bundle command is run per
 " https://github.com/gmarik/Vundle.vim/issues/119#issuecomment-3089931
 call togglebg#map("<F4>")
 syntax enable
@@ -406,8 +449,8 @@ let g:sneak#use_ic_scs = 1
 "
 " gitgutter
 "
-" For the same appearance as your line number column
-highlight clear SignColumn
+highlight clear SignColumn " For the same appearance as your line number column
+let g:gitgutter_map_keys = 0 " No default keys
 
 "
 " Gundo
@@ -432,6 +475,13 @@ if has('autocmd')
     autocmd FileType help nested call ILikeHelpToTheRight()
   augroup END
 endif
+
+augroup Misc
+    autocmd!
+
+    autocmd FileType netrw call s:scratch_maps()
+    autocmd FocusLost   * silent! wall
+augroup END
 
 " Deprecated
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
