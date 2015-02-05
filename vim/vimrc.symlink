@@ -89,8 +89,8 @@ set showmatch           " Highlight matching brace when typing second one
 set sidescrolloff=5
 set smartcase           " Ignore case when doing a search...
 set statusline=%<%f%h%m%r%w%y%=%l/%L,%c\ %P\ \|\ %n " custom status line
-"set timeoutlen=1200 " A little bit more time for macros
-set ttimeoutlen=50  " Make Esc work faster
+"set timeoutlen=1200    " A little bit more time for macros
+set ttimeoutlen=10      " Make Esc work faster
 set vb t_vb=            " Turn off system beep
 set wrap
 
@@ -143,14 +143,16 @@ nmap ZZ <Nop>
 
 " avoid <esc>
 inoremap <Leader><Leader> <Esc>`^
+inoremap jj <Esc>`^
 inoremap <C-C> <Esc>`^
-inoremap <Esc><Leader> <Esc>`^
+" Not sure if it's a bad idea to remap <Esc>
+"inoremap <Esc> <Esc>`^
 map  <F1>   <Esc>
 map! <F1>   <Esc>
 
 " quick write
-imap zne <Esc>:w<CR>i
-nmap zne <Esc>:w<CR>
+inoremap zne <Esc>:w<CR>`^i
+nnoremap zne <Esc>:w<CR>
 
 " call actions from other modes
 cnoremap <C-O>      <Up>
@@ -201,8 +203,6 @@ nmap <leader>tn :tabnew<CR>
 "
 " buffers
 "
-" This allows buffers to be hidden if you've modified a buffer.
-" This is almost a must if you wish to use buffers in this way.
 set hidden
 
 " To open a new empty buffer
@@ -212,14 +212,15 @@ nmap <leader>nb :enew<cr>
 nmap <leader>i :bnext<CR>
 " Move to the previous buffer
 nmap <leader>h :bprevious<CR>
-" Close the current buffer and move to the previous one
-" This replicates the idea of closing a tab
+" Close the current buffer and move to the previous one. This replicates the idea of closing a tab
 nmap <leader>bq :bp <BAR> bd #<CR>
-" delete buffer
+" delete (close) buffer
 nmap <leader>bd :bd<CR>
 nmap <leader>b!! :bd!<CR>
 " last active buffer
 nmap <BS> :b#<CR>
+
+" primitive buffer switching/splitting
 nnoremap gb :ls<CR>:b
 nnoremap gsh :ls<CR>:sb
 nnoremap gsv :ls<CR>:vert sb
@@ -242,6 +243,7 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-n> <C-w>j
 nnoremap <C-e> <C-w>k
 nnoremap <C-i> <C-w>l
+nnoremap <Leader>wc <C-w>c
 
 " Remove trailing whitespace
 " http://vim.wikia.com/wiki/Remove_unwanted_spaces
