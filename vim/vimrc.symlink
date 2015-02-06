@@ -155,7 +155,6 @@ inoremap zne <Esc>:w<CR>`^i
 nnoremap zne <Esc>:w<CR>
 
 " call actions from other modes
-cnoremap <C-O>      <Up>
 inoremap <M-o>      <C-O>o
 inoremap <M-O>      <C-O>O
 inoremap <M-h>      <Left>
@@ -165,6 +164,13 @@ noremap! <C-J>      <Down>
 noremap! <C-K><C-K> <Up>
 
 nnoremap Y  y$
+
+nnoremap gs :%s/
+xnoremap gs :s/
+
+" expands %% to current file's directory in command-line mode
+cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<CR>
+cnoremap <C-O>      <Up>
 
 " [S]plit line (sister to [J]oin lines)
 " cc still substitutes the line like S would
@@ -222,8 +228,8 @@ nmap <BS> :b#<CR>
 
 " primitive buffer switching/splitting
 nnoremap gb :ls<CR>:b
-nnoremap gsh :ls<CR>:sb
-nnoremap gsv :ls<CR>:vert sb
+nnoremap <leader>sh :ls<CR>:sb
+nnoremap <leader>sv :ls<CR>:vert sb
 
 " buffer search
 nmap <leader>bf :CtrlP<cr>
@@ -356,6 +362,7 @@ Plugin 'airblade/vim-gitgutter'
 "Plugin 'jooize/vim-colemak'
 Plugin 'tpope/vim-vinegar'
 Plugin 'mbbill/undotree'
+Plugin 'elzr/vim-json'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -402,15 +409,15 @@ let g:buffergator_suppress_keymaps = 1
 " incsearch.vim
 "
 map /  <Plug>(incsearch-forward)
-map ?  <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
+" map ?  <Plug>(incsearch-backward)
+" map g/ <Plug>(incsearch-stay)
 let g:incsearch#auto_nohlsearch = 1
-map n  <Plug>(incsearch-nohl-n)
-map N  <Plug>(incsearch-nohl-N)
-map *  <Plug>(incsearch-nohl-*)
-map #  <Plug>(incsearch-nohl-#)
-map g* <Plug>(incsearch-nohl-g*)
-map g# <Plug>(incsearch-nohl-g#)
+" map n  <Plug>(incsearch-nohl-n)
+" map N  <Plug>(incsearch-nohl-N)
+" map *  <Plug>(incsearch-nohl-*)
+" map #  <Plug>(incsearch-nohl-#)
+" map g* <Plug>(incsearch-nohl-g*)
+" map g# <Plug>(incsearch-nohl-g#)
 
 "
 " Solarized
@@ -460,6 +467,11 @@ let g:gitgutter_map_keys = 0 " No default keys
 " Gundo
 "
 "nnoremap <F5> :GundoToggle<CR>
+
+"
+" vim-json
+"
+let g:vim_json_syntax_conceal = 0
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " AutoCommands
