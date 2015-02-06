@@ -32,7 +32,7 @@ set -g status-right "#[fg=blue]%k:%M"
 
 # setup 'v' to begin selection as in Vim
 # update default binding of 'Enter' to also use copy-pipe
-if-shell "uname | grep -q Darwin" "set-option -g default-command 'reattach-to-user-namespace -l fish'" "set-window-option -g automatic-rename on" "bind-key -t vi-copy v begin-selection" "bind-key -t vi-copy y copy-pipe 'reattach-to-user-namespace pbcopy'" "unbind -t vi-copy Enter" "bind-key -t vi-copy Enter copy-pipe 'reattach-to-user-namespace pbcopy'" "bind y run 'tmux save-buffer - | reattach-to-user-namespace pbcopy '" "bind C-y run 'tmux save-buffer - | reattach-to-user-namespace pbcopy '"
+#if-shell "uname | grep -q Darwin" "set-option -g default-command 'reattach-to-user-namespace -l fish'" "set-window-option -g automatic-rename on" "bind-key -t vi-copy v begin-selection" "bind-key -t vi-copy y copy-pipe 'reattach-to-user-namespace pbcopy'" "unbind -t vi-copy Enter" "bind-key -t vi-copy Enter copy-pipe 'reattach-to-user-namespace pbcopy'" "bind y run 'tmux save-buffer - | reattach-to-user-namespace pbcopy '" "bind C-y run 'tmux save-buffer - | reattach-to-user-namespace pbcopy '"
 
 # use vim keybindings in copy mode
 setw -g mode-keys vi
