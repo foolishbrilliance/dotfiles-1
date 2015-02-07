@@ -227,7 +227,7 @@ nmap <leader>b!! :bd!<CR>
 nmap <BS> :b#<CR>
 
 " primitive buffer switching/splitting
-nnoremap gb :ls<CR>:b
+nnoremap <Leader>g :ls<CR>:b<Space>
 nnoremap <leader>sh :ls<CR>:sb
 nnoremap <leader>sv :ls<CR>:vert sb
 
@@ -360,7 +360,8 @@ Plugin 'airblade/vim-gitgutter'
 "Plugin 'scrooloose/nerdtree'
 "Plugin 'sjl/gundo.vim.git'
 "Plugin 'jooize/vim-colemak'
-Plugin 'tpope/vim-vinegar'
+" Plugin 'tpope/vim-vinegar'
+Plugin 'jeetsukumaran/vim-filebeagle'
 Plugin 'mbbill/undotree'
 Plugin 'elzr/vim-json'
 
