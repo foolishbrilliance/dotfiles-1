@@ -182,13 +182,6 @@ setup_fish () {
     success 'skipping. fish already installed'
   fi
 
-  info 'setting fish default shell'
-  if [[ ! "$(dscl . -read $HOME UserShell)" =~ fish ]] && [[ ! "$(getent passwd $LOGNAME | cut -d: -f7)" =~ fish ]]; then
-    sudo chsh -s $(which fish) $USER
-    success 'fish is now the default shell'
-  else
-    success 'skipping. fish is already the default shell'
-  fi
   info 'cloning fish dotfiles'
   if [[ ! -d $HOME/.config/fish ]]; then
     git clone https://github.com/joech4n/fish-dotfiles.git $HOME/.config/fish
