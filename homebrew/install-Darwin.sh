@@ -89,6 +89,7 @@ brew cask install google-hangouts
 brew cask install iterm2
 brew cask install keyboard-cleaner
 brew cask install league-of-legends
+brew cask install licecap
 brew cask install lightpaper
 brew cask install macvim
 brew cask install mailbox
