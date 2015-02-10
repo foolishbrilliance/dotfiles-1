@@ -40,7 +40,7 @@ setup_gitconfig () {
 
     user ' - What is your github author name?'
     read -e git_authorname
-    user ' - What is your github author email?'
+    user ' - What is your github author email? How about joech4n@users.noreply.github.com?'
     read -e git_authoremail
 
     sed -e "s/AUTHORNAME/$git_authorname/g" -e "s/AUTHOREMAIL/$git_authoremail/g" -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" git/gitconfig.symlink.example > git/gitconfig.symlink
@@ -53,7 +53,7 @@ setup_ohmyzsh () {
   if ! [ -d $HOME/.oh-my-zsh ]
   then
     info 'setup oh-my-zsh'
-    git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh 
+    git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
     success 'oh-my-zsh'
   fi
 }
