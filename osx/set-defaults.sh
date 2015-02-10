@@ -88,6 +88,9 @@ defaults write /Library/Preferences/com.apple.HIToolbox AppleSelectedInputSource
  
 # Delete the default layouts (US) (optional)
 #defaults delete /Library/Preferences/com.apple.HIToolbox AppleEnabledInputSources
+
+# Enable three finger drag
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -bool true
  
 ###############################################################################
 # Screen                                                                      #
