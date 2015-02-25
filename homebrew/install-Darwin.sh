@@ -102,6 +102,7 @@ brew cask install qlprettypatch
 brew cask install qlstephen
 brew cask install quicklook-csv
 brew cask install quicklook-json
+brew cask install shiftit
 brew cask install slimbatterymonitor
 brew cask install spotify
 brew cask install sublime-text
