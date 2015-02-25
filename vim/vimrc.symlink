@@ -54,6 +54,7 @@ endif
 
 set autochdir           " set working directory to file in buffer
 set autoindent
+set autowrite
 set backspace=2         " allow backspace beyond insertion point
 set backspace=indent,eol,start
 set display=lastline
@@ -151,7 +152,8 @@ map  <F1>   <Esc>
 map! <F1>   <Esc>
 
 " quick write
-inoremap zne <Esc>:w<CR>`^i
+"inoremap zne <Esc>:w<CR>`^i
+inoremap zne <Esc>:w<CR>
 nnoremap zne <Esc>:w<CR>
 
 " call actions from other modes
@@ -223,13 +225,15 @@ nmap <leader>bq :bp <BAR> bd #<CR>
 " delete (close) buffer
 nmap <leader>bd :bd<CR>
 nmap <leader>b!! :bd!<CR>
+nmap <leader>bd! :bd!<CR>
 " last active buffer
 nmap <BS> :b#<CR>
 
 " primitive buffer switching/splitting
+nnoremap <Leader>bb :ls<CR>:b<Space>
 nnoremap <Leader>g :ls<CR>:b<Space>
-nnoremap <leader>sh :ls<CR>:sb
-nnoremap <leader>sv :ls<CR>:vert sb
+nnoremap <leader>sh :ls<CR>:sbuffer<Space>
+nnoremap <leader>sv :ls<CR>:vertical sbuffer<Space>
 
 " buffer search
 nmap <leader>bf :CtrlP<cr>
