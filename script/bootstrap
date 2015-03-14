@@ -146,16 +146,16 @@ install_dotfiles () {
 }
 
 setup_vim () {
-  info 'installing vundle'
-  VUNDLE_DIR=~/.dotfiles/vim/vim.symlink/bundle/Vundle.vim
-  if [[ ! -d $VUNDLE_DIR ]]; then
-    git clone https://github.com/gmarik/Vundle.vim.git $VUNDLE_DIR
-    success "vundle installed"
+  info 'installing NeoBundle'
+  NeoBundle_DIR=~/.dotfiles/vim/vim.symlink/bundle/NeoBundle.vim
+  if [[ ! -d $NeoBundle_DIR ]]; then
+    git clone https://github.com/Shougo/neobundle.vim.git $NeoBundle_DIR
+    success "NeoBundle installed"
   else
-    success "skipping. vundle already installed"
+    success "skipping. NeoBundle already installed"
   fi
   info 'installing vim plugins'
-  vim +PluginInstall +qall
+  vim +NeoBundleInstall! +qall
   success "vim plugins now up to date"
 }
 
