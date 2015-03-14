@@ -1,5 +1,4 @@
 " vimrc
-
 " Must be first uncommented line as it affects other options
 set nocompatible
 
@@ -330,48 +329,67 @@ map <Leader>v  :so ~/.vimrc<CR>
 au! BufWritePost .source vimrc %
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Vundle
+" NeoBundle
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-filetype off                  " required
+" Note: Skip initialization for vim-tiny or vim-small.
+if !1 | finish | endif
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
+if has('vim_starting')
+ if &compatible
+   set nocompatible               " Be iMproved
+ endif
 
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
-Plugin 'bling/vim-airline'
-Plugin 'kien/ctrlp.vim'
-"Plugin 'jeetsukumaran/vim-buffergator'
-Plugin 'tpope/vim-abolish'
-Plugin 'tpope/vim-sensible'
-Plugin 'tpope/vim-sleuth'
-Plugin 'tpope/vim-unimpaired'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-commentary'
-Plugin 'tpope/vim-eunuch'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'justinmk/vim-sneak'
-Plugin 'haya14busa/incsearch.vim'
-Plugin 'michaeljsmith/vim-indent-object'
-"Plugin 'Lokaltog/vim-easymotion'
-Plugin 'airblade/vim-gitgutter'
-"Plugin 'scrooloose/syntastic'
-"Plugin 'scrooloose/nerdtree'
-"Plugin 'sjl/gundo.vim.git'
-"Plugin 'jooize/vim-colemak'
-" Plugin 'tpope/vim-vinegar'
-Plugin 'jeetsukumaran/vim-filebeagle'
-Plugin 'mbbill/undotree'
-Plugin 'elzr/vim-json'
+ " Required:
+ set runtimepath+=~/.vim/bundle/neobundle.vim/
+endif
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
+" Required:
+call neobundle#begin(expand('~/.vim/bundle/'))
+
+" Let NeoBundle manage NeoBundle
+" Required:
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+" My Bundles here:
+" Refer to |:NeoBundle-examples|.
+" Note: You don't set neobundle setting in .gvimrc!
+" DISABLED
+"NeoBundle 'tpope/vim-vinegar' "I like filebeagle more
+"NeoBundle 'Lokaltog/vim-easymotion'
+"NeoBundle 'jeetsukumaran/vim-buffergator'
+"NeoBundle 'jooize/vim-colemak'
+"NeoBundle 'scrooloose/nerdtree'
+"NeoBundle 'scrooloose/syntastic'
+"NeoBundle 'sjl/gundo.vim.git'
+NeoBundle 'airblade/vim-gitgutter'
+NeoBundle 'altercation/vim-colors-solarized'
+NeoBundle 'bling/vim-airline'
+NeoBundle 'elzr/vim-json'
+NeoBundle 'gmarik/Vundle.vim'
+NeoBundle 'haya14busa/incsearch.vim', 'dev' "dev branch for MacVim paste fix: https://github.com/haya14busa/incsearch.vim/issues/35#issuecomment-67504976
+NeoBundle 'jeetsukumaran/vim-filebeagle'
+NeoBundle 'justinmk/vim-sneak'
+NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'mbbill/undotree'
+NeoBundle 'michaeljsmith/vim-indent-object'
+NeoBundle 'tpope/vim-abolish'
+NeoBundle 'tpope/vim-commentary'
+NeoBundle 'tpope/vim-eunuch'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'tpope/vim-repeat'
+NeoBundle 'tpope/vim-sensible'
+NeoBundle 'tpope/vim-sleuth'
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'tpope/vim-unimpaired'
+
+call neobundle#end()
+
+" Required:
+filetype plugin indent on
+
+" If there are uninstalled bundles found on startup,
+" this will conveniently prompt you to install them.
+NeoBundleCheck
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin configs
