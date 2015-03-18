@@ -1,9 +1,3 @@
-" vimrc
-" Must be first uncommented line as it affects other options
-set nocompatible
-
-" The fish shell is not supported before 7.4.276
-" https://code.google.com/p/vim/source/detail?r=a6b59ee633a355095e6473ec5e2a7d9088bfb853
 if v:version < 704 || (v:version == 704 && !has('patch276'))
 endif
 " Do it anyway because Vundle breaks with fish
@@ -381,6 +375,7 @@ NeoBundle 'tpope/vim-sensible'
 NeoBundle 'tpope/vim-sleuth'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-unimpaired'
+NeoBundle 'mattn/gist-vim', {'depends': 'mattn/webapi-vim'}
 
 call neobundle#end()
 
@@ -395,17 +390,9 @@ NeoBundleCheck
 " Plugin configs
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-" vim-airline
+" Buffergator
 "
-
-" Enable the list of buffers
-let g:airline#extensions#tabline#enabled = 1
-
-" Show just the filename
-let g:airline#extensions#tabline#fnamemod = ':t'
-
-let g:airline_theme='solarized'
-" let g:airline_powerline_fonts = 1
+let g:buffergator_suppress_keymaps = 1
 
 "
 " CtrlP
@@ -422,34 +409,6 @@ let g:ctrlp_user_command = {
 
 " Use nearest .git dir
 let g:ctrlp_working_path_mode = 'ra'
-
-"
-" Buffergator
-"
-let g:buffergator_suppress_keymaps = 1
-
-"
-" incsearch.vim
-"
-map /  <Plug>(incsearch-forward)
-" map ?  <Plug>(incsearch-backward)
-" map g/ <Plug>(incsearch-stay)
-let g:incsearch#auto_nohlsearch = 1
-" map n  <Plug>(incsearch-nohl-n)
-" map N  <Plug>(incsearch-nohl-N)
-" map *  <Plug>(incsearch-nohl-*)
-" map #  <Plug>(incsearch-nohl-#)
-" map g* <Plug>(incsearch-nohl-g*)
-" map g# <Plug>(incsearch-nohl-g#)
-
-"
-" Solarized
-" Theme not accessible until Bundle command is run per
-" https://github.com/gmarik/Vundle.vim/issues/119#issuecomment-3089931
-call togglebg#map("<F4>")
-syntax enable
-"let g:solarized_termcolors=256
-colorscheme solarized
 
 "
 " EasyMotion
@@ -474,11 +433,11 @@ colorscheme solarized
 "map <Leader>k <Plug>(easymotion-k)
 
 "
-" Sneak
+" gist-vim
 "
-let g:sneak#streak = 1
-let g:sneak#s_next = 1
-let g:sneak#use_ic_scs = 1
+if has("mac")
+  let g:gist_clip_command = 'pbcopy'
+end
 
 "
 " gitgutter
@@ -490,6 +449,48 @@ let g:gitgutter_map_keys = 0 " No default keys
 " Gundo
 "
 "nnoremap <F5> :GundoToggle<CR>
+
+"
+" incsearch.vim
+"
+map /  <Plug>(incsearch-forward)
+" map ?  <Plug>(incsearch-backward)
+" map g/ <Plug>(incsearch-stay)
+let g:incsearch#auto_nohlsearch = 1
+" map n  <Plug>(incsearch-nohl-n)
+" map N  <Plug>(incsearch-nohl-N)
+" map *  <Plug>(incsearch-nohl-*)
+" map #  <Plug>(incsearch-nohl-#)
+" map g* <Plug>(incsearch-nohl-g*)
+" map g# <Plug>(incsearch-nohl-g#)
+
+"
+" Sneak
+"
+let g:sneak#streak = 1
+let g:sneak#s_next = 1
+let g:sneak#use_ic_scs = 1
+
+"
+" Solarized
+" Theme not accessible until Bundle command is run per
+" https://github.com/gmarik/Vundle.vim/issues/119#issuecomment-3089931
+call togglebg#map("<F4>")
+syntax enable
+"let g:solarized_termcolors=256
+colorscheme solarized
+
+"
+" vim-airline
+"
+" Enable the list of buffers
+let g:airline#extensions#tabline#enabled = 1
+
+" Show just the filename
+let g:airline#extensions#tabline#fnamemod = ':t'
+
+let g:airline_theme='solarized'
+" let g:airline_powerline_fonts = 1
 
 "
 " vim-json
