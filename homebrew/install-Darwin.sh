@@ -75,6 +75,7 @@ brew install zsh
 brew cask install 1password
 brew cask install alfred
 brew cask install amazon-zocalo
+brew cask install awareness
 brew cask install bartender
 brew cask install betterzipql
 brew cask install bittorrent-sync
