@@ -57,6 +57,7 @@ brew install ruby-build
 
 # Install other useful binaries.
 brew install ack
+brew install awscli
 brew install fish
 brew install git
 brew install jq
@@ -93,7 +94,7 @@ brew cask install lastpass
 brew cask install league-of-legends
 brew cask install licecap
 brew cask install lightpaper
-brew cask install macvim
+brew cask install macvim # yosemite issues per http://awebfactory.com/node/541
 brew cask install mailbox
 brew cask install nomachine
 brew cask install qlcolorcode
@@ -116,6 +117,10 @@ brew cask install xmarks-safari
 # Specific versions of software
 brew tap caskroom/versions
 brew cask install textexpander3
+
+# ==> As of v2.6, Alfred now has first-class support for Casks out of the box!
+# ==> So there's no more need for `brew cask alfred`. Go upgrade your Alfred! :)
+brew cask alfred # Modify Alfred's scope to include the Homebrew Cask apps:
 
 # Remove outdated versions from the cellar.
 brew cleanup
