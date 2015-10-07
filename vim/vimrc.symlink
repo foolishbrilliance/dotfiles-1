@@ -104,7 +104,7 @@ set tabstop=2
 if has('gui_running')   " from http://ethanschoonover.com/solarized/vim-colors-solarized
   cabbrev q <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'close' : 'q')<CR>
   set background=light
-  set guifont=Consolas:h18
+  set guifont=Consolas:h16
   "set clipboard=unnamed " share clipboard with OSX
   if exists('+macmeta')
     set macmeta
@@ -477,6 +477,7 @@ let g:sneak#use_ic_scs = 1
 " https://github.com/gmarik/Vundle.vim/issues/119#issuecomment-3089931
 call togglebg#map("<F4>")
 syntax enable
+" setting the following line makes iTerm vim color really strange (brown)
 "let g:solarized_termcolors=256
 colorscheme solarized
 
