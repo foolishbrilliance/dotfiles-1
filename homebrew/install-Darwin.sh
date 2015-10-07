@@ -94,7 +94,8 @@ brew cask install lastpass
 brew cask install league-of-legends
 brew cask install licecap
 brew cask install lightpaper
-brew cask install macvim # yosemite issues per http://awebfactory.com/node/541
+# brew cask install macvim # yosemite issues per http://awebfactory.com/node/541, use `brew install macvim` instead
+brew install macvim
 brew cask install mailbox
 brew cask install nomachine
 brew cask install qlcolorcode
