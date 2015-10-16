@@ -184,7 +184,7 @@ setup_fish () {
 
   info 'cloning fish dotfiles'
   if [[ ! -d $HOME/.config/fish ]]; then
-    git clone https://github.com/joech4n/fish-dotfiles.git $HOME/.config/fish
+    git clone git@github.com:joech4n/fish-dotfiles.git $HOME/.config/fish
     success 'fish dotfiles cloned'
   else
     success 'skipping. fish dotfiles already cloned'
