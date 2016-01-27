@@ -2,8 +2,8 @@
 
 if test ! $(which pip)
 then
-  echo "  Installing jsc for you."
-  sudo easy_install pip
-  pip install virtualenv
+  echo "  Installing python/pip for you."
+  brew install python       # pip should be installed by brew in python install
+  pip install --upgrade pip # Update pip
 fi
 

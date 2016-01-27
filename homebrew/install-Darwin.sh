@@ -55,6 +55,10 @@ brew install reattach-to-user-namespace --wrap-pbcopy-and-pbpaste
 brew install rbenv --HEAD
 brew install ruby-build
 
+# Python
+brew install python
+pip install --upgrade pip # Update pip
+
 # Install other useful binaries.
 brew install ack
 brew install awscli
