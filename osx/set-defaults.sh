@@ -34,7 +34,8 @@ defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
  
 # Set default text file handler -> Sublime Text 2
 # `osascript -e 'id of app "Sublime Text 2"'` to find bundle ID
-defaults write com.apple.LaunchServices LSHandlers -array-add '{LSHandlerContentType=public.plain-text;LSHandlerRoleAll=com.sublimetext.2;}'
+#defaults write com.apple.LaunchServices LSHandlers -array-add '{LSHandlerContentType=public.plain-text;LSHandlerRoleAll=com.sublimetext.2;}'
+defaults write com.apple.LaunchServices LSHandlers -array-add '{LSHandlerContentType=public.plain-text;LSHandlerRoleAll=org.vim.MacVim;}'
  
 ###############################################################################
 # Trackpad, mouse, keyboard, Bluetooth accessories, and input                 #
