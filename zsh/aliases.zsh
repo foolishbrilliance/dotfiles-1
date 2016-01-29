@@ -34,6 +34,7 @@ alias trimw="pbpaste |sed -e 's/[[[:space:]]\r\n]//g' |pbcopy" # Trim all whites
 alias ud='cd ~/dotfiles && git pull; cd -'
 alias utc='date -u'
 alias worddiff='git diff --word-diff=color'
+alias zpup='cd .zprezto && git pull && git submodule update --init --recursive; cd -' # Update prezto
 
 # grc overides for ls
 #   Made possible through contributions from generous benefactors like
