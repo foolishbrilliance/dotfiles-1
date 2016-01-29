@@ -58,6 +58,15 @@ setup_ohmyzsh () {
   fi
 }
 
+setup_prezto () {
+  if ! [ -d $HOME/.zprezto ]
+  then
+    info 'setup prezto'
+    git clone --recursive git@github.com:joech4n/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+    success 'prezto'
+  fi
+}
+
 link_file () {
   local src=$1 dst=$2
 
@@ -199,7 +208,7 @@ fi
 if [ $# -eq 0 ]; then
     setup_gitconfig
 fi
-setup_ohmyzsh
+setup_prezto
 install_dotfiles
 setup_vim
 setup_fish
