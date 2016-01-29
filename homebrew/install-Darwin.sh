@@ -64,6 +64,7 @@ brew install ack
 brew install awscli
 rew install fasd
 brew install fish
+brew install grc
 brew install git
 brew install jq
 brew install mtr

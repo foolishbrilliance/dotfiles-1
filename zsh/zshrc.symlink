@@ -89,11 +89,17 @@ fi
 ## END oh-my-zsh template
 END
 
+# Before prezto so prezto knows uses GNU version of tools
+# Use newer GNU core utilities (those that come with OS X are outdated)
+if command -v brew &>/dev/null; then
+  export PATH=$(brew --prefix coreutils)/libexec/gnubin:$PATH
+fi
+
 ## BEGIN prezto
 #
 # Executes commands at the start of an interactive session.
 #
-# Authors:
+ Authors:
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
@@ -154,10 +160,6 @@ unset config_files
 # My custom config
 ################################################################################
 
-if command -v brew &>/dev/null; then
-  # Newer GNU core utilities (those that come with OS X are outdated)
-  export PATH=$(brew --prefix coreutils)/libexec/gnubin:$PATH
-fi
 export PATH="$HOME/.dotfiles/bin:$HOME/bin.private:$HOME/bin:$HOME/bin.linux:/usr/local/bin:/usr/local/sbin:$PATH"
 export MANPATH="/usr/local/man:$MANPATH"
 
@@ -168,6 +170,7 @@ export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 # GRC colorizes nifty unix tools all over the place
 if (( $+commands[grc] )) && (( $+commands[brew] ))
 then
+  unalias grc # prezto git module aliases this
   source `brew --prefix`/etc/grc.bashrc
 fi
 

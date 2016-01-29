@@ -35,14 +35,3 @@ alias ud='cd ~/dotfiles && git pull; cd -'
 alias utc='date -u'
 alias worddiff='git diff --word-diff=color'
 alias zpup='cd .zprezto && git pull && git submodule update --init --recursive; cd -' # Update prezto
-
-# grc overides for ls
-#   Made possible through contributions from generous benefactors like
-#   `brew install coreutils`
-if $(gls &>/dev/null)
-then
-  alias ls="gls -F --color"
-  alias l="gls -lAh --color"
-  alias ll="gls -l --color"
-  alias la='gls -A --color'
-fi
