@@ -9,6 +9,7 @@ alias epoch='date +%s'
 epoch2utc() { perl -e "print scalar(localtime($1)) . ' UTC'" } # Usage: epoch2utc 1395249613
 alias e2u=epoch2utc
 alias fpath='[[ `uname` == "Darwin" ]] && cpath || readlink -f' # cpath is another alias, think "canonical path"
+alias glog="git log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
 alias github="open \`git remote -v | grep github.com | grep fetch | head -1 | field 2 | sed 's/git:/http:/g'\`"
 alias gityolo="git commit -am 'Updating everything.'; git push origin master"
 alias gpm="git push origin master"
@@ -20,6 +21,8 @@ listcert() { openssl s_client -showcerts -connect $1:443 </dev/null 2>/dev/null 
 alias lscert=listcert
 alias mt='truecrypt ~/Dropbox/random.things /media/truecrypt1'
 alias myip='curl -s checkip.amazonaws.com'
+# Pipe my public key to my clipboard.
+alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to pasteboard.'"
 alias ql='qlmanage -p "$@" >& /dev/null'
 alias reload!='. ~/.zshrc'
 alias removetimestamp='sed -i.bak "s/\(.*\)..:..:..$/\1/"'
@@ -32,4 +35,13 @@ alias ud='cd ~/dotfiles && git pull; cd -'
 alias utc='date -u'
 alias worddiff='git diff --word-diff=color'
 
-
+# grc overides for ls
+#   Made possible through contributions from generous benefactors like
+#   `brew install coreutils`
+if $(gls &>/dev/null)
+then
+  alias ls="gls -F --color"
+  alias l="gls -lAh --color"
+  alias ll="gls -l --color"
+  alias la='gls -A --color'
+fi

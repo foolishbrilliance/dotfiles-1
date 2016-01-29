@@ -1,3 +1,4 @@
+: <<'END'
 ## BEGIN oh-my-zsh template
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
@@ -86,6 +87,24 @@ fi
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 ## END oh-my-zsh template
+END
+
+## BEGIN prezto
+#
+# Executes commands at the start of an interactive session.
+#
+# Authors:
+#   Sorin Ionescu <sorin.ionescu@gmail.com>
+#
+
+# Source Prezto.
+if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+fi
+
+# Customize to your needs...
+## END prezto
+
 
 ################################################################################
 ## BEGIN holman/dotfiles
@@ -146,3 +165,15 @@ export MANPATH="/usr/local/man:$MANPATH"
 # --appdir=/my/path changes the path where the symlinks to the applications (above) will be generated. This is commonly used to create the links in the root Applications directory instead of the home Applications directory by specifying --appdir=/Applications. Default is ~/Applications.
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
+# GRC colorizes nifty unix tools all over the place
+if (( $+commands[grc] )) && (( $+commands[brew] ))
+then
+  source `brew --prefix`/etc/grc.bashrc
+fi
+
+# Ruby 
+# init rbenv according to man page
+if (( $+commands[rbenv] ))
+then
+  eval "$(rbenv init -)"
+fi
