@@ -63,6 +63,9 @@ setup_prezto () {
   then
     info 'setup prezto'
     git clone --recursive git@github.com:joech4n/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+    zsh <<'EOF'
+    setopt EXTENDED_GLOB; for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"; done
+EOF
     success 'prezto'
   fi
 }
