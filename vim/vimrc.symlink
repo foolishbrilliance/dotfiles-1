@@ -216,8 +216,8 @@ nmap <leader>h :bprevious<CR>
 " Close the current buffer and move to the previous one. This replicates the idea of closing a tab
 nmap <leader>bq :bp <BAR> bd #<CR>
 " delete (close) buffer
-nmap <leader>bd :bd<CR>
-nmap <leader>b!! :bd!<CR>
+nmap <leader>bdd :bd<CR>
+nmap <leader>b!! :bd<CR>
 nmap <leader>bd! :bd!<CR>
 " last active buffer
 nmap <BS> :b#<CR>
