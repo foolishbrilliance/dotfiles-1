@@ -20,6 +20,7 @@ alias krbcurl='curl --negotiate -u :'
 listcert() { openssl s_client -showcerts -connect $1:443 </dev/null 2>/dev/null | openssl x509 -inform PEM -text } # Usage: listcert google.com
 alias lscert=listcert
 alias mt='truecrypt ~/Dropbox/random.things /media/truecrypt1'
+alias msgviewer='java -jar ~/Dropbox/Thumbdrive/PortableApps/MSGViewer-1.9/MSGViewer.jar'
 alias myip='curl -s checkip.amazonaws.com'
 # Pipe my public key to my clipboard.
 alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to pasteboard.'"
