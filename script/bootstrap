@@ -158,17 +158,16 @@ install_dotfiles () {
 }
 
 setup_vim () {
-  info 'installing NeoBundle'
-  NeoBundle_DIR=~/.dotfiles/vim/vim.symlink/bundle/NeoBundle.vim
-  if [[ ! -d $NeoBundle_DIR ]]; then
-    git clone https://github.com/Shougo/neobundle.vim.git $NeoBundle_DIR
-    success "NeoBundle installed"
+  info 'installing dein'
+  DEIN_DIR=~/.vim/repos/github.com/Shougo/dein.vim
+  if [[ ! -d $DEIN_DIR ]]; then
+    curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > /tmp/dein-installer.sh
+    chmod +x /tmp/dein-installer.sh
+    /tmp/dein-installer.sh ~/.vim
+    success "dein installed"
   else
-    success "skipping. NeoBundle already installed"
+    success "skipping. dein already installed"
   fi
-  info 'installing vim plugins'
-  vim +NeoBundleInstall! +qall
-  success "vim plugins now up to date"
 }
 
 # Required for other install-Darwin.sh scripts

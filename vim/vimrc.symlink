@@ -322,69 +322,71 @@ map <Leader>v  :so ~/.vimrc<CR>
 " Auto load .vimrc on write
 au! BufWritePost .source vimrc %
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" NeoBundle
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Note: Skip initialization for vim-tiny or vim-small.
-if !1 | finish | endif
-
-if has('vim_starting')
- if &compatible
-   set nocompatible               " Be iMproved
- endif
-
- " Required:
- set runtimepath+=~/.vim/bundle/neobundle.vim/
+"dein Scripts-----------------------------
+if &compatible
+  set nocompatible               " Be iMproved
 endif
 
 " Required:
-call neobundle#begin(expand('~/.vim/bundle/'))
+set runtimepath^=~/.vim/repos/github.com/Shougo/dein.vim
 
-" Let NeoBundle manage NeoBundle
 " Required:
-NeoBundleFetch 'Shougo/neobundle.vim'
+call dein#begin(expand('~/.vim'))
 
-" My Bundles here:
-" Refer to |:NeoBundle-examples|.
-" Note: You don't set neobundle setting in .gvimrc!
+" Let dein manage dein
+" Required:
+call dein#add('Shougo/dein.vim')
+
+" Add or remove your plugins here:
+" My plugins here:
 " DISABLED
-"NeoBundle 'tpope/vim-vinegar' "I like filebeagle more
-"NeoBundle 'Lokaltog/vim-easymotion'
-"NeoBundle 'jeetsukumaran/vim-buffergator'
-"NeoBundle 'jooize/vim-colemak'
-"NeoBundle 'scrooloose/nerdtree'
-"NeoBundle 'scrooloose/syntastic'
-"NeoBundle 'sjl/gundo.vim.git'
-NeoBundle 'airblade/vim-gitgutter'
-NeoBundle 'altercation/vim-colors-solarized'
-NeoBundle 'bling/vim-airline'
-NeoBundle 'elzr/vim-json'
-NeoBundle 'gmarik/Vundle.vim'
-NeoBundle 'haya14busa/incsearch.vim', 'dev' "dev branch for MacVim paste fix: https://github.com/haya14busa/incsearch.vim/issues/35#issuecomment-67504976
-NeoBundle 'jeetsukumaran/vim-filebeagle'
-NeoBundle 'justinmk/vim-sneak'
-NeoBundle 'kien/ctrlp.vim'
-NeoBundle 'mbbill/undotree'
-NeoBundle 'michaeljsmith/vim-indent-object'
-NeoBundle 'tpope/vim-abolish'
-NeoBundle 'tpope/vim-commentary'
-NeoBundle 'tpope/vim-eunuch'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'tpope/vim-repeat'
-NeoBundle 'tpope/vim-sensible'
-NeoBundle 'tpope/vim-sleuth'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'tpope/vim-unimpaired'
-NeoBundle 'mattn/gist-vim', {'depends': 'mattn/webapi-vim'}
+"call dein#add('tpope/vim-vinegar') "I like filebeagle more
+"call dein#add('Lokaltog/vim-easymotion')
+"call dein#add('jeetsukumaran/vim-buffergator')
+"call dein#add('jooize/vim-colemak')
+"call dein#add('scrooloose/nerdtree')
+"call dein#add('scrooloose/syntastic')
+"call dein#add('sjl/gundo.vim.git')
+call dein#add('airblade/vim-gitgutter')
+call dein#add('altercation/vim-colors-solarized')
+call dein#add('bling/vim-airline')
+call dein#add('vim-airline/vim-airline-themes')
+call dein#add('elzr/vim-json')
+call dein#add('gmarik/Vundle.vim')
+call dein#add('haya14busa/incsearch.vim', { 'rev': 'dev'}) "dev branch for MacVim paste fix: https://github.com/haya14busa/incsearch.vim/issues/35#issuecomment-67504976
+call dein#add('jeetsukumaran/vim-filebeagle')
+call dein#add('justinmk/vim-sneak')
+call dein#add('kien/ctrlp.vim')
+call dein#add('mbbill/undotree')
+call dein#add('michaeljsmith/vim-indent-object')
+call dein#add('tpope/vim-abolish')
+call dein#add('tpope/vim-commentary')
+call dein#add('tpope/vim-eunuch')
+call dein#add('tpope/vim-fugitive')
+call dein#add('tpope/vim-repeat')
+call dein#add('tpope/vim-sensible')
+call dein#add('tpope/vim-sleuth')
+call dein#add('tpope/vim-surround')
+call dein#add('tpope/vim-unimpaired')
+call dein#add('mattn/webapi-vim') "required for mattn/gist-vim
+call dein#add('mattn/gist-vim') " depends on mattn/webapi-vim
+call dein#add('bkad/CamelCaseMotion')
 
-call neobundle#end()
+" You can specify revision/branch/tag.
+"call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
+
+" Required:
+call dein#end()
 
 " Required:
 filetype plugin indent on
 
-" If there are uninstalled bundles found on startup,
-" this will conveniently prompt you to install them.
-NeoBundleCheck
+" If you want to install not installed plugins on startup.
+if dein#check_install()
+  call dein#install()
+endif
+
+"End dein Scripts-------------------------
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin configs
