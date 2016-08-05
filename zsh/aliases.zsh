@@ -34,5 +34,6 @@ alias ss="open /System/Library/Frameworks/ScreenSaver.framework/Versions/A/Resou
 alias trimw="pbpaste |sed -e 's/[[[:space:]]\r\n]//g' |pbcopy" # Trim all whitespace
 alias ud='cd ~/dotfiles && git pull; cd -'
 alias utc='date -u'
+alias vi='vim'
 alias worddiff='git diff --word-diff=color'
 alias zpup='cd .zprezto && git pull && git submodule update --init --recursive; cd -' # Update prezto
