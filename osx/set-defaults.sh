@@ -72,9 +72,6 @@ defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int
 # Stop iTunes from responding to the keyboard media keys
 #launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/null
  
-# UNTESTED: Add Colemak input source per http://apple.stackexchange.com/a/127250
-#defaults write com.apple.HIToolbox AppleEnabledInputSources -array-add '<dict><key>InputSourceKind</key><string>Keyboard Layout</string><key>KeyboardLayout ID</key><integer>12825</integer><key>KeyboardLayout Name</key><string>Colemak</string></dict>'
- 
 # ==============================================
 # Set keyboard preferences (global?)
 # From https://github.com/hjuutilainen/dotfiles/blob/9198bacc8e8ea63bf441a3e313a93a2159037a34/bin/osx-system-defaults.sh#L84-L96
@@ -86,7 +83,10 @@ defaults write /Library/Preferences/com.apple.HIToolbox AppleDefaultAsciiInputSo
 defaults write /Library/Preferences/com.apple.HIToolbox AppleEnabledInputSources -array '{ InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 12825; "KeyboardLayout Name" = Colemak; }'
 defaults write /Library/Preferences/com.apple.HIToolbox AppleInputSourceHistory -array '{ InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 12825; "KeyboardLayout Name" = Colemak; }'
 defaults write /Library/Preferences/com.apple.HIToolbox AppleSelectedInputSources -array '{ InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 12825; "KeyboardLayout Name" = Colemak; }'
- 
+
+# UNTESTED: Add Colemak input source per http://apple.stackexchange.com/a/127250
+#defaults write com.apple.HIToolbox AppleEnabledInputSources -array-add '<dict><key>InputSourceKind</key><string>Keyboard Layout</string><key>KeyboardLayout ID</key><integer>12825</integer><key>KeyboardLayout Name</key><string>Colemak</string></dict>'
+
 # Delete the default layouts (US) (optional)
 #defaults delete /Library/Preferences/com.apple.HIToolbox AppleEnabledInputSources
 
