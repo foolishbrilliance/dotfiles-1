@@ -101,6 +101,7 @@ brew cask install licecap
 brew cask install lightpaper
 # brew cask install macvim # yosemite issues per http://awebfactory.com/node/541, use `brew install macvim` instead
 brew install macvim
+brew linkapps macvim
 brew cask install nomachine
 brew cask install qlcolorcode
 brew cask install qlimagesize
