@@ -81,11 +81,10 @@ brew install zsh
 # Casks
 brew cask install 1password
 brew cask install alfred
-brew cask install amazon-zocalo
+brew cask install amazon-workdocs
 brew cask install awareness
 brew cask install bartender
 brew cask install betterzipql
-brew cask install bittorrent-sync
 brew cask install cord
 brew cask install crashplan
 brew cask install cyberduck
@@ -102,7 +101,6 @@ brew cask install licecap
 brew cask install lightpaper
 # brew cask install macvim # yosemite issues per http://awebfactory.com/node/541, use `brew install macvim` instead
 brew install macvim
-brew cask install mailbox
 brew cask install nomachine
 brew cask install qlcolorcode
 brew cask install qlimagesize
@@ -123,11 +121,11 @@ brew cask install xmarks-safari
 
 # Specific versions of software
 brew tap caskroom/versions
-brew cask install textexpander3
+brew cask install textexpander3 || echo "this cask may have been removed per https://github.com/caskroom/homebrew-versions/pull/1300, if this fails, try installing from https://cdn.smilesoftware.com/TextExpander_3.4.2.zip"
 
 # ==> As of v2.6, Alfred now has first-class support for Casks out of the box!
 # ==> So there's no more need for `brew cask alfred`. Go upgrade your Alfred! :)
-brew cask alfred # Modify Alfred's scope to include the Homebrew Cask apps:
+# brew cask alfred # Modify Alfred's scope to include the Homebrew Cask apps:
 
 # Remove outdated versions from the cellar.
 brew cleanup
