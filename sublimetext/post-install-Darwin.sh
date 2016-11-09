@@ -27,4 +27,5 @@ if [ $CHECKS_PASS == true ]; then
   mv "${SUBL_SETTINGS}" "${SUBL_SETTINGS}.orig"
   ln -s "${DB_SETTINGS}" "${SUBL_SETTINGS}"
 else
+  echo "Did nothing."
 fi
