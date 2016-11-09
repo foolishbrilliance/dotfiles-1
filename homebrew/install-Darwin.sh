@@ -82,6 +82,7 @@ brew install zsh
 brew cask install 1password
 brew cask install alfred
 brew cask install amazon-workdocs
+brew cask install appcleaner
 brew cask install awareness
 brew cask install bartender
 brew cask install betterzipql
