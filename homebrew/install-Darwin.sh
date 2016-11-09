@@ -62,7 +62,7 @@ pip install --upgrade pip # Update pip
 # Install other useful binaries.
 brew install ack
 brew install awscli
-rew install fasd
+brew install fasd
 brew install fish
 brew install grc
 brew install git
