@@ -26,7 +26,5 @@ if [ $CHECKS_PASS == true ]; then
   echo "Configuring Dropbox sync for SublimeText2. Backing up current settings to ${SUBL_SETTINGS}.orig"
   mv "${SUBL_SETTINGS}" "${SUBL_SETTINGS}.orig"
   ln -s "${DB_SETTINGS}" "${SUBL_SETTINGS}"
-  exit 0
 else
-  exit 1
 fi
