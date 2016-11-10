@@ -82,6 +82,7 @@ brew install zsh
 brew cask install 1password
 brew cask install alfred
 brew cask install amazon-workdocs
+brew cask install appcleaner
 brew cask install awareness
 brew cask install bartender
 brew cask install betterzipql
@@ -102,7 +103,9 @@ brew cask install lightpaper
 # brew cask install macvim # yosemite issues per http://awebfactory.com/node/541, use `brew install macvim` instead
 brew install macvim
 brew linkapps macvim
+brew cask install moom
 brew cask install nomachine
+brew cask install nvalt
 brew cask install qlcolorcode
 brew cask install qlimagesize
 brew cask install qlmarkdown
