@@ -104,7 +104,7 @@ set tabstop=2
 if has('gui_running')   " from http://ethanschoonover.com/solarized/vim-colors-solarized
   cabbrev q <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'close' : 'q')<CR>
   set background=light
-  set guifont=Consolas:h16
+  set guifont=Menlo:h16
   "set clipboard=unnamed " share clipboard with OSX
   if exists('+macmeta')
     set macmeta
