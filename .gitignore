@@ -2,4 +2,6 @@ git/gitconfig.symlink
 *.log
 
 system/maid.symlink/maid.log
-vim/vim.symlink/bundle/*
+
+# don't store plugins as they get updated/downloaded via dein
+vim/vim.symlink/plugins/*
