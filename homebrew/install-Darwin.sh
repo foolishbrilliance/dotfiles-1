@@ -104,6 +104,7 @@ brew cask install lightpaper
 brew install macvim
 brew linkapps macvim
 brew cask install moom
+brew cask install node
 brew cask install nomachine
 brew cask install nvalt
 brew cask install qlcolorcode
