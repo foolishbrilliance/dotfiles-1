@@ -356,12 +356,12 @@ call dein#add('Shougo/dein.vim')
 "call dein#add('scrooloose/nerdtree')
 "call dein#add('scrooloose/syntastic')
 "call dein#add('sjl/gundo.vim.git')
+"call dein#add('gmarik/Vundle.vim')
 call dein#add('airblade/vim-gitgutter')
 call dein#add('altercation/vim-colors-solarized')
 call dein#add('bling/vim-airline')
 call dein#add('vim-airline/vim-airline-themes')
 call dein#add('elzr/vim-json')
-call dein#add('gmarik/Vundle.vim')
 call dein#add('haya14busa/incsearch.vim', { 'rev': 'dev'}) "dev branch for MacVim paste fix: https://github.com/haya14busa/incsearch.vim/issues/35#issuecomment-67504976
 call dein#add('jeetsukumaran/vim-filebeagle')
 call dein#add('justinmk/vim-sneak')
@@ -380,6 +380,7 @@ call dein#add('tpope/vim-unimpaired')
 call dein#add('mattn/webapi-vim') "required for mattn/gist-vim
 call dein#add('mattn/gist-vim') " depends on mattn/webapi-vim
 call dein#add('bkad/CamelCaseMotion')
+call dein#add('reedes/vim-wordy')
 
 " You can specify revision/branch/tag.
 "call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
