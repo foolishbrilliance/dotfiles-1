@@ -187,3 +187,7 @@ if (( $+commands[rbenv] ))
 then
   eval "$(rbenv init -)"
 fi
+
+# GPG: You should always add the following lines to your .bashrc or whatever initialization file is used for all shell invocations. Per https://www.gnupg.org/documentation/manuals/gnupg/Invoking-GPG_002dAGENT.html
+GPG_TTY=$(tty)
+export GPG_TTY
