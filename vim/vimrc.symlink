@@ -316,6 +316,15 @@ function! s:scratch_maps() abort
   nnoremap          <buffer> =f :Scratch<Bar>setfiletype<Space>
 endfunction
 
+" Run this on a word, like "INIT", and you will get:
+" ################################################################################
+" ##################################### INIT #####################################
+" ################################################################################
+" per
+" https://www.reddit.com/r/vim/comments/4kjgmz/weekly_vim_tips_and_tricks_thread_11/d3fdm37/
+" and http://vi.stackexchange.com/a/421/307
+nnoremap <C-b> :center 80<cr>hhv0r#A<space><esc>40A#<esc>d80<bar>YppVr#kk.
+
 " Quickly edit/reload the vimrc file
 "nmap <silent> <leader>sv :e $MYVIMRC<CR>
 map <Leader>v  :so ~/.vimrc<CR>
