@@ -28,6 +28,7 @@ echo "  DONE!"
 echo "What's next? How about..."
 echo "* Setup iTerm: Load ~/Dropbox/Documents/Application Files/iTerm2/com.googlecode.iterm2.plist in iTerm Preferences->Load peferences from a custom folder or URL->Browse"
 echo "* Install these from the Mac App Store:"
+echo Current for Facebook
 echo Evernote
 echo Growl
 echo Pixelmator
