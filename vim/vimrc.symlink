@@ -79,6 +79,7 @@ set report=0            " Report when more than 0 lines affected
 set report=1            " always report changes
 set scrolloff=1         " Always show one line below or above cursor for context
 set shortmess=I         " Don't show the startup message
+set showcmd             " Show commands being typed
 set showmatch           " Highlight matching brace when typing second one
 set sidescrolloff=5
 set smartcase           " Ignore case when doing a search...
