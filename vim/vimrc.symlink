@@ -133,6 +133,9 @@ endif
 " change the mapleader from \ to , (mapleader will be used for custom mappings)
 let mapleader=","
 
+" Use space instead of : to save pinkies
+noremap <space> :
+
 " use :wq! instead
 nmap ZZ <Nop>
 
