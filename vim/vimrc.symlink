@@ -169,7 +169,7 @@ cnoremap <C-O>      <Up>
 
 " [S]plit line (sister to [J]oin lines)
 " cc still substitutes the line like S would
-nnoremap S i<CR><Esc>^mwgk:silent! s/\v +$//<CR>:noh<CR>
+nnoremap <Leader>S i<CR><Esc>^mwgk:silent! s/\v +$//<CR>:noh<CR>
 
 " visually select the last paste or change
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
@@ -323,7 +323,11 @@ endfunction
 " per
 " https://www.reddit.com/r/vim/comments/4kjgmz/weekly_vim_tips_and_tricks_thread_11/d3fdm37/
 " and http://vi.stackexchange.com/a/421/307
-nnoremap <C-B> :center 80<cr>hhv0r#A<space><esc>40A#<esc>d80<bar>YppVr#kk.
+nnoremap <Leader>bl :center 80<cr>hhv0r#A<space><esc>40A#<esc>d80<bar>YppVr#kk.
+
+" Toggle Spell-check
+imap <Leader>s <C-o>:setlocal spell! spelllang=en_us<CR>
+nmap <Leader>s :setlocal spell! spelllang=en_us<CR>
 
 " Quickly edit/reload the vimrc file
 "nmap <silent> <leader>sv :e $MYVIMRC<CR>
@@ -545,10 +549,6 @@ augroup END
 
 " Timestamps
 " map ,t <Esc>o# Created: TIME<Esc>ASTAMP by foolishbrilliance<CR># Last Modified: TIME<Esc>ASTAMP by foolishbrilliance<Esc>
-
-" Toggle Spell-check
-" nmap ,s <C-o>:setlocal spell! spelllang=en_gb<CR>
-" nmap ,s :setlocal spell! spelllang=en_gb<CR>
 
 "
 " for colemak-vim
