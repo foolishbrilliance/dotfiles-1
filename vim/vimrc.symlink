@@ -381,6 +381,7 @@ call dein#add('mattn/webapi-vim') "required for mattn/gist-vim
 call dein#add('mattn/gist-vim') " depends on mattn/webapi-vim
 call dein#add('bkad/CamelCaseMotion')
 call dein#add('reedes/vim-wordy')
+call dein#add('mtth/scratch.vim')
 
 " You can specify revision/branch/tag.
 "call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
