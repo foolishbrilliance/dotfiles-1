@@ -103,7 +103,7 @@ set tabstop=2
 " gVIM
 "
 if has('gui_running')   " from http://ethanschoonover.com/solarized/vim-colors-solarized
-  cabbrev q <C-R>=(getcmdtype()==':' && getcmdpos()==1 ? 'close' : 'q')<CR>
+  cabbrev q <C-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'close' : 'q')<CR>
   set background=light
   set guifont=Menlo:h16
   "set clipboard=unnamed " share clipboard with OSX
@@ -142,7 +142,7 @@ nnoremap ZZ <Nop>
 " avoid <Esc>
 inoremap <Leader><Leader> <Esc>`^
 inoremap jj <Esc>`^
-inoremap <C-C> <Esc>`^
+inoremap <C-c> <Esc>`^
 " Not sure if it's a bad idea to remap <Esc>
 "inoremap <Esc> <Esc>`^
 noremap  <F1>   <Esc>
@@ -154,13 +154,13 @@ inoremap zne <Esc>:w<CR>
 nnoremap zne <Esc>:w<CR>
 
 " call actions from other modes
-inoremap <M-O>      <C-O>o
-inoremap <M-O>      <C-O>O
-inoremap <M-H>      <Left>
-inoremap <M-I>      <C-O>^
-inoremap <M-A>      <C-O>$
-noremap! <C-J>      <Down>
-noremap! <C-K><C-K> <Up>
+inoremap <M-o>      <C-o>o
+inoremap <M-O>      <C-o>O
+inoremap <M-h>      <Left>
+inoremap <M-i>      <C-o>^
+inoremap <M-a>      <C-o>$
+noremap! <C-j>      <Down>
+noremap! <C-k><C-k> <Up>
 
 nnoremap Y  y$
 
@@ -168,8 +168,8 @@ nnoremap gs :%s/
 xnoremap gs :s/
 
 " expands %% to current file's directory in command-line mode
-cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<CR>
-cnoremap <C-O>      <Up>
+cnoremap %% <C-r>=fnameescape(expand('%:h')).'/'<CR>
+cnoremap <C-o>      <Up>
 
 " [S]plit line (sister to [J]oin lines)
 " cc still substitutes the line like S would
@@ -185,17 +185,17 @@ nnoremap <silent><CR> :noh<return><CR>
 nnoremap <Leader>f <Esc>gq}<CR>
 
 " Print modeline
-inoremap <C-X>^ <C-R>=substitute(&commentstring,' \=%s\>'," -*- ".&ft." -*- vim:set ft=".&ft." ".(&et?"et":"noet")." sw=".&sw." sts=".&sts.':','')<CR>
+inoremap <C-x>^ <C-r>=substitute(&commentstring,' \=%s\>'," -*- ".&ft." -*- vim:set ft=".&ft." ".(&et?"et":"noet")." sw=".&sw." sts=".&sts.':','')<CR>
 
 if exists(":nohls")
-  nnoremap <silent> <C-L> :nohls<CR><C-L>
+  nnoremap <silent> <C-l> :nohls<CR><C-l>
 endif
 
 " Invert background
 command! -bar Invert :let &background = (&background=="light"?"dark":"light")
 
 " Transpose words
-nnoremap <silent> gw    "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><C-O><C-L>
+nnoremap <silent> gw    "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><C-o><C-l>
 
 "
 " tabs
@@ -224,7 +224,7 @@ nnoremap <Leader>bdd :bd<CR>
 nnoremap <Leader>b!! :bd<CR>
 nnoremap <Leader>bd! :bd!<CR>
 nnoremap Q :bdelete<CR>
-nnoremap <C-Q> :bd!<CR>
+nnoremap <C-q> :bd!<CR>
 
 " last active buffer
 nnoremap <BS> :b#<CR>
@@ -249,11 +249,11 @@ nnoremap <Leader>ee :BuffergatorMruCycleNext<CR>
 "
 " windows
 "
-nnoremap <C-H> <C-W>h
-nnoremap <C-N> <C-W>j
-nnoremap <C-E> <C-W>k
-nnoremap <C-I> <C-W>l
-nnoremap <Leader>wc <C-W>c
+nnoremap <C-h> <C-w>h
+nnoremap <C-n> <C-w>j
+nnoremap <C-e> <C-w>k
+nnoremap <C-i> <C-w>l
+nnoremap <Leader>wc <C-w>c
 
 " Remove trailing whitespace
 " http://vim.wikia.com/wiki/Remove_unwanted_spaces
@@ -282,7 +282,7 @@ nnoremap <Leader>y :'a,'b s/#//
 nnoremap <Leader>n YPgccj<Esc>
 
 " Insert timestamps
-inoremap <silent> <C-G><C-T> <C-R>=repeat(complete(col('.'),map(["%Y-%m-%d %H:%M:%S","%a, %d %b %Y %H:%M:%S %z","%Y %b %d","%d-%b-%y","%a %b %d %T %Z %Y"],'strftime(v:val)')+[localtime()]),0)<CR>
+inoremap <silent> <C-g><C-t> <C-r>=repeat(complete(col('.'),map(["%Y-%m-%d %H:%M:%S","%a, %d %b %Y %H:%M:%S %z","%Y %b %d","%d-%b-%y","%a %b %d %T %Z %Y"],'strftime(v:val)')+[localtime()]),0)<CR>
 
 " " Automatically set paste mode in Vim when pasting in insert mode per
 " " https://coderwall.com/p/if9mda/automatically-set-paste-mode-in-vim-when-pasting-in-insert-mode
@@ -333,7 +333,7 @@ endfunction
 nnoremap <Leader>bl :center 80<CR>hhv0r#A<Space><Esc>40A#<Esc>d80<Bar>YppVr#kk.
 
 " Toggle Spell-check
-inoremap <Leader>s <C-O>:setlocal spell! spelllang=en_us<CR>
+inoremap <Leader>s <C-o>:setlocal spell! spelllang=en_us<CR>
 nnoremap <Leader>s :setlocal spell! spelllang=en_us<CR>
 
 " Quickly edit/reload the vimrc file
@@ -423,7 +423,7 @@ let g:buffergator_suppress_keymaps = 1
 "
 " CtrlP
 "
-let g:ctrlp_map = '<C-P>'
+let g:ctrlp_map = '<C-p>'
 let g:ctrlp_cmd = 'CtrlP' " quick buffer switching
 
 let g:ctrlp_user_command = {
@@ -568,12 +568,12 @@ augroup END
 "
 " for colemak-vim
 "
-" Fix for colemak.vim keymap collision. tpope/vim-fugitive's maps y<C-G>
+" Fix for colemak.vim keymap collision. tpope/vim-fugitive's maps y<C-g>
 " and colemak.vim maps 'y' to 'w' (word). In combination this stalls 'y'
-" because Vim must wait to see if the user wants to press <C-G> as well.
+" because Vim must wait to see if the user wants to press <C-g> as well.
 "augroup RemoveFugitiveMappingForColemak
 "    autocmd!
-"    autocmd BufEnter * silent! execute "nunmap <buffer> <silent> y<C-G>"
+"    autocmd BufEnter * silent! execute "nunmap <buffer> <silent> y<C-g>"
 "augroup END
 
 " It is recommended to load colemak.vim after all other Vim scripts. If you
