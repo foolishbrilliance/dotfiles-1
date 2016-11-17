@@ -145,8 +145,8 @@ inoremap jj <Esc>`^
 inoremap <C-C> <Esc>`^
 " Not sure if it's a bad idea to remap <Esc>
 "inoremap <Esc> <Esc>`^
-map  <F1>   <Esc>
-map! <F1>   <Esc>
+noremap  <F1>   <Esc>
+noremap! <F1>   <Esc>
 
 " quick write
 "inoremap zne <Esc>:w<CR>`^i
@@ -338,7 +338,7 @@ nnoremap <Leader>s :setlocal spell! spelllang=en_us<CR>
 
 " Quickly edit/reload the vimrc file
 "nmap <silent> <leader>sv :e $MYVIMRC<CR>
-map <Leader>v  :so ~/.vimrc<CR>
+noremap <Leader>v  :so ~/.vimrc<CR>
 " Auto load .vimrc on write
 au! BufWritePost .source vimrc %
 
@@ -485,7 +485,7 @@ let g:hardtime_allow_different_key = 1
 "
 " incsearch.vim
 "
-map /  <Plug>(incsearch-forward)
+noremap /  <Plug>(incsearch-forward)
 " map ?  <Plug>(incsearch-backward)
 " map g/ <Plug>(incsearch-stay)
 let g:incsearch#auto_nohlsearch = 1
