@@ -223,6 +223,9 @@ nmap <leader>bq :bp <BAR> bd #<CR>
 nmap <leader>bdd :bd<CR>
 nmap <leader>b!! :bd<CR>
 nmap <leader>bd! :bd!<CR>
+nnoremap Q :bdelete<CR>
+nnoremap <C-q> :bd!<CR>
+
 " last active buffer
 nmap <BS> :b#<CR>
 
@@ -276,7 +279,7 @@ nmap <space>z :'a,'b s/^/#/
 nmap <space>y :'a,'b s/#//
 
 " Duplicate line, comment original using vim-commentary
-nmap <space>n YPgccj<Esc>
+nnoremap <space>n YPgccj<Esc>
 
 " Insert timestamps
 inoremap <silent> <C-G><C-T> <C-R>=repeat(complete(col('.'),map(["%Y-%m-%d %H:%M:%S","%a, %d %b %Y %H:%M:%S %z","%Y %b %d","%d-%b-%y","%a %b %d %T %Z %Y"],'strftime(v:val)')+[localtime()]),0)<CR>
