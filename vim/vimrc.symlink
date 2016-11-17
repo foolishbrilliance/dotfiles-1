@@ -270,16 +270,16 @@ function! StripTrailingWhitespace()
 endfunction
 
 " Blank line above
-nnoremap <space>O O<Esc>
+nnoremap <leader>O O<Esc>
 " Blank line below
-nnoremap <space>o o<Esc>
+nnoremap <leader>o o<Esc>
 
 " Comment and uncomment out a section (uses marks 'a and 'b)
-nnoremap <space>z :'a,'b s/^/#/
-nnoremap <space>y :'a,'b s/#//
+nnoremap <leader>z :'a,'b s/^/#/
+nnoremap <leader>y :'a,'b s/#//
 
 " Duplicate line, comment original using vim-commentary
-nnoremap <space>n YPgccj<Esc>
+nnoremap <leader>n YPgccj<Esc>
 
 " Insert timestamps
 inoremap <silent> <C-G><C-T> <C-R>=repeat(complete(col('.'),map(["%Y-%m-%d %H:%M:%S","%a, %d %b %Y %H:%M:%S %z","%Y %b %d","%d-%b-%y","%a %b %d %T %Z %Y"],'strftime(v:val)')+[localtime()]),0)<CR>
@@ -337,8 +337,9 @@ inoremap <Leader>s <C-o>:setlocal spell! spelllang=en_us<CR>
 nnoremap <Leader>s :setlocal spell! spelllang=en_us<CR>
 
 " Quickly edit/reload the vimrc file
-"nmap <silent> <leader>sv :e $MYVIMRC<CR>
-noremap <Leader>v  :so ~/.vimrc<CR>
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <Leader>v :so $MYVIMRC<CR>
+
 " Auto load .vimrc on write
 au! BufWritePost .source vimrc %
 
