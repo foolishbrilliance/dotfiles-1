@@ -103,7 +103,7 @@ set tabstop=2
 " gVIM
 "
 if has('gui_running')   " from http://ethanschoonover.com/solarized/vim-colors-solarized
-  cabbrev q <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'close' : 'q')<CR>
+  cabbrev q <C-R>=(getcmdtype()==':' && getcmdpos()==1 ? 'close' : 'q')<CR>
   set background=light
   set guifont=Menlo:h16
   "set clipboard=unnamed " share clipboard with OSX
@@ -134,12 +134,12 @@ endif
 let mapleader=","
 
 " Use space instead of : to save pinkies
-noremap <space> :
+noremap <Space> :
 
 " use :wq! instead
 nnoremap ZZ <Nop>
 
-" avoid <esc>
+" avoid <Esc>
 inoremap <Leader><Leader> <Esc>`^
 inoremap jj <Esc>`^
 inoremap <C-C> <Esc>`^
@@ -154,11 +154,11 @@ inoremap zne <Esc>:w<CR>
 nnoremap zne <Esc>:w<CR>
 
 " call actions from other modes
-inoremap <M-o>      <C-O>o
+inoremap <M-O>      <C-O>o
 inoremap <M-O>      <C-O>O
-inoremap <M-h>      <Left>
-inoremap <M-i>      <C-O>^
-inoremap <M-a>      <C-O>$
+inoremap <M-H>      <Left>
+inoremap <M-I>      <C-O>^
+inoremap <M-A>      <C-O>$
 noremap! <C-J>      <Down>
 noremap! <C-K><C-K> <Up>
 
@@ -195,12 +195,12 @@ endif
 command! -bar Invert :let &background = (&background=="light"?"dark":"light")
 
 " Transpose words
-nnoremap <silent> gw    "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<cr><c-o><c-l>
+nnoremap <silent> gw    "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><C-O><C-L>
 
 "
 " tabs
 "
-nnoremap <Leader>tl :BuffergatorTabsToggle<cr>
+nnoremap <Leader>tl :BuffergatorTabsToggle<CR>
 nnoremap <Leader>ti :tabnext<CR>
 nnoremap <Leader>th :tabprev<CR>
 nnoremap <Leader>tn :tabnew<CR>
@@ -211,8 +211,8 @@ nnoremap <Leader>tn :tabnew<CR>
 set hidden
 
 " To open a new empty buffer
-nnoremap <Leader>bn :enew<cr>
-nnoremap <Leader>nb :enew<cr>
+nnoremap <Leader>bn :enew<CR>
+nnoremap <Leader>nb :enew<CR>
 " Move to the next buffer
 nnoremap <Leader>i :bnext<CR>
 " Move to the previous buffer
@@ -224,7 +224,7 @@ nnoremap <Leader>bdd :bd<CR>
 nnoremap <Leader>b!! :bd<CR>
 nnoremap <Leader>bd! :bd!<CR>
 nnoremap Q :bdelete<CR>
-nnoremap <C-q> :bd!<CR>
+nnoremap <C-Q> :bd!<CR>
 
 " last active buffer
 nnoremap <BS> :b#<CR>
@@ -236,34 +236,34 @@ nnoremap <Leader>sh :ls<CR>:sbuffer<Space>
 nnoremap <Leader>sv :ls<CR>:vertical sbuffer<Space>
 
 " buffer search
-nnoremap <Leader>bf :CtrlP<cr>
-nnoremap <Leader>bm :CtrlPMixed<cr>
-nnoremap <Leader>bs :CtrlPMRU<cr>
+nnoremap <Leader>bf :CtrlP<CR>
+nnoremap <Leader>bm :CtrlPMixed<CR>
+nnoremap <Leader>bs :CtrlPMRU<CR>
 nnoremap <Leader>bl :CtrlPBuffer<CR>
-nnoremap <Leader>bg :BuffergatorToggle<cr>
+nnoremap <Leader>bg :BuffergatorToggle<CR>
 nnoremap <Leader>p :CtrlPMRU<CR>
 " Cycle through MRU buffers
-nnoremap <Leader>nn :BuffergatorMruCyclePrev<cr>
-nnoremap <Leader>ee :BuffergatorMruCycleNext<cr>
+nnoremap <Leader>nn :BuffergatorMruCyclePrev<CR>
+nnoremap <Leader>ee :BuffergatorMruCycleNext<CR>
 
 "
 " windows
 "
-nnoremap <C-h> <C-w>h
-nnoremap <C-n> <C-w>j
-nnoremap <C-e> <C-w>k
-nnoremap <C-i> <C-w>l
-nnoremap <Leader>wc <C-w>c
+nnoremap <C-H> <C-W>h
+nnoremap <C-N> <C-W>j
+nnoremap <C-E> <C-W>k
+nnoremap <C-I> <C-W>l
+nnoremap <Leader>wc <C-W>c
 
 " Remove trailing whitespace
 " http://vim.wikia.com/wiki/Remove_unwanted_spaces
-nnoremap <Leader>W :cal StripTrailingWhitespace()<cr>
+nnoremap <Leader>W :cal StripTrailingWhitespace()<CR>
 function! StripTrailingWhitespace()
     if !&binary && &filetype != 'diff'
         normal mz
         normal Hmy
         %s/\s\+$//e
-        normal 'yz<cr>
+        normal 'yz<CR>
         normal `z
         retab
     endif
@@ -330,14 +330,14 @@ endfunction
 " per
 " https://www.reddit.com/r/vim/comments/4kjgmz/weekly_vim_tips_and_tricks_thread_11/d3fdm37/
 " and http://vi.stackexchange.com/a/421/307
-nnoremap <Leader>bl :center 80<cr>hhv0r#A<space><esc>40A#<esc>d80<bar>YppVr#kk.
+nnoremap <Leader>bl :center 80<CR>hhv0r#A<Space><Esc>40A#<Esc>d80<Bar>YppVr#kk.
 
 " Toggle Spell-check
-inoremap <Leader>s <C-o>:setlocal spell! spelllang=en_us<CR>
+inoremap <Leader>s <C-O>:setlocal spell! spelllang=en_us<CR>
 nnoremap <Leader>s :setlocal spell! spelllang=en_us<CR>
 
 " Quickly edit/reload the vimrc file
-nnoremap <Leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <Leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <Leader>v :so $MYVIMRC<CR>
 
 " Auto load .vimrc on write
@@ -423,7 +423,7 @@ let g:buffergator_suppress_keymaps = 1
 "
 " CtrlP
 "
-let g:ctrlp_map = '<c-p>'
+let g:ctrlp_map = '<C-P>'
 let g:ctrlp_cmd = 'CtrlP' " quick buffer switching
 
 let g:ctrlp_user_command = {
