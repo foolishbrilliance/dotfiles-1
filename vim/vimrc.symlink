@@ -182,7 +182,7 @@ nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 nnoremap <silent><CR> :noh<return><CR>
 
 " Format paragraph to textwidth
-nnoremap <leader>f <Esc>gq}<CR>
+nnoremap <Leader>f <Esc>gq}<CR>
 
 " Print modeline
 inoremap <C-X>^ <C-R>=substitute(&commentstring,' \=%s\>'," -*- ".&ft." -*- vim:set ft=".&ft." ".(&et?"et":"noet")." sw=".&sw." sts=".&sts.':','')<CR>
@@ -200,10 +200,10 @@ nnoremap <silent> gw    "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<cr><c-o><c-
 "
 " tabs
 "
-nnoremap <leader>tl :BuffergatorTabsToggle<cr>
-nnoremap <leader>ti :tabnext<CR>
-nnoremap <leader>th :tabprev<CR>
-nnoremap <leader>tn :tabnew<CR>
+nnoremap <Leader>tl :BuffergatorTabsToggle<cr>
+nnoremap <Leader>ti :tabnext<CR>
+nnoremap <Leader>th :tabprev<CR>
+nnoremap <Leader>tn :tabnew<CR>
 
 "
 " buffers
@@ -211,18 +211,18 @@ nnoremap <leader>tn :tabnew<CR>
 set hidden
 
 " To open a new empty buffer
-nnoremap <leader>bn :enew<cr>
-nnoremap <leader>nb :enew<cr>
+nnoremap <Leader>bn :enew<cr>
+nnoremap <Leader>nb :enew<cr>
 " Move to the next buffer
-nnoremap <leader>i :bnext<CR>
+nnoremap <Leader>i :bnext<CR>
 " Move to the previous buffer
-nnoremap <leader>h :bprevious<CR>
+nnoremap <Leader>h :bprevious<CR>
 " Close the current buffer and move to the previous one. This replicates the idea of closing a tab
-nnoremap <leader>bq :bp <BAR> bd #<CR>
+nnoremap <Leader>bq :bp <BAR> bd #<CR>
 " delete (close) buffer
-nnoremap <leader>bdd :bd<CR>
-nnoremap <leader>b!! :bd<CR>
-nnoremap <leader>bd! :bd!<CR>
+nnoremap <Leader>bdd :bd<CR>
+nnoremap <Leader>b!! :bd<CR>
+nnoremap <Leader>bd! :bd!<CR>
 nnoremap Q :bdelete<CR>
 nnoremap <C-q> :bd!<CR>
 
@@ -232,19 +232,19 @@ nnoremap <BS> :b#<CR>
 " primitive buffer switching/splitting
 nnoremap <Leader>bb :ls<CR>:b<Space>
 nnoremap <Leader>g :ls<CR>:b<Space>
-nnoremap <leader>sh :ls<CR>:sbuffer<Space>
-nnoremap <leader>sv :ls<CR>:vertical sbuffer<Space>
+nnoremap <Leader>sh :ls<CR>:sbuffer<Space>
+nnoremap <Leader>sv :ls<CR>:vertical sbuffer<Space>
 
 " buffer search
-nnoremap <leader>bf :CtrlP<cr>
-nnoremap <leader>bm :CtrlPMixed<cr>
-nnoremap <leader>bs :CtrlPMRU<cr>
-nnoremap <leader>bl :CtrlPBuffer<CR>
-nnoremap <leader>bg :BuffergatorToggle<cr>
-nnoremap <leader>p :CtrlPMRU<CR>
+nnoremap <Leader>bf :CtrlP<cr>
+nnoremap <Leader>bm :CtrlPMixed<cr>
+nnoremap <Leader>bs :CtrlPMRU<cr>
+nnoremap <Leader>bl :CtrlPBuffer<CR>
+nnoremap <Leader>bg :BuffergatorToggle<cr>
+nnoremap <Leader>p :CtrlPMRU<CR>
 " Cycle through MRU buffers
-nnoremap <leader>nn :BuffergatorMruCyclePrev<cr>
-nnoremap <leader>ee :BuffergatorMruCycleNext<cr>
+nnoremap <Leader>nn :BuffergatorMruCyclePrev<cr>
+nnoremap <Leader>ee :BuffergatorMruCycleNext<cr>
 
 "
 " windows
@@ -257,7 +257,7 @@ nnoremap <Leader>wc <C-w>c
 
 " Remove trailing whitespace
 " http://vim.wikia.com/wiki/Remove_unwanted_spaces
-nnoremap <leader>W :cal StripTrailingWhitespace()<cr>
+nnoremap <Leader>W :cal StripTrailingWhitespace()<cr>
 function! StripTrailingWhitespace()
     if !&binary && &filetype != 'diff'
         normal mz
@@ -270,16 +270,16 @@ function! StripTrailingWhitespace()
 endfunction
 
 " Blank line above
-nnoremap <leader>O O<Esc>
+nnoremap <Leader>O O<Esc>
 " Blank line below
-nnoremap <leader>o o<Esc>
+nnoremap <Leader>o o<Esc>
 
 " Comment and uncomment out a section (uses marks 'a and 'b)
-nnoremap <leader>z :'a,'b s/^/#/
-nnoremap <leader>y :'a,'b s/#//
+nnoremap <Leader>z :'a,'b s/^/#/
+nnoremap <Leader>y :'a,'b s/#//
 
 " Duplicate line, comment original using vim-commentary
-nnoremap <leader>n YPgccj<Esc>
+nnoremap <Leader>n YPgccj<Esc>
 
 " Insert timestamps
 inoremap <silent> <C-G><C-T> <C-R>=repeat(complete(col('.'),map(["%Y-%m-%d %H:%M:%S","%a, %d %b %Y %H:%M:%S %z","%Y %b %d","%d-%b-%y","%a %b %d %T %Z %Y"],'strftime(v:val)')+[localtime()]),0)<CR>
@@ -296,12 +296,12 @@ inoremap <silent> <C-G><C-T> <C-R>=repeat(complete(col('.'),map(["%Y-%m-%d %H:%M
 " endfunction
 
 " change textwidth
-nnoremap <leader>tw :set textwidth=
+nnoremap <Leader>tw :set textwidth=
 
 " change tab settings
-nnoremap <leader>2:set shiftwidth=2<CR>:set softtabstop=2<CR>:set tabstop=2<CR>
-nnoremap <leader>4:set shiftwidth=4<CR>:set softtabstop=4<CR>:set tabstop=4<CR>
-nnoremap <leader>8:set shiftwidth=8<CR>:set softtabstop=8<CR>:set tabstop=8<CR>
+nnoremap <Leader>2:set shiftwidth=2<CR>:set softtabstop=2<CR>:set tabstop=2<CR>
+nnoremap <Leader>4:set shiftwidth=4<CR>:set softtabstop=4<CR>:set tabstop=4<CR>
+nnoremap <Leader>8:set shiftwidth=8<CR>:set softtabstop=8<CR>:set tabstop=8<CR>
 
 " Copy paths
 if has('win32')
@@ -337,7 +337,7 @@ inoremap <Leader>s <C-o>:setlocal spell! spelllang=en_us<CR>
 nnoremap <Leader>s :setlocal spell! spelllang=en_us<CR>
 
 " Quickly edit/reload the vimrc file
-nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <Leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <Leader>v :so $MYVIMRC<CR>
 
 " Auto load .vimrc on write
