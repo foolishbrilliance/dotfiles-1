@@ -279,7 +279,7 @@ nnoremap <Leader>z :'a,'b s/^/#/
 nnoremap <Leader>y :'a,'b s/#//
 
 " Duplicate line, comment original using vim-commentary
-nnoremap <Leader>n YPgccj<Esc>
+nmap <Leader>n yyPgccj<Esc> " deliberate recursive map (nmap) to use vim-commentary
 
 " Insert timestamps
 inoremap <silent> <C-g><C-t> <C-r>=repeat(complete(col('.'),map(["%Y-%m-%d %H:%M:%S","%a, %d %b %Y %H:%M:%S %z","%Y %b %d","%d-%b-%y","%a %b %d %T %Z %Y"],'strftime(v:val)')+[localtime()]),0)<CR>
