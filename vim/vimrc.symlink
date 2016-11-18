@@ -486,7 +486,7 @@ let g:hardtime_allow_different_key = 1
 "
 " incsearch.vim
 "
-noremap /  <Plug>(incsearch-forward)
+map /  <Plug>(incsearch-forward)
 " map ?  <Plug>(incsearch-backward)
 " map g/ <Plug>(incsearch-stay)
 let g:incsearch#auto_nohlsearch = 1
