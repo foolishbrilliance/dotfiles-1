@@ -337,7 +337,7 @@ inoremap <Leader>s <C-o>:setlocal spell! spelllang=en_us<CR>
 nnoremap <Leader>s :setlocal spell! spelllang=en_us<CR>
 
 " Quickly edit/reload the vimrc file
-nnoremap <Leader>ev :vsplit $MYVIMRC<CR>
+nnoremap <Leader>ev :edit $MYVIMRC<CR>
 nnoremap <Leader>v :so $MYVIMRC<CR>
 
 " Auto load .vimrc on write
@@ -457,6 +457,11 @@ let g:ctrlp_working_path_mode = 'ra'
 "" JK motions: Line motions
 "map <Leader>j <Plug>(easymotion-j)
 "map <Leader>k <Plug>(easymotion-k)
+
+"
+" filebeagle
+"
+autocmd BufNewFile filebeagle,filebeagle-? setlocal number " always show line numbers when using filebeagle
 
 "
 " gist-vim
