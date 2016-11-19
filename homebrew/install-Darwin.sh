@@ -86,6 +86,7 @@ brew cask install appcleaner
 brew cask install awareness
 brew cask install bartender
 brew cask install betterzipql
+brew cask install bitbar
 brew cask install cord
 brew cask install crashplan
 brew cask install cyberduck
