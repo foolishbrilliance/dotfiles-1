@@ -3,33 +3,26 @@
 " Section: Options {{{1
 " ---------------------
 
-if v:version < 704 || (v:version == 704 && !has('patch276'))
-endif
-" Do it anyway because Vundle breaks with fish
+" Fix Vundle on fish shell
 if $SHELL =~ 'bin/fish' | set shell=/bin/sh | endif
 
-"
-" Setup folder structure
-"
-
+" Custom undo/backup/swap directories
 if !isdirectory(expand('~/.vim.private/undo/', 1))
-    silent call mkdir(expand('~/.vim.private/undo', 1), 'p')
+  silent call mkdir(expand('~/.vim.private/undo', 1), 'p')
 endif
-
 if !isdirectory(expand('~/.vim.private/backup/', 1))
-    silent call mkdir(expand('~/.vim.private/backup', 1), 'p')
+  silent call mkdir(expand('~/.vim.private/backup', 1), 'p')
 endif
-
 if !isdirectory(expand('~/.vim.private/swap/', 1))
-    silent call mkdir(expand('~/.vim.private/swap', 1), 'p')
+  silent call mkdir(expand('~/.vim.private/swap', 1), 'p')
 endif
 
 " Turn on persistent undo per: github.com/mikewadsten/dotfiles/
 if has('persistent_undo')
-    set undodir=~/.vim.private/undo//
-    set undofile
-    set undolevels=1000
-    set undoreload=10000
+  set undodir=~/.vim.private/undo//
+  set undofile
+  set undolevels=1000
+  set undoreload=10000
 endif
 
 " Use backups per: http://stackoverflow.com/a/15317146
@@ -260,14 +253,14 @@ nnoremap <Leader>wc <C-w>c
 " http://vim.wikia.com/wiki/Remove_unwanted_spaces
 nnoremap <Leader>W :cal StripTrailingWhitespace()<CR>
 function! StripTrailingWhitespace()
-    if !&binary && &filetype != 'diff'
-        normal mz
-        normal Hmy
-        %s/\s\+$//e
-        normal 'yz<CR>
-        normal `z
-        retab
-    endif
+  if !&binary && &filetype != 'diff'
+    normal mz
+    normal Hmy
+    %s/\s\+$//e
+    normal 'yz<CR>
+    normal `z
+    retab
+  endif
 endfunction
 
 " Blank line above
@@ -434,11 +427,11 @@ let g:ctrlp_map = '<C-p>'
 let g:ctrlp_cmd = 'CtrlP' " quick buffer switching
 
 let g:ctrlp_user_command = {
-            \ 'types': {
-            \ 1: ['.git', 'cd %s && git ls-files'],
-            \ },
-            \ 'fallback': 'find %s -type f'
-            \ }
+      \ 'types': {
+      \ 1: ['.git', 'cd %s && git ls-files'],
+      \ },
+      \ 'fallback': 'find %s -type f'
+      \ }
 
 " Use nearest .git dir
 let g:ctrlp_working_path_mode = 'ra'
@@ -562,10 +555,10 @@ if has('autocmd')
 endif
 
 augroup Misc
-    autocmd!
+  autocmd!
 
-    autocmd FileType netrw call s:scratch_maps()
-    autocmd FocusLost   * silent! wall
+  autocmd FileType netrw call s:scratch_maps()
+  autocmd FocusLost   * silent! wall
 augroup END
 
 " Section: Deprecated {{{1
