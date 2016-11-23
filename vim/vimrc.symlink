@@ -222,9 +222,9 @@ nnoremap <Leader>bq :bp <BAR> bd #<CR>
 " delete (close) buffer
 nnoremap <Leader>bdd :bd<CR>
 nnoremap <Leader>b!! :bd<CR>
-nnoremap <Leader>bd! :bd!<CR>
+nnoremap <Leader>bd! :bd!<CR> " force
 nnoremap Q :bdelete<CR>
-nnoremap <C-q> :bd!<CR>
+nnoremap <C-q> :bd!<CR>       " force
 
 " last active buffer
 nnoremap <BS> :b#<CR>
