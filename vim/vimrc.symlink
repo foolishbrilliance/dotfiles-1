@@ -140,7 +140,7 @@ noremap <Space> :
 nnoremap ZZ <Nop>
 
 " avoid <Esc>
-inoremap <Leader><Leader> <Esc>`^
+inoremap <Leader>m <Esc>`^
 inoremap jj <Esc>`^
 inoremap <C-c> <Esc>`^
 " Not sure if it's a bad idea to remap <Esc>
@@ -330,7 +330,7 @@ endfunction
 " per
 " https://www.reddit.com/r/vim/comments/4kjgmz/weekly_vim_tips_and_tricks_thread_11/d3fdm37/
 " and http://vi.stackexchange.com/a/421/307
-nnoremap <Leader>bl :center 80<CR>hhv0r#A<Space><Esc>40A#<Esc>d80<Bar>YppVr#kk.
+nnoremap <Leader>## :center 80<CR>hhv0r#A<Space><Esc>40A#<Esc>d80<Bar>YppVr#kk.
 
 " Toggle Spell-check
 inoremap <Leader>s <C-o>:setlocal spell! spelllang=en_us<CR>
