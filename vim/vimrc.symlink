@@ -222,6 +222,7 @@ nnoremap <C-q> :bd!<CR>       " force
 
 " last active buffer
 nnoremap <BS> :b#<CR>
+nnoremap <C-h> :b#<CR>
 
 " primitive buffer switching/splitting
 nnoremap <Leader>bb :ls<CR>:b<Space>
@@ -243,7 +244,7 @@ nnoremap <Leader>ee :BuffergatorMruCycleNext<CR>
 "
 " windows
 "
-nnoremap <C-h> <C-w>h
+"nnoremap <C-h> <C-w>h " breaks ^H "last tab" mapping
 nnoremap <C-n> <C-w>j
 nnoremap <C-e> <C-w>k
 nnoremap <C-i> <C-w>l
@@ -340,7 +341,7 @@ nnoremap <Leader>v :so $MYVIMRC<CR>
 " Auto load .vimrc on write
 au! BufWritePost .source vimrc %
 
-" Section: dein scripts (plugins) {{{2
+" Section: dein scripts (plugins) {{{1
 " ---------------------
 
 " Begin dein scripts
@@ -395,6 +396,7 @@ call dein#add('bkad/CamelCaseMotion')
 call dein#add('reedes/vim-wordy')
 call dein#add('mtth/scratch.vim')
 call dein#add('takac/vim-hardtime')
+call dein#add('mikewest/vimroom')
 
 " You can specify revision/branch/tag.
 "call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
