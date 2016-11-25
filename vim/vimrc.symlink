@@ -69,6 +69,7 @@ set mouse=nvi
 set mousemodel=popup
 set nocompatible        " disable vi compatibility
 set pastetoggle=<F2>    " don't alter my pasting
+set relativenumber      " relative line numbers
 set report=0            " Report when more than 0 lines affected
 set report=1            " always report changes
 set scrolloff=1         " Always show one line below or above cursor for context
