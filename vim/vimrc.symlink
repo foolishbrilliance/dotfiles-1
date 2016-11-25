@@ -132,6 +132,7 @@ noremap <Space> :
 
 " use :wq! instead
 nnoremap ZZ <Nop>
+nnoremap <C-s> :update<CR>
 
 " avoid <Esc>
 inoremap <Leader>m <Esc>`^
@@ -372,6 +373,7 @@ call dein#add('Shougo/dein.vim')
 "call dein#add('gmarik/Vundle.vim')
 call dein#add('airblade/vim-gitgutter')
 call dein#add('altercation/vim-colors-solarized')
+call dein#add('frankier/neovim-colors-solarized-truecolor-only') " for solarized in neovim
 call dein#add('bling/vim-airline')
 call dein#add('vim-airline/vim-airline-themes')
 call dein#add('elzr/vim-json')
@@ -397,6 +399,7 @@ call dein#add('reedes/vim-wordy')
 call dein#add('mtth/scratch.vim')
 call dein#add('takac/vim-hardtime')
 call dein#add('mikewest/vimroom')
+call dein#add('flazz/vim-colorschemes')
 
 " You can specify revision/branch/tag.
 "call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
@@ -519,7 +522,11 @@ call togglebg#map("<F4>")
 syntax enable
 " setting the following line makes iTerm vim color really strange (brown)
 "let g:solarized_termcolors=256
-colorscheme solarized
+if has('nvim')
+  colorscheme solarized-truecolor-only
+else
+  colorscheme solarized
+endif
 
 "
 " vim-airline
