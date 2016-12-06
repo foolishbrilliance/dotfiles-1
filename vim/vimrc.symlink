@@ -145,9 +145,9 @@ noremap  <F1>   <Esc>
 noremap! <F1>   <Esc>
 
 " quick write
-"inoremap zne <Esc>:w<CR>`^i
-inoremap zne <Esc>:w<CR>
-nnoremap zne <Esc>:w<CR>
+"inoremap zne <Esc>:update<CR>`^i
+inoremap zne <Esc>:update<CR>
+nnoremap zne <Esc>:update<CR>
 
 " call actions from other modes
 inoremap <M-o>      <C-o>o
