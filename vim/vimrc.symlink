@@ -249,7 +249,7 @@ nnoremap <Leader>ee :BuffergatorMruCycleNext<CR>
 "nnoremap <C-h> <C-w>h " breaks ^H "last tab" mapping
 nnoremap <C-n> <C-w>j
 nnoremap <C-e> <C-w>k
-nnoremap <C-i> <C-w>l
+"nnoremap <C-i> <C-w>l " breaks ^i for jumping to next position in the change list
 nnoremap <Leader>wc <C-w>c
 
 " Remove trailing whitespace
