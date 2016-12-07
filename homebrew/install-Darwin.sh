@@ -100,7 +100,7 @@ brew cask install keyboard-cleaner
 brew cask install lastpass
 brew cask install league-of-legends
 brew cask install licecap
-brew cask install lightpaper
+brew cask install macdown
 # brew cask install macvim # yosemite issues per http://awebfactory.com/node/541, use `brew install macvim` instead
 brew install macvim
 brew linkapps macvim
