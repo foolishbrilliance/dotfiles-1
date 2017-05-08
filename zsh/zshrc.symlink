@@ -1,6 +1,6 @@
-if [[ -a ~/.zshrc.pre ]]
+if [[ -a ~/.prelocalrc ]]
 then
-  source ~/.zshrc.pre
+  source ~/.prelocalrc
 fi
 
 : <<'END'
@@ -127,9 +127,9 @@ export PROJECTS=~/projects
 
 # use .localrc for SUPER SECRET CRAP that you don't
 # want in your public, versioned repo.
-if [[ -a ~/.zshrc.local ]]
+if [[ -a ~/.localrc ]]
 then
-  source ~/.zshrc.local
+  source ~/.localrc
 fi
 
 # all of our zsh files
