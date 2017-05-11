@@ -102,11 +102,21 @@ if command -v brew &>/dev/null; then
   export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 fi
 
+# GPG: You should always add the following lines to your .bashrc or whatever initialization file is used for all shell invocations. Per https://www.gnupg.org/documentation/manuals/gnupg/Invoking-GPG_002dAGENT.html
+GPG_TTY=$(tty)
+export GPG_TTY
+
 # GRC colorizes nifty unix tools all over the place
 if command -v grc &>/dev/null && command -v brew &>/dev/null
 then
   source `brew --prefix`/etc/grc.bashrc
 fi
+
+# k - For pretty ls alternative - https://github.com/supercrabtree/k
+source $HOME/k/k.sh
+
+# nvim
+export NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 # Ruby 
 # init rbenv according to man page
@@ -114,10 +124,6 @@ if (( $+commands[rbenv] ))
 then
   eval "$(rbenv init -)"
 fi
-
-# GPG: You should always add the following lines to your .bashrc or whatever initialization file is used for all shell invocations. Per https://www.gnupg.org/documentation/manuals/gnupg/Invoking-GPG_002dAGENT.html
-GPG_TTY=$(tty)
-export GPG_TTY
 
 # use .zshrc.secret for SUPER SECRET CRAP that you don't
 # want in your public, versioned repo.
