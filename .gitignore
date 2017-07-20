@@ -5,3 +5,4 @@ system/maid.symlink/maid.log
 
 # don't store plugins as they get updated/downloaded via dein
 vim/vim.symlink/plugins/*
+vim/vim.symlink/bundles/*

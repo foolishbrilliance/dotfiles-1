@@ -163,7 +163,7 @@ setup_vim () {
   if [[ ! -d $DEIN_DIR ]]; then
     curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh |tee /tmp/dein-installer.sh
     chmod +x /tmp/dein-installer.sh
-    /tmp/dein-installer.sh ~/.vim
+    /tmp/dein-installer.sh ~/.vim/bundles
     success "dein installed"
   else
     success "skipping. dein already installed"
