@@ -210,7 +210,6 @@ fi
 if [ $# -eq 0 ]; then
     setup_gitconfig
 fi
-setup_prezto
 install_dotfiles
 setup_vim
 
