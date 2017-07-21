@@ -213,7 +213,6 @@ fi
 setup_prezto
 install_dotfiles
 setup_vim
-setup_fish
 
 echo ''
 echo '  All installed!'
