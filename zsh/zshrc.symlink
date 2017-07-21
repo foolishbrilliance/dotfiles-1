@@ -93,7 +93,7 @@ unset config_files
 # My custom config
 ################################################################################
 
-export PATH="$HOME/.dotfiles/bin:$HOME/bin.private:$HOME/bin:$HOME/bin.linux:/usr/local/bin:/usr/local/sbin:$PATH"
+export PATH="$HOME/.dotfiles/bin:$HOME/bin.private:$HOME/bin:$HOME/bin.linux:/usr/local/bin:/usr/local/sbin:/usr/local/opt/python/libexec/bin:$PATH"
 export MANPATH="/usr/local/man:$MANPATH"
 
 # For Cask per https://github.com/caskroom/homebrew-cask/blob/master/USAGE.md
