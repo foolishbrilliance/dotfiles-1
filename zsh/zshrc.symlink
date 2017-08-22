@@ -125,6 +125,9 @@ then
   eval "$(rbenv init -)"
 fi
 
+# To allow for ^s to fwd-i-search (opposite of ^r), disable XON/XOFF for interactive shells per https://stackoverflow.com/questions/791765/unable-to-forward-search-bash-history-similarly-as-with-ctrl-r#comment39602061_791800
+[[ $- == *i* ]] && stty -ixon
+
 # use .zshrc.secret for SUPER SECRET CRAP that you don't
 # want in your public, versioned repo.
 if [[ -a ~/.zshrc.secret ]]
