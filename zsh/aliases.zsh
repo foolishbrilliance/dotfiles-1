@@ -6,9 +6,20 @@ alias .....='cd ../../../../'
 alias ......='cd ../../../../../'
 alias calc='bc <<<'
 alias clitxt='curl -sF "upfile=@-" https://clitxt.com |tee /dev/tty | pbcopy'
-alias epoch='date +%s'
 epoch2utc() { perl -e "print scalar(localtime($1)) . ' UTC'" } # Usage: epoch2utc 1395249613
 alias e2u=epoch2utc
+alias epoch='date +%s'
+edownload() {
+  if [ $# -ne 2 ];
+  then
+      echo -e "Wrong arguments specified. Usage example:\nedownload https://transfer.sh/nPIxk/test.txt /tmp/test"
+      return 1
+  fi
+  curl $1| gpg -dio- > $2
+}
+etransfer() {
+  cat $1|gpg -ac -o-|curl --progress-bar -X PUT --upload-file "-" https://transfer.sh/test.txt |tee
+}
 alias fpath='perl -MCwd -e "print Cwd::abs_path shift"' # cpath is another alias, think "canonical path"
 alias glog="git log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
 alias github="open \`git remote -v | grep github.com | grep fetch | head -1 | field 2 | sed 's/git:/http:/g'\`"
@@ -32,6 +43,53 @@ alias removetimestampandcopy='sed "s/\(.*\)..:..:..$/\1/" $@ |pbcopy'
 alias rs='screen -RD'
 alias sl='ls'
 alias ss="open /System/Library/Frameworks/ScreenSaver.framework/Versions/A/Resources/ScreenSaverEngine.app" # Start ScreenSaver. This will lock the screen if locking is enabled.
+transfer() { # transfer.sh function from https://gist.github.com/nl5887/a511f172d3fb3cd0e42d#gistcomment-2093683
+    # check arguments
+    if [ $# -ne 1 ];
+    then
+        echo -e "Wrong arguments specified. Usage:\ntransfer /tmp/test.md\ncat /tmp/test.md | transfer test.md"
+        return 1
+    fi
+
+    # get temporary filename, output is written to this file so show progress can be showed
+    tmpfile="$( mktemp -t transferXXX )"
+
+    # upload stdin or file
+    file="$1"
+
+    if tty -s;
+    then
+        basefile="$( basename "$file" | sed -e 's/[^a-zA-Z0-9._-]/-/g' )"
+
+        if [ ! -e $file ];
+        then
+            echo "File $file doesn't exists."
+            return 1
+        fi
+
+        if [ -d $file ];
+        then
+            # zip directory and transfer
+            zipfile="$( mktemp -t transferXXX.zip )"
+            cd "$(dirname "$file")" && zip -r -q - "$(basename "$file")" >> "$zipfile"
+            curl --progress-bar --upload-file "$zipfile" "https://transfer.sh/$basefile.zip" >> "$tmpfile"
+            rm -f $zipfile
+        else
+            # transfer file
+            curl --progress-bar --upload-file "$file" "https://transfer.sh/$basefile" >> "$tmpfile"
+        fi
+    else
+        # transfer pipe
+        curl --progress-bar --upload-file "-" "https://transfer.sh/$file" >> "$tmpfile"
+    fi
+
+    # cat output link
+    cat "$tmpfile"
+    echo
+
+    # cleanup
+    rm -f "$tmpfile"
+}
 alias trimw="pbpaste |sed -e 's/[[[:space:]]\r\n]//g' |pbcopy" # Trim all whitespace
 alias ud='cd ~/dotfiles && git pull; cd -'
 alias utc='date -u'
