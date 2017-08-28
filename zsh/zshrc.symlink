@@ -113,7 +113,7 @@ then
 fi
 
 # k - For pretty ls alternative - https://github.com/supercrabtree/k
-source $HOME/k/k.sh
+source $HOME/.k/k.sh
 
 # nvim
 export NVIM_TUI_ENABLE_TRUE_COLOR=1
