@@ -17,8 +17,6 @@ find . -name install.sh | while read installer ; do sh -c "${installer}" ; done
 echo "  Running */post-install.sh"
 find . -name post-install.sh | while read installer ; do sh -c "${installer}" ; done
 
-echo "  DONE!"
-
 if [ "$(uname)" == "Darwin" ]; then
   echo "› brew bundle"
   brew bundle
@@ -27,5 +25,7 @@ if [ "$(uname)" == "Darwin" ]; then
   echo "* Setup iTerm: Load ~/Dropbox/Documents/Application Files/iTerm2/com.googlecode.iterm2.plist in iTerm Preferences->Load peferences from a custom folder or URL->Browse"
   echo "* Install TodoTxtMac: https://github.com/mjdescy/TodoTxtMac/releases"
 fi
+
+echo "  DONE!"
 
 exit 0

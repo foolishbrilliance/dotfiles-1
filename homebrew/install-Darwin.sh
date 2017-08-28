@@ -10,7 +10,7 @@
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
 # Ask for the administrator password upfront.
-echo "  Installing Homebrew packages for you."
+echo "  Installing Homebrew packages for you. Running: sudo -v"
 sudo -v
 
 # Keep-alive: update existing `sudo` time stamp until the script has finished.
