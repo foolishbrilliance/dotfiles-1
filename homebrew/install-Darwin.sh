@@ -60,7 +60,6 @@ brew install python
 pip install --upgrade pip # Update pip
 
 # Install other useful binaries.
-brew install ack
 brew install awscli
 brew install fasd
 brew install fish
@@ -72,6 +71,7 @@ brew install p7zip
 brew install pv
 brew install rename
 brew install rhino
+brew install ripgrep
 brew install speedtest_cli
 brew install tmux
 brew install trash
