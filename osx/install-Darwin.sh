@@ -29,20 +29,9 @@ fail () {
   exit
 }
 
-# Required for other install.sh scripts
-install_homebrew () {
-  info 'install homebrew'
-  if ! command -v brew >/dev/null 2>&1
-  then
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" > /tmp/homebrew-install.log
-    brew doctor
-    success 'homebrew installed'
-  else
-    success 'skipping. homebrew already installed'
-  fi
-}
-
-install_homebrew
+# The brew handles some installs, but there may still be updates and installables in the Mac App Store. There's a nifty command line interface to it that we can use to just install everything, so yeah, let's do that.
+echo "› sudo softwareupdate -i -a"
+sudo softwareupdate -i -a
 
 echo ''
 echo '  All installed!'

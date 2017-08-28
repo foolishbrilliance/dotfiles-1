@@ -176,10 +176,23 @@ install_homebrew () {
   if ! command -v brew >/dev/null 2>&1
   then
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" |tee /tmp/homebrew-install.log
-    brew doctor
+    brew update
+    brew upgrade
     success 'homebrew installed'
   else
     success 'skipping. homebrew already installed'
+  fi
+}
+
+# Mac app store command line
+install_mas () {
+  info 'install mas'
+  if ! command -v mas >/dev/null 2>&1
+  then
+    brew install mas
+    success 'mas installed'
+  else
+    success 'skipping. mas already installed'
   fi
 }
 
@@ -205,6 +218,7 @@ setup_fish () {
 # Must be first
 if [ "$(uname)" == "Darwin" ]; then
   install_homebrew
+  install_mas
 fi
 # If no args given run interactive stuff
 if [ $# -eq 0 ]; then
