@@ -5,6 +5,10 @@
 # This installs some of the common dependencies needed (or at least desired)
 # using Homebrew.
 
+# For Cask per https://github.com/caskroom/homebrew-cask/blob/master/USAGE.md
+# --appdir=/my/path changes the path where the symlinks to the applications (above) will be generated. This is commonly used to create the links in the root Applications directory instead of the home Applications directory by specifying --appdir=/Applications. Default is ~/Applications.
+export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+
 # Ask for the administrator password upfront.
 echo "  Installing Homebrew packages for you."
 sudo -v
