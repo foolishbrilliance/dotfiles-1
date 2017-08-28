@@ -66,6 +66,7 @@ brew install fish
 brew install grc
 brew install git
 brew install jq
+brew install mas
 brew install mtr
 brew install p7zip
 brew install pv
