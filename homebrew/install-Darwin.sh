@@ -38,10 +38,6 @@ brew linkapps macvim
 brew tap caskroom/versions
 brew cask install textexpander3 || echo "This cask may have been removed per https://github.com/caskroom/homebrew-versions/pull/1300, if this fails, try installing from https://cdn.smilesoftware.com/TextExpander_3.4.2.zip"
 
-# Remove outdated versions from the cellar.
-brew cleanup
-brew cask cleanup
-
 echo "Homebrew packages installed!"
 
 exit 0
