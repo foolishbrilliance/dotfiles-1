@@ -47,11 +47,6 @@ preexec () {
 
 }
 
-# Use newer GNU core utilities (those that come with OS X are outdated)
-if command -v brew &>/dev/null; then
-  export PATH=$(brew --prefix coreutils)/libexec/gnubin:$PATH
-fi
-
 ################################################################################
 ## BEGIN holman/dotfiles
 # shortcut to this dotfiles path is $ZSH
@@ -94,9 +89,6 @@ unset config_files
 ################################################################################
 
 set -o pipefail # It is useful to have set -o pipefail somewhere in your shell startup (see [here](https://sipb.mit.edu/doc/safe-shell/) for details), otherwise pushd happens even if you exit with ctrl-c and clutters up the directory stack.
-
-export PATH="$HOME/.dotfiles/bin:$HOME/bin.private:$HOME/bin:$HOME/bin.linux:/usr/local/bin:/usr/local/sbin:/usr/local/opt/python/libexec/bin:$PATH"
-export MANPATH="/usr/local/man:$MANPATH"
 
 # For Cask per https://github.com/caskroom/homebrew-cask/blob/master/USAGE.md
 # --appdir=/my/path changes the path where the symlinks to the applications (above) will be generated. This is commonly used to create the links in the root Applications directory instead of the home Applications directory by specifying --appdir=/Applications. Default is ~/Applications.

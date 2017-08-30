@@ -1,0 +1,9 @@
+export PATH="$HOME/.dotfiles/bin:$HOME/bin.private:$HOME/bin:$HOME/bin.linux:/usr/local/bin:/usr/local/sbin:/usr/local/opt/python/libexec/bin:$PATH"
+export MANPATH="/usr/local/man:$MANPATH"
+
+# Use newer GNU core utilities (those that come with OS X are outdated)
+if command -v brew &>/dev/null; then
+  export PATH=$(brew --prefix coreutils)/libexec/gnubin:$PATH
+fi
+
+
