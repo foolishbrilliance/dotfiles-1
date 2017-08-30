@@ -93,6 +93,8 @@ unset config_files
 # My custom config
 ################################################################################
 
+set -o pipefail # It is useful to have set -o pipefail somewhere in your shell startup (see [here](https://sipb.mit.edu/doc/safe-shell/) for details), otherwise pushd happens even if you exit with ctrl-c and clutters up the directory stack.
+
 export PATH="$HOME/.dotfiles/bin:$HOME/bin.private:$HOME/bin:$HOME/bin.linux:/usr/local/bin:/usr/local/sbin:/usr/local/opt/python/libexec/bin:$PATH"
 export MANPATH="/usr/local/man:$MANPATH"
 
@@ -102,18 +104,28 @@ if command -v brew &>/dev/null; then
   export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 fi
 
-# GPG: You should always add the following lines to your .bashrc or whatever initialization file is used for all shell invocations. Per https://www.gnupg.org/documentation/manuals/gnupg/Invoking-GPG_002dAGENT.html
-GPG_TTY=$(tty)
-export GPG_TTY
+# load zgen
+source "${HOME}/.zgen/zgen.zsh"
 
-# GRC colorizes nifty unix tools all over the place
-if command -v grc &>/dev/null && command -v brew &>/dev/null
-then
-  source `brew --prefix`/etc/grc.bashrc
+# if the init scipt doesn't exist
+if ! zgen saved; then
+
+  # specify plugins here
+  zgen load djui/alias-tips
+  zgen load zdharma/fast-syntax-highlighting
+  zgen load supercrabtree/k
+  zgen load peterhurford/up.zsh
+  zgen load unixorn/warhol.plugin.zsh
+  
+  # generate the init script from plugins above
+  zgen save
 fi
 
-# k - For pretty ls alternative - https://github.com/supercrabtree/k
-source $HOME/.k/k.sh
+# Fzf - A command-line fuzzy finder written in Go -  https://github.com/junegunn/fzf#using-homebrew-or-linuxbrew
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# GPG: You should always add the following lines to your .bashrc or whatever initialization file is used for all shell invocations. Per https://www.gnupg.org/documentation/manuals/gnupg/Invoking-GPG_002dAGENT.html
+GPG_TTY=$(tty); export GPG_TTY
 
 # nvim
 export NVIM_TUI_ENABLE_TRUE_COLOR=1
