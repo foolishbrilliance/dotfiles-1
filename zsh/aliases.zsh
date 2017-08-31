@@ -6,7 +6,7 @@ alias .....='cd ../../../../'
 alias ......='cd ../../../../../'
 alias calc='bc <<<'
 
-cdf() {
+function cdf() {
    local file
    local dir
    file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
@@ -14,23 +14,25 @@ cdf() {
 
 alias cl="fc -e -|pbcopy && echo Copied output of last command to clipboard"
 alias clitxt='curl -sF "upfile=@-" https://clitxt.com |tee /dev/tty | pbcopy'
-epoch2utc() { perl -e "print scalar(localtime($1)) . ' UTC'" } # Usage: epoch2utc 1395249613
+
+function edownload() {
+    if [ $# -ne 2 ];
+    then
+        echo -e "Wrong arguments specified. Usage example:\nedownload https://transfer.sh/nPIxk/test.txt /tmp/test"
+        return 1
+    fi
+    curl $1| gpg -dio- > $2
+}
 alias e2u=epoch2utc
 alias epoch='date +%s'
-edownload() {
-  if [ $# -ne 2 ];
-  then
-      echo -e "Wrong arguments specified. Usage example:\nedownload https://transfer.sh/nPIxk/test.txt /tmp/test"
-      return 1
-  fi
-  curl $1| gpg -dio- > $2
-}
 
-etransfer() {
+function epoch2utc() { perl -e "print scalar(localtime($1)) . ' UTC'" } # Usage: epoch2utc 1395249613
+
+function etransfer() {
   cat $1|gpg -ac -o-|curl --progress-bar -X PUT --upload-file "-" https://transfer.sh/test.txt |tee
 }
 
-fd() {
+function fd() {
   local dir
   dir=$(find ${1:-.} -path '*/\.*' -prune \
                   -o -type d -print 2> /dev/null | fzf +m) &&
@@ -39,7 +41,7 @@ fd() {
 
 alias fpath='perl -MCwd -e "print Cwd::abs_path shift"' # cpath is another alias, think "canonical path"
 
-fo() {
+function fo() {
   local out file key
   IFS=$'\n' out=($(fzf-tmux --query="$1" --exit-0 --expect=ctrl-o,ctrl-e))
   key=$(head -1 <<< "$out")
@@ -55,12 +57,13 @@ alias gityolo="git commit -am 'Updating everything.'; git push origin master"
 alias gpm="git push origin master"
 alias irca='growl-irc.sh; ssh -t trundle tmux attach -d'
 alias isearch='ircsearch' # Function to search irssi logs
-j() {
+
+function j() {
     local dir="$(fasd -ld "$@")"
     [[ -d "$dir" ]] && pushd "$dir"
 }
 
-jd() {
+function jd() {
     local dir
     dir=$(find ${1:-*} -path '*/\.*'\
 
@@ -69,7 +72,7 @@ jd() {
     [ -d "$dir" ] && pushd "$dir"
 }
 
-jj() {
+function jj() {
     local dir
     dir=$(fasd -Rdl |\
         sed "s:$HOME:~:" |\
@@ -83,7 +86,7 @@ alias krbcurl='curl --negotiate -u :'
 listcert() { openssl s_client -showcerts -connect $1:443 </dev/null 2>/dev/null | openssl x509 -inform PEM -text } # Usage: listcert google.com
 alias lscert=listcert
 
-les() {
+function les() {
     ftype=$(pygmentize -N "$1")
     pygmentize -l "$ftype"\
       -f terminal "$1" |\
@@ -103,7 +106,7 @@ alias rs='screen -RD'
 alias sl='ls'
 alias ss="open /System/Library/Frameworks/ScreenSaver.framework/Versions/A/Resources/ScreenSaverEngine.app" # Start ScreenSaver. This will lock the screen if locking is enabled.
 
-transfer() { # transfer.sh function from https://gist.github.com/nl5887/a511f172d3fb3cd0e42d#gistcomment-2093683
+function transfer() { # transfer.sh function from https://gist.github.com/nl5887/a511f172d3fb3cd0e42d#gistcomment-2093683
     # check arguments
     if [ $# -ne 1 ];
     then
@@ -155,7 +158,7 @@ alias trimw="pbpaste |sed -e 's/[[[:space:]]\r\n]//g' |pbcopy" # Trim all whites
 alias ud='cd ~/dotfiles && git pull; cd -'
 alias utc='date -u'
 
-v() {
+function v() {
     local file
     if [[ -e "$1" ]]; then
         les "$1"
@@ -165,6 +168,7 @@ v() {
         [ -n "$file" ] && les "$file"
     fi
 }
+
 alias vi='vim'
 alias worddiff='git diff --word-diff=color'
 alias zpup='cd .zprezto && git pull && git submodule update --init --recursive; cd -' # Update prezto
