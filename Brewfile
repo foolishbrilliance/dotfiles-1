@@ -24,6 +24,7 @@ brew "coreutils" # Install GNU core utilities (those that come with OS X are out
 brew "dos2unix"
 brew "emacs-plus", args: ["HEAD","with-natural-title-bar"]
 brew "fasd"
+brew "fd"
 brew "findutils" # Install GNU `find`, `locate`, `updatedb`, and `xargs`, `g`-prefixed.
 brew "fish"
 brew "fsevents-tools"
