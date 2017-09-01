@@ -315,12 +315,41 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  (setq-default evil-escape-key-sequence ",m")
+
+  ;; Org config
   (with-eval-after-load 'org
     (setq org-todo-keywords
-      '((sequence "TODO" "IN-PROGRESS" "WAITING" "DONE")))
-    )
+      '((sequence "TODO" "IN-PROGRESS" "WAITING" "CANCELED" "DONE")))
+    (setq org-todo-keyword-faces
+          '(("TODO" . org-warning) ("CANCELED" . (:foreground "blue" :weight bold))))
+    ;; MobileOrg config from http://jonathanchu.is/posts/org-mode-and-mobileorg-installation-and-config/
+    (setq org-directory "~/WorkDocs/Notational Data")
+    (setq org-default-notes-file (concat org-directory "/notes.org"))
+    (setq org-mobile-inbox-for-pull "~/Dropbox/Apps/MobileOrg/inbox.org")
+    (setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")
+    (setq org-mobile-files '("~/Dropbox/org"))
+    ;; MobileOrg sync on idle from https://stackoverflow.com/a/8432149/908640
+    (defvar org-mobile-sync-timer nil)
+    (defvar org-mobile-sync-idle-secs (* 60 10))
+    (defun org-mobile-sync ()
+      (interactive)
+      (org-mobile-pull)
+      (org-mobile-push))
+    (defun org-mobile-sync-enable ()
+      "enable mobile org idle sync"
+      (interactive)
+      (setq org-mobile-sync-timer
+            (run-with-idle-timer org-mobile-sync-idle-secs t
+                                 'org-mobile-sync)));
+    (defun org-mobile-sync-disable ()
+      "disable mobile org idle sync"
+      (interactive)
+      (cancel-timer org-mobile-sync-timer))
+    (org-mobile-sync-enable)
+  )
   ;; Reuse frames 
-  ;; (setq ns-pop-up-frames nil)
+  (setq ns-pop-up-frames nil)
   ;; When opening a file that is a symbolic link, don't ask whether I
   ;; want to follow the link, just do it.
   (setq find-file-visit-truename t)
