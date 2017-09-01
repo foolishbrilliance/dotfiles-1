@@ -183,5 +183,5 @@ alias sd='fasd -sid'     # interactive directory selection
 alias sf='fasd -sif'     # interactive file selection
 alias z='fasd_cd -d'     # cd, same functionality as j in autojump
 alias zz='fasd_cd -d -i' # cd with interactive selection
-alias v='f -e vim' # quick opening files with vim
+alias e='f -e $EDITOR' # quick opening files with vim
 alias o='a -e open' # quick opening files with open (OSX)
