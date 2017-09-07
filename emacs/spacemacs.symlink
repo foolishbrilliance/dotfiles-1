@@ -31,6 +31,7 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     python
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -49,7 +50,7 @@ values."
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
-     ;; spell-checking
+     spell-checking
      ;; syntax-checking
      ;; themes-megapack
      ;; version-control
@@ -267,7 +268,7 @@ values."
    ;;                       text-mode
    ;;   :size-limit-kb 1000)
    ;; (default nil)
-   dotspacemacs-line-numbers nil
+   dotspacemacs-line-numbers 'relative
    ;; Code folding method. Possible values are `evil' and `origami'.
    ;; (default 'evil)
    dotspacemacs-folding-method 'evil
@@ -317,18 +318,36 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
-  (setq-default evil-escape-key-sequence ",m")
-  (spacemacs/set-leader-keys "oc" 'org-capture)
+  (setq-default fill-column 80)
+  (setq-default evil-escape-key-sequence ";y")
+  (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
 
   ;; Org config
   (with-eval-after-load 'org
-    (setq org-todo-keywords
-      '((sequence "TODO" "IN-PROGRESS" "WAITING" "CANCELED" "DONE")))
-    (setq org-todo-keyword-faces
-          '(("TODO" . org-warning) ("CANCELED" . (:foreground "blue" :weight bold))))
-    ;; MobileOrg config from http://jonathanchu.is/posts/org-mode-and-mobileorg-installation-and-config/
+
+    ;; General
     (setq org-directory "~/WorkDocs/Notational Data")
     (setq org-default-notes-file (concat org-directory "/notes.org"))
+
+    ;; SPC o and SPC m o are reserved for the user. Setting key bindings behind these is guaranteed to never conflict with Spacemacs default key bindings.
+    (spacemacs/set-leader-keys "oc" 'org-capture)
+    (spacemacs/set-leader-keys "oh" 'org-toggle-heading)
+
+    ;; Capture templates
+    (setq org-capture-templates
+          '(("t" "Todo" entry (file+headline org-default-notes-file "Unfiled")
+             "* TODO %?\n\tCreated on %U\n  %i\n  %a")
+            ("j" "Journal" entry (file+datetree (concat org-directory "/journal.org"))
+             "* %?\nEntered on %U\n  %i\n  %a")))
+
+    ;; Todos
+    (setq org-todo-keywords
+          '((sequence "TODO(t)" "IN-PROGRESS(i)" "WAITING(w)" "|" "DONE(d)")
+            (sequence "|" "CANCELED(c)")))
+    (setq org-todo-keyword-faces
+          '(("TODO" . org-warning) ("CANCELED" . (:foreground "blue" :weight bold))))
+
+    ;; MobileOrg config from http://jonathanchu.is/posts/org-mode-and-mobileorg-installation-and-config/
     (setq org-mobile-inbox-for-pull "~/Dropbox/Apps/MobileOrg/inbox.org")
     (setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")
     (setq org-mobile-files '("~/Dropbox/org"))
@@ -350,13 +369,86 @@ you should place your code here."
       (interactive)
       (cancel-timer org-mobile-sync-timer))
     (org-mobile-sync-enable)
-  )
+
+
+
+    ;; Meeting notes with Org per http://orgmode.org/worg/org-tutorials/org-meeting-tasks.html
+    (spacemacs/set-leader-keys "oa" 'org-mactions-new-numbered-action)
+
+    (defcustom org-mactions-numbered-action-format "TODO Action #%d "
+      "Default structure of the headling of a new action.
+    %d will become the number of the action."
+      :group 'org-edit-structure
+      :type 'string)
+
+    (defcustom org-mactions-change-id-on-copy t
+      "Non-nil means make new IDs in copied actions.
+If an action copied with the command `org-mactions-collect-todos-in-subtree'
+contains an ID, that ID will be replaced with a new one."
+      :group 'org-edit-structure
+      :type 'string)
+
+    (defun org-mactions-new-numbered-action (&optional inline)
+      "Insert a new numbered action, using `org-mactions-numbered-action-format'.
+    With prefix argument, insert an inline task."
+      (interactive "P")
+      (let* ((num (let ((re "\\`#\\([0-9]+\\)\\'"))
+                    (1+ (apply 'max 0
+                               (mapcar
+                                (lambda (e)
+                                  (if (string-match re (car e))
+                                      (string-to-number (match-string 1 (car e)))
+                                    0))
+                                (org-get-buffer-tags))))))
+             (tag (concat "#" (number-to-string num))))
+        (if inline
+            (org-inlinetask-insert-task)
+          (org-insert-heading 'force))
+        (unless (eql (char-before) ?\ ) (insert " "))
+        (insert (format org-mactions-numbered-action-format num))
+        (org-toggle-tag tag 'on)
+        (if (= (point-max) (point-at-bol))
+            (save-excursion (goto-char (point-at-eol)) (insert "\n")))
+        (unless (eql (char-before) ?\ ) (insert " "))))
+
+    (defun org-mactions-collect-todos-in-subtree ()
+      "Collect all TODO items in the current subtree into a flat list."
+      (interactive)
+      (let ((buf (get-buffer-create "Org TODO Collect"))
+            (cnt 0) beg end string s)
+        (with-current-buffer buf (erase-buffer) (org-mode))
+        (org-map-entries
+         (lambda ()
+           (setq beg (point) end (org-end-of-subtree t t) cnt (1+ cnt)
+                 string (buffer-substring beg end)
+                 s 0)
+           (when org-mactions-change-id-on-copy
+             (while (string-match "^\\([ \t]*:ID:\\)[ \t\n]+\\([^ \t\n]+\\)[ \t]*$"
+                                  string s)
+               (setq s (match-end 1)
+                     string (replace-match (concat "\\1 "
+                                                   (save-match-data (org-id-new)))
+                                           t nil string))))
+           (with-current-buffer buf (org-paste-subtree 1 string)
+                                (goto-char (point-max))))
+         (format "TODO={%s}" (regexp-opt org-not-done-keywords))
+         'tree)
+        (if (= cnt 0)
+            (message "No TODO items in subtree")
+          (message "%d TODO entries copied to kill ring" cnt)
+          (prog1 (with-current-buffer buf
+                   (kill-new (buffer-string)))
+            (kill-buffer buf)))))
+
+  ) ;; Org
+
   ;; Reuse frames 
   (setq ns-pop-up-frames nil)
   ;; When opening a file that is a symbolic link, don't ask whether I
   ;; want to follow the link, just do it.
   (setq find-file-visit-truename t)
-  )
+
+)
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
@@ -365,10 +457,12 @@ you should place your code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(org-agenda-files (quote ("~/WorkDocs/Notational Data/work.org")))
+ '(org-agenda-files
+   (quote
+    ("~/WorkDocs/Notational Data/notes.org" "~/Dropbox/org/personal.org")))
  '(package-selected-packages
    (quote
-    (zonokai-theme zenburn-theme zen-and-art-theme underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme toxi-theme tao-theme tangotango-theme tango-plus-theme tango-2-theme sunny-day-theme sublime-themes subatomic256-theme subatomic-theme spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme seti-theme reverse-theme railscasts-theme purple-haze-theme professional-theme planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme organic-green-theme omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme naquadah-theme mustang-theme monokai-theme monochrome-theme molokai-theme moe-theme minimal-theme material-theme majapahit-theme madhat2r-theme lush-theme light-soap-theme jbeans-theme jazz-theme ir-black-theme inkpot-theme heroku-theme hemisu-theme hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme gandalf-theme flatui-theme flatland-theme farmhouse-theme espresso-theme dracula-theme django-theme darktooth-theme autothemer darkokai-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized clues-theme cherry-blossom-theme busybee-theme bubbleberry-theme birds-of-paradise-plus-theme badwolf-theme apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes afternoon-theme language-detection mmm-mode markdown-toc markdown-mode gh-md web-mode tagedit slim-mode scss-mode sass-mode pug-mode haml-mode emmet-mode ox-reveal ox-gfm org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-download htmlize gnuplot ws-butler winum which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra info+ indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-make helm helm-core google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump popup f dash s diminish define-word counsel-projectile projectile pkg-info epl counsel swiper ivy column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed async aggressive-indent adaptive-wrap ace-window ace-link avy))))
+    (yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode dash-functional cython-mode anaconda-mode pythonic flyspell-correct-ivy flyspell-correct auto-dictionary zonokai-theme zenburn-theme zen-and-art-theme underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme toxi-theme tao-theme tangotango-theme tango-plus-theme tango-2-theme sunny-day-theme sublime-themes subatomic256-theme subatomic-theme spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme seti-theme reverse-theme railscasts-theme purple-haze-theme professional-theme planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme organic-green-theme omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme naquadah-theme mustang-theme monokai-theme monochrome-theme molokai-theme moe-theme minimal-theme material-theme majapahit-theme madhat2r-theme lush-theme light-soap-theme jbeans-theme jazz-theme ir-black-theme inkpot-theme heroku-theme hemisu-theme hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme gandalf-theme flatui-theme flatland-theme farmhouse-theme espresso-theme dracula-theme django-theme darktooth-theme autothemer darkokai-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized clues-theme cherry-blossom-theme busybee-theme bubbleberry-theme birds-of-paradise-plus-theme badwolf-theme apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes afternoon-theme language-detection mmm-mode markdown-toc markdown-mode gh-md web-mode tagedit slim-mode scss-mode sass-mode pug-mode haml-mode emmet-mode ox-reveal ox-gfm org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-download htmlize gnuplot ws-butler winum which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra info+ indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-make helm helm-core google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump popup f dash s diminish define-word counsel-projectile projectile pkg-info epl counsel swiper ivy column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed async aggressive-indent adaptive-wrap ace-window ace-link avy))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
