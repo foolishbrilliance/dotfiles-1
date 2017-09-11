@@ -320,7 +320,6 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   (setq-default fill-column 80)
   (setq-default evil-escape-key-sequence ";y")
-  (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
 
   ;; Org config
   (with-eval-after-load 'org
