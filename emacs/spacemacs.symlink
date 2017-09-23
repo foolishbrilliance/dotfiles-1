@@ -41,6 +41,7 @@ values."
      ivy
      ;; auto-completion
      ;; better-defaults
+     deft
      emacs-lisp
      ;; git
      html
@@ -142,11 +143,16 @@ values."
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
-   dotspacemacs-default-font '("Source Code Pro"
+   dotspacemacs-default-font '(("Source Code Pro"
                                :size 16
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
+                               ("Consolas"
+                               :size 16
+                               :weight normal
+                               :width normal
+                               :powerline-scale 1.1))
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The key used for Emacs commands (M-x) (after pressing on the leader key).
@@ -321,6 +327,10 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   (setq-default fill-column 80)
   (setq-default evil-escape-key-sequence ";y")
+
+  ;; deft
+  (setq deft-directory "~/Dropbox/Notes")
+  (setq deft-extensions '("org" "md" "txt"))
 
   ;; Org config
   (with-eval-after-load 'org
