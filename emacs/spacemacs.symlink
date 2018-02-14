@@ -328,6 +328,7 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   (setq-default fill-column 80)
   (setq-default evil-escape-key-sequence ";y")
+  (setq evil-magic 'very-magic)
 
   ;; deft
   (setq deft-directory "~/Dropbox/Notes")
@@ -361,7 +362,7 @@ you should place your code here."
     ;; MobileOrg config from http://jonathanchu.is/posts/org-mode-and-mobileorg-installation-and-config/
     (setq org-mobile-inbox-for-pull "~/Dropbox/Apps/MobileOrg/inbox.org")
     (setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")
-    (setq org-mobile-files '("~/Dropbox/org"))
+    (setq org-mobile-files '("~/Dropbox/Notes"))
     ;; MobileOrg sync on idle from https://stackoverflow.com/a/8432149/908640
     (defvar org-mobile-sync-timer nil)
     (defvar org-mobile-sync-idle-secs (* 60 10))
