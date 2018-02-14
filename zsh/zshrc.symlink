@@ -87,9 +87,10 @@ unset config_files
 ################################################################################
 # My custom config
 ################################################################################
-# Use newer GNU core utilities (those that come with OS X are outdated)
+
 if command -v brew &>/dev/null; then
-  export PATH=$(brew --prefix coreutils)/libexec/gnubin:$PATH
+  export PATH=$(brew --prefix coreutils)/libexec/gnubin:$PATH # Use newer GNU core utilities (those that come with OS X are outdated)
+  export PATH=/usr/local/sbin:$PATH # Brew installs binaries here too
 fi
 
 export PATH="$HOME/.dotfiles/bin:$HOME/bin.private:$HOME/bin:$HOME/bin.linux:/usr/local/opt/python/libexec/bin:$PATH"
