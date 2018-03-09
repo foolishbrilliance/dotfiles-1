@@ -330,6 +330,9 @@ you should place your code here."
   (setq-default evil-escape-key-sequence ";y")
   (setq evil-magic 'very-magic)
 
+  ;; org mode in .txt files
+  (add-to-list 'auto-mode-alist '("\\.txt\\'" . org-mode))
+
   ;; deft
   (setq deft-directory "~/Dropbox/Notes")
   (setq deft-extensions '("org" "md" "txt"))
