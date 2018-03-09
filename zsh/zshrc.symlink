@@ -123,6 +123,7 @@ fi
 
 # Fzf - A command-line fuzzy finder written in Go -  https://github.com/junegunn/fzf#using-homebrew-or-linuxbrew
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_OPTS='--height 40% --reverse --border'
 
 # GPG: You should always add the following lines to your .bashrc or whatever initialization file is used for all shell invocations. Per https://www.gnupg.org/documentation/manuals/gnupg/Invoking-GPG_002dAGENT.html
 GPG_TTY=$(tty); export GPG_TTY

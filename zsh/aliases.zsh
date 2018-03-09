@@ -51,6 +51,16 @@ function fo() {
   fi
 }
 
+# From https://gist.github.com/vlymar/4e43dbeae70ff71f861d
+# fuzzy multi-select modified file
+gfmod() {
+  git ls-files -m | fzf -m
+}
+# stage files multi-selected modified files
+gfadd() {
+  git add $(gfmod)
+}
+
 alias glog="git log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
 alias github="open \`git remote -v | grep github.com | grep fetch | head -1 | field 2 | sed 's/git:/http:/g'\`"
 alias gityolo="git commit -am 'Updating everything.'; git push origin master"
