@@ -326,6 +326,16 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  ;; Disable visual select to system clipboard per https://github.com/syl20bnr/spacemacs/blob/master/doc/FAQ.org#prevent-the-visual-selection-overriding-my-system-clipboard
+  (fset 'evil-visual-update-x-selection 'ignore)
+
+  ;; Separate system clipboard from default yank register per https://github.com/syl20bnr/spacemacs/issues/5750#issuecomment-281480406
+  (setq x-select-enable-clipboard nil)
+  (define-key evil-visual-state-map (kbd "s-c") (kbd "\"+y"))
+  (define-key evil-insert-state-map  (kbd "s-v") (kbd "+"))
+  (define-key evil-ex-completion-map (kbd "s-v") (kbd "+"))
+  (define-key evil-ex-search-keymap  (kbd "s-v") (kbd "+"))
+
   (setq-default fill-column 80)
   (setq-default evil-escape-key-sequence ";y")
   (setq evil-magic 'very-magic)
