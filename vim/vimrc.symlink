@@ -375,7 +375,7 @@ call dein#add('bling/vim-airline')
 call dein#add('vim-airline/vim-airline-themes')
 call dein#add('elzr/vim-json')
 call dein#add('haya14busa/incsearch.vim', { 'rev': 'dev'}) "dev branch for MacVim paste fix: https://github.com/haya14busa/incsearch.vim/issues/35#issuecomment-67504976
-call dein#add('jeetsukumaran/vim-filebeagle')
+"call dein#add('jeetsukumaran/vim-filebeagle') " not really using
 call dein#add('justinmk/vim-sneak')
 call dein#add('kien/ctrlp.vim')
 call dein#add('mbbill/undotree')
@@ -390,12 +390,11 @@ call dein#add('tpope/vim-sleuth')
 call dein#add('tpope/vim-surround')
 call dein#add('tpope/vim-unimpaired')
 call dein#add('mattn/webapi-vim') "required for mattn/gist-vim
-call dein#add('mattn/gist-vim') " depends on mattn/webapi-vim
+"call dein#add('mattn/gist-vim') " depends on mattn/webapi-vim; not using
 call dein#add('bkad/CamelCaseMotion')
 call dein#add('reedes/vim-wordy')
 call dein#add('mtth/scratch.vim')
-call dein#add('takac/vim-hardtime')
-call dein#add('mikewest/vimroom')
+"call dein#add('mikewest/vimroom') " not using
 call dein#add('flazz/vim-colorschemes')
 call dein#add('kana/vim-textobj-user') " required for mattn/vim-textobj-url
 call dein#add('mattn/vim-textobj-url') " depends on kana/vim-textobj-user
@@ -484,13 +483,6 @@ let g:gitgutter_map_keys = 0 " No default keys
 " Gundo
 "
 "nnoremap <F5> :GundoToggle<CR>
-
-"
-" Hardtime
-"
-let g:hardtime_default_on = 1
-let g:hardtime_showmsg = 1
-let g:hardtime_allow_different_key = 1
 
 "
 " incsearch.vim
