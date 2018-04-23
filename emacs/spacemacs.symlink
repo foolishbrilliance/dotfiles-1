@@ -341,13 +341,7 @@ you should place your code here."
   (setq-default evil-escape-key-sequence ";y")
   (setq evil-magic 'very-magic)
 
-  ;; word wrap in all text modes per https://www.reddit.com/r/emacs/comments/43vfl1/enable_wordwrap_in_orgmode/czmaj7n/
-  ;;(add-hook 'text-mode-hook 'turn-on-visual-line-mode)
-
-  ;; org mode in .txt files
-  (add-to-list 'auto-mode-alist '("\\.txt\\'" . org-mode))
-
-  ;; Text modes
+  ;; Word wrap in all text modes per https://www.reddit.com/r/emacs/comments/43vfl1/enable_wordwrap_in_orgmode/czmaj7n/
   (add-hook 'text-mode-hook #'(lambda ()
                                (toggle-word-wrap)
                                (toggle-truncate-lines)
@@ -360,8 +354,11 @@ you should place your code here."
   ;; persistent scratch
   (persistent-scratch-setup-default)
 
-  ;; Org config
+  ;; Org mode by default
+  (add-to-list 'auto-mode-alist '("\\.txt\\'" . org-mode)) ;; in .txt files
+  (setq initial-major-mode 'org-mode) ;; in scratch buffers
 
+  ;; Org config
   (with-eval-after-load 'org
 
     ;; General
