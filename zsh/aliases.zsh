@@ -1,11 +1,34 @@
 # zsh aliases
+
+# fasd
+eval "$(fasd --init auto)"
+alias a='fasd -a'        # any
+alias s='fasd -si'       # show / search / select
+alias d='fasd -d'        # directory
+alias f='fasd -f'        # file
+alias sd='fasd -sid'     # interactive directory selection
+alias sf='fasd -sif'     # interactive file selection
+#alias z='fasd_cd -d'     # cd, same functionality as j in autojump
+
+# fasd & fzf change directory - jump using `fasd` if given argument, filter output of `fasd` using `fzf` else
+unalias z # TODO this is being defined somewhere and causing conflicts
+z() {
+    [ $# -gt 0 ] && fasd_cd -d "$*" && return
+    local dir
+    dir="$(fasd -Rdl "$1" | fzf -1 -0 --no-sort +m)" && cd "${dir}" || return 1
+}
+
+alias zz='fasd_cd -d -i' # cd with interactive selection
+alias e='f -e $EDITOR' # quick opening files with vim
+alias o='a -e open' # quick opening files with open (OSX)
+
 alias ..='cd ..'
 alias ...='cd ../../'
 alias ....='cd ../../../'
 alias .....='cd ../../../../'
 alias ......='cd ../../../../../'
 
-# c - browse chrome history
+# c - fuzzy browse chrome history
 c() {
   local cols sep google_history open
   cols=$(( COLUMNS / 3 ))
@@ -79,8 +102,12 @@ fcd() {
   cd "$dir"
 }
 
+# fuzzy find clipboard Alfred history
+alias fclip='sqlite3 -header -csv ~/Library/Application\ Support/Alfred\ 3/Databases/clipboard.alfdb "select * from clipboard" |fzf |pbcopy'
+
 alias fpath='perl -MCwd -e "print Cwd::abs_path shift"' # cpath is another alias, think "canonical path"
 
+# fe - fuzzy edit
 fe() {
   local out file key
   IFS=$'\n' out=($(fzf-tmux --query="$1" --exit-0 --expect=ctrl-o,ctrl-e))
@@ -91,7 +118,14 @@ fe() {
   fi
 }
 
-# Fuzzy view file
+# fasd & fzf edit file - open best matched file using `fasd` if given argument, filter output of `fasd` using `fzf` else
+ff() {
+    [ $# -gt 0 ] && fasd -f -e ${EDITOR} "$*" && return
+    local file
+    file="$(fasd -Rfl "$1" | fzf -1 -0 --no-sort +m)" && vi "${file}" || return 1
+}
+
+# fv - fuzzy view
 fv() {
     local file
     if [[ -e "$1" ]]; then
@@ -225,22 +259,3 @@ alias worddiff='git diff --word-diff=color'
 
 alias zpup='cd .zprezto && git pull && git submodule update --init --recursive; cd -' # Update prezto
 
-# fasd
-eval "$(fasd --init auto)"
-alias a='fasd -a'        # any
-alias s='fasd -si'       # show / search / select
-alias d='fasd -d'        # directory
-alias f='fasd -f'        # file
-alias sd='fasd -sid'     # interactive directory selection
-alias sf='fasd -sif'     # interactive file selection
-alias z='fasd_cd -d'     # cd, same functionality as j in autojump
-alias zz='fasd_cd -d -i' # cd with interactive selection
-alias e='f -e $EDITOR' # quick opening files with vim
-alias o='a -e open' # quick opening files with open (OSX)
-
-# fasd & fzf change directory - open best matched file using `fasd` if given argument, filter output of `fasd` using `fzf` else
-ef() {
-    [ $# -gt 0 ] && fasd -f -e ${EDITOR} "$*" && return
-    local file
-    file="$(fasd -Rfl "$1" | fzf -1 -0 --no-sort +m)" && vi "${file}" || return 1
-}
