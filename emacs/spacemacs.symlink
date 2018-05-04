@@ -328,6 +328,17 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+
+  (setq-default evil-escape-key-sequence ";y")
+  (setq-default evil-escape-key-sequence "y;")
+  (setq-default evil-escape-key-sequence "yo")
+
+  (setq-default fill-column 80)
+  (setq evil-magic 'very-magic) ;; very magic by default
+  (setq ns-pop-up-frames nil) ;; reuse frames 
+  (setq find-file-visit-truename t) ;; follow symlinks
+  (setq evil-want-fine-undo t)  ;; more granular undo increments per https://emacs.stackexchange.com/a/24948
+
   ;; Disable visual select to system clipboard per https://github.com/syl20bnr/spacemacs/blob/master/doc/FAQ.org#prevent-the-visual-selection-overriding-my-system-clipboard
   (fset 'evil-visual-update-x-selection 'ignore)
 
@@ -337,10 +348,6 @@ you should place your code here."
   (define-key evil-insert-state-map  (kbd "s-v") (kbd "+"))
   (define-key evil-ex-completion-map (kbd "s-v") (kbd "+"))
   (define-key evil-ex-search-keymap  (kbd "s-v") (kbd "+"))
-
-  (setq-default fill-column 80)
-  (setq-default evil-escape-key-sequence ";y")
-  (setq evil-magic 'very-magic)
 
   ;; Word wrap in all text modes per https://www.reddit.com/r/emacs/comments/43vfl1/enable_wordwrap_in_orgmode/czmaj7n/
   (add-hook 'text-mode-hook #'(lambda ()
@@ -490,12 +497,6 @@ contains an ID, that ID will be replaced with a new one."
           )
 
   ) ;; Org
-
-  ;; Reuse frames 
-  (setq ns-pop-up-frames nil)
-  ;; When opening a file that is a symbolic link, don't ask whether I
-  ;; want to follow the link, just do it.
-  (setq find-file-visit-truename t)
 
   ;; Load host-specific config
   (when (file-exists-p "~/.emacs.d/private/local/local.el") (load "~/.emacs.d/private/local/local.el"))
