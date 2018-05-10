@@ -355,6 +355,9 @@ you should place your code here."
                                (toggle-truncate-lines)
                                ))
 
+  ;; ivy
+  (setq ivy-initial-inputs-alist nil) ;; remove default '^' per https://github.com/abo-abo/swiper/issues/975
+
   ;; deft
   (setq deft-directory "~/Dropbox/Notes")
   (setq deft-extensions '("org" "md" "txt"))
