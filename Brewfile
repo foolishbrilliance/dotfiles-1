@@ -45,6 +45,7 @@ brew "jq"
 brew "laurent22/massren/massren"
 brew "macvim" # use `brew install macvim` because `brew cask install macvim` has issues in yosemite per http://awebfactory.com/node/541 
 brew "mas"
+brew "mas-cli/tap/mas" # for 10.11 (El Capitan) per https://github.com/mas-cli/mas/issues/138
 brew "mobile-shell"
 brew "mtr"
 brew "neovim"
