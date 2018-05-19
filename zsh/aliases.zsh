@@ -255,6 +255,11 @@ alias ud='cd ~/dotfiles && git pull; cd -'
 alias utc='date -u'
 
 alias vi='vim'
+if check_com -c nvim ; then
+  vim () { # from https://github.com/grml/grml-etc-core/blob/master/etc/zsh/zshrc#L3130
+    VIM_PLEASE_SET_TITLE='yes' command nvim ${VIM_OPTIONS} "$@"
+  }
+fi
 alias worddiff='git diff --word-diff=color'
 
 alias zpup='cd .zprezto && git pull && git submodule update --init --recursive; cd -' # Update prezto
