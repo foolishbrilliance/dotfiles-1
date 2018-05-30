@@ -149,10 +149,10 @@ check_com -c nvim && export EDITOR=nvim
 
 # Ruby 
 # init rbenv according to man page
-if (( $+commands[rbenv] ))
-then
-  eval "$(rbenv init -)"
-fi
+# if (( $+commands[rbenv] ))
+# then
+#   eval "$(rbenv init -)"
+# fi
 
 # To allow for ^s to fwd-i-search (opposite of ^r), disable XON/XOFF for interactive shells per https://stackoverflow.com/questions/791765/unable-to-forward-search-bash-history-similarly-as-with-ctrl-r#comment39602061_791800
 [[ $- == *i* ]] && stty -ixon
