@@ -374,7 +374,8 @@ call dein#add('frankier/neovim-colors-solarized-truecolor-only') " for solarized
 call dein#add('bling/vim-airline')
 call dein#add('vim-airline/vim-airline-themes')
 call dein#add('elzr/vim-json')
-call dein#add('haya14busa/incsearch.vim', { 'rev': 'dev'}) "dev branch for MacVim paste fix: https://github.com/haya14busa/incsearch.vim/issues/35#issuecomment-67504976
+"call dein#add('haya14busa/incsearch.vim', { 'rev': 'dev'}) "dev branch for MacVim paste fix: https://github.com/haya14busa/incsearch.vim/issues/35#issuecomment-67504976
+call dein#add('haya14busa/incsearch.vim')
 "call dein#add('jeetsukumaran/vim-filebeagle') " not really using
 call dein#add('justinmk/vim-sneak')
 call dein#add('kien/ctrlp.vim')
