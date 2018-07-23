@@ -75,6 +75,10 @@ if ! zgen saved; then
   zgen load supercrabtree/k
   zgen load peterhurford/up.zsh
   zgen load unixorn/warhol.plugin.zsh
+
+  # prompt
+  zgen load mafredri/zsh-async
+  zgen load sindresorhus/pure
   
   # generate the init script from plugins above
   zgen save
