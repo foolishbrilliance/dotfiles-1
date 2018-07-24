@@ -129,7 +129,7 @@ check_com -c nvim && export EDITOR=nvim && export NVIM_TUI_ENABLE_TRUE_COLOR=1
 # version checking function per https://stackoverflow.com/a/37939589/908640
 function version { echo "$@" | awk -F. '{ printf("%d%03d%03d%03d\n", $1,$2,$3,$4); }'; }
 
-if [ $(version $$ZSH_VERSION) -ge $(version "5.2") ]; then # Pure prompt requires ZSH 5.2+
+if [ $(version $ZSH_VERSION) -ge $(version "5.2") ]; then # Pure prompt requires ZSH 5.2+
   # Pure: Pretty, minimal and fast ZSH prompt
   # https://github.com/sindresorhus/pure
   autoload -U promptinit; promptinit
