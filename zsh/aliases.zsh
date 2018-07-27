@@ -198,6 +198,7 @@ alias ql='qlmanage -p "$@" >& /dev/null'
 alias reload!='. ~/.zshrc'
 alias removetimestamp='sed -i.bak "s/\(.*\)..:..:..$/\1/"'
 alias removetimestampandcopy='sed "s/\(.*\)..:..:..$/\1/" $@ |pbcopy'
+alias rg='rg --smart-case'
 alias rs='screen -RD'
 alias sl='ls'
 alias ss="open /System/Library/Frameworks/ScreenSaver.framework/Versions/A/Resources/ScreenSaverEngine.app" # Start ScreenSaver. This will lock the screen if locking is enabled.
