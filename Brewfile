@@ -18,15 +18,12 @@ brew "vim", args: ["with-override-system-vi"]
 
 brew "aria2"
 brew "awscli"
-brew "bash" # Install Bash 4.  Note: don’t forget to add `/usr/local/bin/bash` to `/etc/shells` before running `chsh`.
-brew "bash-completion"
 brew "coreutils" # Install GNU core utilities (those that come with OS X are outdated). Don’t forget to add `$(brew --prefix coreutils)/libexec/gnubin` to `$PATH`.
 brew "dos2unix"
 brew "emacs-plus", args: ["HEAD","with-natural-title-bar"]
 brew "fasd"
 brew "fd"
 brew "findutils" # Install GNU `find`, `locate`, `updatedb`, and `xargs`, `g`-prefixed.
-brew "fish"
 brew "fsevents-tools"
 brew "fzf"
 brew "git"
@@ -46,7 +43,7 @@ brew "laurent22/massren/massren"
 brew "macvim" # use `brew install macvim` because `brew cask install macvim` has issues in yosemite per http://awebfactory.com/node/541 
 brew "mas"
 brew "mas-cli/tap/mas" # for 10.11 (El Capitan) per https://github.com/mas-cli/mas/issues/138
-brew "mobile-shell"
+brew "mobile-shell"	# mosh
 brew "mtr"
 brew "neovim"
 brew "node"
@@ -57,7 +54,7 @@ brew "pianobar"
 brew "pipes-sh"
 brew "pv"
 brew "python"
-brew "rbenv", args: ["HEAD"] # for fish support per https://coderwall.com/p/hmousw/using-rbenv-with-fish-the-right-way
+brew "rbenv"
 brew "reattach-to-user-namespace", args: ["wrap-pbcopy-and-pbpaste"] # For pbcopy support in tmux per http://superuser.com/a/413233
 brew "rename"
 brew "ripgrep"
@@ -98,7 +95,6 @@ cask "iterm2"
 cask "keyboard-cleaner"
 cask "lastpass"
 cask "launchcontrol"
-cask "league-of-legends"
 cask "licecap"
 cask "limechat"
 cask "liteicon"
@@ -124,7 +120,6 @@ cask "suspicious-package"
 cask "trim-enabler"
 cask "vagrant"
 cask "veracrypt"
-cask "voicemac"
 cask "xmarks-safari"
 mas "1Keyboard", id: 766939888
 mas "Evernote", id: 406056744
