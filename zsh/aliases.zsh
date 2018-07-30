@@ -135,6 +135,17 @@ fv() {
     fi
 }
 
+# Git aliases from zprezto: https://github.com/sorin-ionescu/prezto/blob/master/modules/git/alias.zsh
+# Commit (c)
+alias gcm='git commit --message'
+# Index (i)
+alias gia='git add'
+alias gid='git diff --no-ext-diff --cached'
+alias giD='git diff --no-ext-diff --cached --word-diff'
+# Working Copy (w)
+alias gws='git status --short'
+alias gwS='git status'
+
 # From https://gist.github.com/vlymar/4e43dbeae70ff71f861d
 # fuzzy multi-select modified file
 gfmod() {
