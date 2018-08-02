@@ -349,11 +349,10 @@ you should place your code here."
 
   (setq-default fill-column 80)
   (setq evil-magic 'very-magic) ;; very magic by default
-  (setq ns-pop-up-frames nil) ;; reuse frames 
+  (setq ns-pop-up-frames nil) ;; reuse frames
   (setq find-file-visit-truename t) ;; follow symlinks
   (setq evil-want-fine-undo t)  ;; more granular undo increments per https://emacs.stackexchange.com/a/24948
   (setq-default indent-tabs-mode nil)  ;; only use spaces
-
 
   ;; Disable visual select to system clipboard per https://github.com/syl20bnr/spacemacs/blob/master/doc/FAQ.org#prevent-the-visual-selection-overriding-my-system-clipboard
   (fset 'evil-visual-update-x-selection 'ignore)
@@ -365,11 +364,21 @@ you should place your code here."
   (define-key evil-ex-completion-map (kbd "s-v") (kbd "+"))
   (define-key evil-ex-search-keymap  (kbd "s-v") (kbd "+"))
 
-  ;; Word wrap in all text modes per https://www.reddit.com/r/emacs/comments/43vfl1/enable_wordwrap_in_orgmode/czmaj7n/
+  ;; run in all text buffers
   (add-hook 'text-mode-hook #'(lambda ()
-                               (toggle-word-wrap)
-                               (toggle-truncate-lines)
-                               ))
+                                (message "running text-mode-hook")
+                                ;; Word wrap in all text modes per https://www.reddit.com/r/emacs/comments/43vfl1/enable_wordwrap_in_orgmode/czmaj7n/
+                                (toggle-word-wrap)
+                                (spacemacs/toggle-truncate-lines-off)
+                                ))
+
+  ;; run in all source buffers
+  (add-hook 'prog-mode-hook #'(lambda ()
+                                (message "running prog-mode-hook")
+                                (dtrt-indent-mode)
+                                (dtrt-indent-adapt)
+                                (diminish 'dtrt-indent-mode "Ⓘ")
+                                (spacemacs/toggle-truncate-lines-on)))
 
   ;; ivy
   (setq ivy-initial-inputs-alist nil) ;; remove default '^' per https://github.com/abo-abo/swiper/issues/975
