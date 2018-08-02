@@ -74,8 +74,11 @@ set -o pipefail # It is useful to have set -o pipefail somewhere in your shell s
 # To allow for ^s to fwd-i-search (opposite of ^r), disable XON/XOFF for interactive shells per https://stackoverflow.com/questions/791765/unable-to-forward-search-bash-history-similarly-as-with-ctrl-r#comment39602061_791800
 [[ $- == *i* ]] && stty -ixon
 
-# load zgen
-source "${HOME}/.zgen/zgen.zsh"
+# zgen
+# These files will be checked and if a change is detected zgen reset is called.
+ZGEN_RESET_ON_CHANGE=(${HOME}/.zshrc)
+
+source "${HOME}/.zgen/zgen.zsh" # load zgen
 
 # if the init scipt doesn't exist
 if ! zgen saved; then
