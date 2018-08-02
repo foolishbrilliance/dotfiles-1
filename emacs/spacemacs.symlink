@@ -348,17 +348,17 @@ you should place your code here."
   ;;(setq-default evil-escape-key-sequence "yo") ;; too common
 
   (setq-default fill-column 80)
-  (setq evil-magic 'very-magic) ;; very magic by default
-  (setq ns-pop-up-frames nil) ;; reuse frames
-  (setq find-file-visit-truename t) ;; follow symlinks
-  (setq evil-want-fine-undo t)  ;; more granular undo increments per https://emacs.stackexchange.com/a/24948
-  (setq-default indent-tabs-mode nil)  ;; only use spaces
+  (setq-default evil-magic 'very-magic)     ;; very magic by default
+  (setq-default evil-want-fine-undo t)      ;; more granular undo increments per https://emacs.stackexchange.com/a/24948
+  (setq-default find-file-visit-truename t) ;; follow symlinks
+  (setq-default indent-tabs-mode nil)       ;; only use spaces
+  (setq-default ns-pop-up-frames nil)       ;; reuse frames
 
   ;; Disable visual select to system clipboard per https://github.com/syl20bnr/spacemacs/blob/master/doc/FAQ.org#prevent-the-visual-selection-overriding-my-system-clipboard
   (fset 'evil-visual-update-x-selection 'ignore)
 
   ;; Separate system clipboard from default yank register per https://github.com/syl20bnr/spacemacs/issues/5750#issuecomment-281480406
-  (setq x-select-enable-clipboard nil)
+  (setq-default x-select-enable-clipboard nil)
   (define-key evil-visual-state-map (kbd "s-c") (kbd "\"+y"))
   (define-key evil-insert-state-map  (kbd "s-v") (kbd "+"))
   (define-key evil-ex-completion-map (kbd "s-v") (kbd "+"))
@@ -380,15 +380,12 @@ you should place your code here."
                                 (diminish 'dtrt-indent-mode "Ⓘ")
                                 (spacemacs/toggle-truncate-lines-on)))
 
-  ;; ivy
-  (setq ivy-initial-inputs-alist nil) ;; remove default '^' per https://github.com/abo-abo/swiper/issues/975
-
   ;; deft
-  (setq deft-directory "~/Dropbox/Notes")
-  (setq deft-extensions '("org" "md" "txt"))
+  (setq-default deft-directory "~/Dropbox/Notes")
+  (setq-default deft-extensions '("org" "md" "txt"))
 
-  ;; persistent scratch
-  (persistent-scratch-setup-default)
+  ;; ivy
+  (setq-default ivy-initial-inputs-alist nil) ;; remove default '^' per https://github.com/abo-abo/swiper/issues/975
 
   ;; Org mode by default
   (add-to-list 'auto-mode-alist '("\\.txt\\'" . org-mode)) ;; in .txt files
@@ -526,6 +523,9 @@ contains an ID, that ID will be replaced with a new one."
           )
 
   ) ;; Org
+
+  ;; persistent scratch
+  (persistent-scratch-setup-default)
 
   ;; Load host-specific config
   (when (file-exists-p "~/.emacs.d/private/local/local.el") (load "~/.emacs.d/private/local/local.el"))
