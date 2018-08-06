@@ -40,10 +40,10 @@ brew "hub"
 brew "imagemagick"
 brew "jq"
 brew "laurent22/massren/massren"
-brew "macvim" # use `brew install macvim` because `brew cask install macvim` has issues in yosemite per http://awebfactory.com/node/541 
+brew "macvim" # use `brew install macvim` because `brew cask install macvim` has issues in yosemite per http://awebfactory.com/node/541
 brew "mas"
 brew "mas-cli/tap/mas" # for 10.11 (El Capitan) per https://github.com/mas-cli/mas/issues/138
-brew "mobile-shell"	# mosh
+brew "mobile-shell" # mosh
 brew "mtr"
 brew "neovim"
 brew "node"
@@ -120,6 +120,7 @@ cask "suspicious-package"
 cask "trim-enabler"
 cask "vagrant"
 cask "veracrypt"
+cask "vimr"
 cask "xmarks-safari"
 mas "1Keyboard", id: 766939888
 mas "Evernote", id: 406056744
