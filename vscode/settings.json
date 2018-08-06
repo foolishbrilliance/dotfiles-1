@@ -1,0 +1,17 @@
+{
+    "editor.fontFamily": "Fira Code, Inconsolata, Menlo, Monaco, 'Courier New', monospace",
+    "editor.fontLigatures": true,
+    "editor.fontSize": 20,
+    "editor.renderWhitespace": "boundary",
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": true,
+    //"vim.cmdLineInitialColon": true,
+    //"vim.disableAnnoyingNeovimMessage": true,
+    "vim.hlsearch": true,
+    "vim.leader": ",",
+    "vim.useSystemClipboard": true,
+    "vim.visualstar": true,
+    "workbench.colorTheme": "Braver's Solarized Dark (themed workbench)",
+    "vim.easymotion": true
+}
