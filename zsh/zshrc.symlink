@@ -104,7 +104,7 @@ fi
 # Use fd (https://github.com/sharkdp/fd) with fzf if possible
 if check_com -c fd; then
   # Setting fd as the default source for fzf
-  export FZF_DEFAULT_COMMAND="fd --type file --follow --color=always"
+  export FZF_DEFAULT_COMMAND="fd --type file --follow --hidden --color=always"
   # To apply the command to CTRL-T as well
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
