@@ -75,6 +75,10 @@ set -o pipefail # It is useful to have set -o pipefail somewhere in your shell s
 [[ $- == *i* ]] && stty -ixon
 
 # zgen
+if [ ! -d $HOME/.zgen ]; then
+  git clone https://github.com/tarjoilija/zgen.git "${HOME}/.zgen"
+fi
+
 # These files will be checked and if a change is detected zgen reset is called.
 ZGEN_RESET_ON_CHANGE=(${HOME}/.zshrc)
 
