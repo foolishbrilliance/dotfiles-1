@@ -100,8 +100,9 @@ fcd() {
   cd "$dir"
 }
 
-# fuzzy find clipboard Alfred history
-alias fclip='sqlite3 -header -csv ~/Library/Application\ Support/Alfred\ 3/Databases/clipboard.alfdb "select * from clipboard" |fzf |pbcopy'
+# fuzzy find clipboard Alfred history (sort by timestamp in sqlite, then don't sort in fzf)
+alias fclip='sqlite3 -header -csv ~/Library/Application\ Support/Alfred\ 3/Databases/clipboard.alfdb "select item from clipboard order by ts desc" |fzf |pbcopy'
+
 
 alias fpath='perl -MCwd -e "print Cwd::abs_path shift"' # cpath is another alias, think "canonical path"
 
