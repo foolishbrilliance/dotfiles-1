@@ -26,6 +26,9 @@ set -g visual-activity on
 set -g status-left '#[fg=cyan]#(hostname -s)'
 set -g status-right "#[fg=blue]%k:%M"
 
+# Increase history limit
+set -g history-limit 5000
+
 # ---------------------
 # Copy & Paste for OSX
 # ---------------------
