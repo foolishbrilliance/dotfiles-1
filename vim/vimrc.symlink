@@ -44,6 +44,7 @@ set autoindent
 set autowrite
 set backspace=2         " allow backspace beyond insertion point
 set backspace=indent,eol,start
+set cmdheight=2 " for long file names
 set display=lastline
 set fileformats=unix,dos,mac
 if executable('ag')
@@ -178,7 +179,7 @@ nnoremap <Leader>S i<CR><Esc>^mwgk:silent! s/\v +$//<CR>:noh<CR>
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 
 " Unhighlight the last search pattern on Enter
-nnoremap <silent><CR> :noh<return><CR>
+"nnoremap <silent><CR> :noh<return><CR>
 
 " Format paragraph to textwidth
 nnoremap <Leader>f <Esc>gq}<CR>
@@ -373,7 +374,6 @@ call dein#add('Shougo/dein.vim')
 "call dein#add('scrooloose/syntastic')
 "call dein#add('sjl/gundo.vim.git')
 "call dein#add('mikewest/vimroom') " not using
-"call dein#add('tpope/vim-vinegar') "I like filebeagle more
 "call dein#add('gmarik/Vundle.vim')
 "
 "call dein#add('mattn/webapi-vim') "required for mattn/gist-vim
@@ -392,11 +392,13 @@ call dein#add('tpope/vim-abolish')
 call dein#add('tpope/vim-commentary')
 call dein#add('tpope/vim-eunuch')
 call dein#add('tpope/vim-fugitive')
+call dein#add('tpope/vim-jdaddy')
 call dein#add('tpope/vim-repeat')
 call dein#add('tpope/vim-sensible')
 call dein#add('tpope/vim-sleuth')
 call dein#add('tpope/vim-surround')
 call dein#add('tpope/vim-unimpaired')
+"call dein#add('tpope/vim-vinegar')
 call dein#add('bkad/CamelCaseMotion')
 call dein#add('reedes/vim-wordy')
 call dein#add('mtth/scratch.vim')
@@ -404,6 +406,7 @@ call dein#add('flazz/vim-colorschemes')
 call dein#add('kana/vim-textobj-user') " required for mattn/vim-textobj-url
 call dein#add('mattn/vim-textobj-url') " depends on kana/vim-textobj-user
 call dein#add('/usr/local/opt/fzf') " required for fzf.vim
+call dein#add('/home/linuxbrew/.linuxbrew/opt/fzf') " (on Linuxbrew machines) required for fzf.vim
 call dein#add('junegunn/fzf.vim')   " depends on plugin at /usr/local/opt/fzf
 
 " You can specify revision/branch/tag.
@@ -586,6 +589,8 @@ augroup Misc
   autocmd!
 
   autocmd FileType netrw call s:scratch_maps()
+  " from https://github.com/tpope/vim-vinegar/issues/13#issuecomment-72407746
+  autocmd FileType netrw setl bufhidden=wipe
   autocmd FocusLost   * silent! wall
 augroup END
 
