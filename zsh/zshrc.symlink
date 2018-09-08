@@ -1,3 +1,6 @@
+# Fix Emacs TRAMP per https://www.emacswiki.org/emacs/TrampMode#toc7
+[[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
+
 # Prefer GNU ls over BSD ls
 function {
   if command -v brew &>/dev/null ; then
@@ -195,4 +198,3 @@ fi
 if [[ -a ~/.zshrc.secret ]]; then
   source ~/.zshrc.secret
 fi
-
