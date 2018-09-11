@@ -51,8 +51,10 @@ values."
      fzf
      git
      (ivy :variables
-          ;; Enable ivy-rich per http://develop.spacemacs.org/layers/+completion/ivy/README.html#advanced-buffer-information
-          ;; Note that ivy-rich has been reported to be very slow on macOS. This feature is disabled by default.
+          ;; Enable ivy-rich per
+          ;; http://develop.spacemacs.org/layers/+completion/ivy/README.html#advanced-buffer-information
+          ;; Note that ivy-rich has been reported to be very slow on macOS. This
+          ;; feature is disabled by default.
           ivy-enable-advanced-buffer-information t)
      (org :variables
           org-enable-reveal-js-support t
@@ -65,7 +67,8 @@ values."
      syntax-checking
      ;; themes-megapack
      (version-control :variables
-                      version-control-diff-tool 'git-gutter ;; git-gutter(+) works with TRAMP
+                      version-control-diff-tool 'git-gutter ;; git-gutter(+)
+                                                            ;; works with TRAMP
                       version-control-diff-side 'left)
      )
    ;; List of additional packages that will be installed without being
@@ -82,7 +85,7 @@ values."
    ;; A list of packages that will not be installed and loaded.
    dotspacemacs-excluded-packages
    '(
-     org-projectile ;; Per https://github.com/syl20bnr/spacemacs/issues/9374#issuecomment-325238803
+     org-projectile ;; https://github.com/syl20bnr/spacemacs/issues/9374#issuecomment-325238803
      )
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
