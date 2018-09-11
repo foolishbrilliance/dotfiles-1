@@ -352,24 +352,20 @@ you should place your code here."
 
   ;; set defaults
   (setq-default
+   deft-directory "~/Dropbox/Notes"
+   deft-extensions '("md" "org" "txt")
    dotspacemacs-use-spacelpa t
    evil-escape-key-sequence ";y"
    evil-escape-key-sequence "y;"
+   evil-magic 'very-magic       ;; very magic by default
+   evil-shift-round nil
+   evil-want-fine-undo t        ;; more granular undo increments per https://emacs.stackexchange.com/a/24948
    fill-column 80
-   evil-magic 'very-magic     ;; very magic by default
-   evil-want-fine-undo t      ;; more granular undo increments per https://emacs.stackexchange.com/a/24948
-   find-file-visit-truename t ;; follow symlinks
-   indent-tabs-mode nil       ;; only use spaces
-   ns-pop-up-frames nil       ;; reuse frames
-
-   ;; deft
-   deft-directory "~/Dropbox/Notes"
-   deft-extensions '("org" "md" "txt")
-
-   ;; ivy
+   find-file-visit-truename t   ;; follow symlinks
+   indent-tabs-mode nil         ;; only use spaces
    ivy-initial-inputs-alist nil ;; remove default '^' per https://github.com/abo-abo/swiper/issues/975
+   ns-pop-up-frames nil         ;; reuse frames
    )
-  ;; END set defaults
 
   (unless (display-graphic-p) ;; if run in terminal
     (progn
