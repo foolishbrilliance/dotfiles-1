@@ -408,7 +408,9 @@ you should place your code here."
                                 (dtrt-indent-mode)
                                 (dtrt-indent-adapt)
                                 (diminish 'dtrt-indent-mode "Ⓘ")
-                                (spacemacs/toggle-truncate-lines-on)))
+                                (spacemacs/toggle-truncate-lines-on)
+                                (turn-on-fci-mode)
+                                ))
 
   (global-company-mode t) ;; enable autocomplete in all buffers
 
