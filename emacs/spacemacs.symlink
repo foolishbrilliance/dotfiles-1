@@ -31,6 +31,7 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     ;; Languages
      emacs-lisp
      javascript
      html
@@ -134,7 +135,7 @@ values."
    ;; directory. A string value must be a path to an image format supported
    ;; by your Emacs build.
    ;; If the value is nil then no banner is displayed. (default 'official)
-   dotspacemacs-startup-banner 'official
+   dotspacemacs-startup-banner 0
    ;; List of items to show in startup buffer or an association list of
    ;; the form `(list-type . list-size)`. If nil then it is disabled.
    ;; Possible values for list-type are:
@@ -167,8 +168,8 @@ values."
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
-   dotspacemacs-default-font '(("Inconsolata"
-                                :size 20
+   dotspacemacs-default-font '(("Source Code Pro"
+                                :size 18
                                 :weight normal
                                 :width normal
                                 :powerline-scale 1.1)
@@ -201,7 +202,7 @@ values."
    ;; works in the GUI. (default nil)
    dotspacemacs-distinguish-gui-tab t
    ;; If non nil `Y' is remapped to `y$' in Evil states. (default nil)
-   dotspacemacs-remap-Y-to-y$ nil
+   dotspacemacs-remap-Y-to-y$ t
    ;; If non-nil, the shift mappings `<' and `>' retain visual state if used
    ;; there. (default t)
    dotspacemacs-retain-visual-state-on-shift t
@@ -406,7 +407,7 @@ you should place your code here."
                                 (diminish 'dtrt-indent-mode "Ⓘ")
                                 (spacemacs/toggle-truncate-lines-on)))
 
-  (global-company-mode t)
+  (global-company-mode t) ;; enable autocomplete in all buffers
 
   ;; Overwrite `deft-current-files` for the `deft-buffer-setup` and limit it to 30 entries: https://github.com/jrblevin/deft/issues/43#issuecomment-350198825
   (defun anks-deft-limiting-fn (orig-fun &rest args)
