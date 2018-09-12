@@ -1,13 +1,13 @@
-# Sample gitconfig
-#
-
 [hub]
         protocol = https
 [user]
-        name = AUTHORNAME
-        email = AUTHOREMAIL
+        name = Joe Chan
+        email = joech4n@users.noreply.github.com
+[include]
+	      # Include a per-machine .gitconfig
+        path = ~/.gitconfig.local
 [credential]
-        helper = GIT_CREDENTIAL_HELPER
+        helper = osxkeychain
 [alias]
         co = checkout
         promote = !$ZSH/bin/git-promote
