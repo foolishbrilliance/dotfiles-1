@@ -364,6 +364,7 @@ you should place your code here."
    evil-magic 'very-magic       ;; very magic by default
    evil-shift-round nil
    evil-want-fine-undo t        ;; more granular undo increments per https://emacs.stackexchange.com/a/24948
+   split-width-threshold 100    ;; split windows if the window's max width <100
    fill-column 80
    find-file-visit-truename t   ;; follow symlinks
    indent-tabs-mode nil         ;; only use spaces
