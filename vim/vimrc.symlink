@@ -407,6 +407,7 @@ call dein#add('kana/vim-textobj-user') " required for mattn/vim-textobj-url
 call dein#add('mattn/vim-textobj-url') " depends on kana/vim-textobj-user
 call dein#add('/usr/local/opt/fzf') " required for fzf.vim
 call dein#add('/home/linuxbrew/.linuxbrew/opt/fzf') " (on Linuxbrew machines) required for fzf.vim
+call dein#add('~/.fzf/plugin') " (Linux alternative install) required for fzf.vim
 call dein#add('junegunn/fzf.vim')   " depends on plugin at /usr/local/opt/fzf
 
 " You can specify revision/branch/tag.
