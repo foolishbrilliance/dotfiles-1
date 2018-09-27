@@ -438,6 +438,13 @@ you should place your code here."
                                 (turn-on-fci-mode)
                                 ))
 
+  ;; Fix shell path in TRAMP for some remote servers from https://github.com/bbatsov/projectile/issues/921#issuecomment-161491231
+  (defun my/shell-set-hook ()
+    (when (file-remote-p (buffer-file-name))
+      (let ((vec (tramp-dissect-file-name (buffer-file-name))))
+          (setq-local shell-file-name "/bin/bash"))))
+  (add-hook 'find-file-hook #'my/shell-set-hook)
+
   (global-company-mode t) ;; enable autocomplete in all buffers
 
   ;; Overwrite `deft-current-files` for the `deft-buffer-setup` and limit it to 30 entries: https://github.com/jrblevin/deft/issues/43#issuecomment-350198825
