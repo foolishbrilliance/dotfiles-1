@@ -446,6 +446,7 @@ you should place your code here."
   (add-hook 'find-file-hook #'my/shell-set-hook)
 
   (global-company-mode t) ;; enable autocomplete in all buffers
+  (diminish 'mmm-mode "Ṁ")
 
   ;; Overwrite `deft-current-files` for the `deft-buffer-setup` and limit it to 30 entries: https://github.com/jrblevin/deft/issues/43#issuecomment-350198825
   (defun anks-deft-limiting-fn (orig-fun &rest args)
@@ -456,8 +457,8 @@ you should place your code here."
 
   ;; Default mode
   (add-to-list 'auto-mode-alist '("\\.txt\\'" . markdown-mode)) ;; in .txt files
+  (add-to-list 'auto-mode-alist '("\\.xml\\'" . xml-mode)) ;; in .txt files
   (setq-default major-mode 'markdown-mode)                      ;; for all buffers
-  ;; (setq initial-major-mode 'org-mode) ;; for scratch buffers
 
   ;; Org config
   (with-eval-after-load 'org
