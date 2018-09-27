@@ -57,7 +57,7 @@ values."
           ;; http://develop.spacemacs.org/layers/+completion/ivy/README.html#advanced-buffer-information
           ;; Note that ivy-rich has been reported to be very slow on macOS. This
           ;; feature is disabled by default.
-          ivy-enable-advanced-buffer-information t)
+          ivy-enable-advanced-buffer-information nil) ;; Note to self: Disabled as it's too slow with TRAMP
      (org :variables
           org-enable-reveal-js-support t
           org-enable-github-support t)
