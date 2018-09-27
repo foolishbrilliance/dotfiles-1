@@ -447,6 +447,7 @@ you should place your code here."
 
   (global-company-mode t) ;; enable autocomplete in all buffers
   (diminish 'mmm-mode "Ṁ")
+  (evilnc-default-hotkeys) ;; setup evil-nerd-commenter
 
   ;; Overwrite `deft-current-files` for the `deft-buffer-setup` and limit it to 30 entries: https://github.com/jrblevin/deft/issues/43#issuecomment-350198825
   (defun anks-deft-limiting-fn (orig-fun &rest args)
