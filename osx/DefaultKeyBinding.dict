@@ -114,7 +114,7 @@
   // Uppercase next character (Control-Shift-Space)
   "^$\040" = (insertText:, " ", moveForward:, insertText:, " ", moveWordBackward:, capitalizeWord:, moveForward:, deleteForward:, moveBackward:, deleteBackward:, moveForward:);
   // Move cursor forward with spacebar (shift-space)
-  "$\040" = (moveForward:);
+  // "$\040" = (moveForward:);
 
   "^~c" = { // multi-stroke casing commands
     // snake_case to camelCase (delete forward and capitalize)
