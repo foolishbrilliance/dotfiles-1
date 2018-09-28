@@ -6,14 +6,14 @@
 [credential]
 	helper = osxkeychain
 [alias]
-	st = status
-	ci = commit
-	co = checkout
-	promote = !$ZSH/bin/git-promote
-	wtf     = !$ZSH/bin/git-wtf
+	ci								= commit
+	co								= checkout
+	count							= !git shortlog -sn
 	dag								= log --graph --format	='format:%C(yellow)%h%C(reset) %C(blue)\"%an\" <%ae>%C(reset) %C(magenta)%ar%C(reset)%C(auto)%d%C(reset)%n%s' --date-order
+	promote						= !$ZSH/bin/git-promote
 	rank-contributors = !$ZSH/bin/git-rank-contributors
-	count   = !git shortlog -sn
+	st								= status
+	wtf								= !$ZSH/bin/git-wtf
 [color]
 	diff = auto
 	status = auto
