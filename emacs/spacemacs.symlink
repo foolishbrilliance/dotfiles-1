@@ -70,8 +70,9 @@ values."
      themes-megapack
      theming
      (version-control :variables
-                      version-control-diff-tool 'git-gutter ;; git-gutter(+)
-                                                            ;; works with TRAMP
+                      version-control-diff-tool 'git-gutter ;; git-gutter and diff-hl
+                                                            ;; both work with TRAMP
+                                                            ;; git-gutter+ does not
                       version-control-diff-side 'left)
      vinegar
      )
