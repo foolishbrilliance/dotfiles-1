@@ -9,6 +9,8 @@
 [credential]
         helper = osxkeychain
 [alias]
+        st = status
+        ci = commit
         co = checkout
         promote = !$ZSH/bin/git-promote
         wtf     = !$ZSH/bin/git-wtf
