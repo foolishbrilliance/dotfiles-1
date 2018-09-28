@@ -410,6 +410,7 @@ you should place your code here."
       )
     )
   (add-to-list 'default-frame-alist '(font . "Source Code Pro-18"))
+  (server-start)
 
   ;; Disable visual select to system clipboard per https://github.com/syl20bnr/spacemacs/blob/master/doc/FAQ.org#prevent-the-visual-selection-overriding-my-system-clipboard
   (fset 'evil-visual-update-x-selection 'ignore)
