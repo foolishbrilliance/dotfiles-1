@@ -3,9 +3,6 @@
 [user]
 	name = Joe Chan
 	email = joech4n@users.noreply.github.com
-[include]
-	# Include a per-machine .gitconfig
-	path = ~/.gitconfig.local
 [credential]
 	helper = osxkeychain
 [alias]
@@ -41,3 +38,6 @@
 [rerere]
 	# Reuse recorded resolution of conflicted merges
   enabled = true
+[include]
+	# Include a per-machine .gitconfig
+	path = ~/.gitconfig.local
