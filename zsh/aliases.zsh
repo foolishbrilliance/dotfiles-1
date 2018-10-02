@@ -9,7 +9,7 @@ source "$fasd_cache"
 unset fasd_cache
 
 # fasd & fzf change directory - jump using `fasd` if given argument, filter output of `fasd` using `fzf` else
-unalias z # TODO this is being defined somewhere and causing conflicts
+unalias z # fasd sets this by default
 z() {
     [ $# -gt 0 ] && fasd_cd -d "$*" && return
     local dir
