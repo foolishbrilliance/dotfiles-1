@@ -405,10 +405,12 @@ call dein#add('mtth/scratch.vim')
 call dein#add('flazz/vim-colorschemes')
 call dein#add('kana/vim-textobj-user') " required for mattn/vim-textobj-url
 call dein#add('mattn/vim-textobj-url') " depends on kana/vim-textobj-user
-call dein#add('/usr/local/opt/fzf') " required for fzf.vim
-call dein#add('/home/linuxbrew/.linuxbrew/opt/fzf') " (on Linuxbrew machines) required for fzf.vim
-call dein#add('~/.fzf/plugin') " (Linux alternative install) required for fzf.vim
-call dein#add('junegunn/fzf.vim')   " depends on plugin at /usr/local/opt/fzf
+for fzf_plugin_dir in ['/usr/local/opt/fzf', '/home/linuxbrew/.linuxbrew/opt/fzf', '~/.fzf/plugin']
+  if isdirectory(fzf_plugin_dir)
+    call dein#add(fzf_plugin_dir) " required for fzf.vim
+    call dein#add('junegunn/fzf.vim')   " depends on fzf_plugin_dir
+  endif
+endfor
 
 " You can specify revision/branch/tag.
 "call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
