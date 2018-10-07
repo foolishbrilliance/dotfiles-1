@@ -10,13 +10,23 @@
 ;; Keybindings
 ;; examples at https://github.com/hlissner/doom-emacs/blob/master/modules/private/default/%2Bbindings.el
 
+;; Global bindings
 (map!
  :gnvime [A-backspace] #'backward-kill-word
- )
+ :i "A-SPC"            #'+company/complete ;; I use C-SPC for Spotlight
+
+ ;; evil-magit
+ (:after evil-magit
+   :map (magit-status-mode-map magit-revision-mode-map)
+   :n [A-tab]          #'magit-section-cycle-diffs ;; M-tab is used by OSX
+   ))
+
+;; Leader bindings
 (map!
  (:leader
-   :nv [tab] nil
-   :desc "Last buffer"    :n "TAB" #'evil-switch-to-windows-last-buffer
+   :desc "Last buffer"    :n "\\" #'evil-switch-to-windows-last-buffer
+
+   ;; Prefix bindings
    (:desc "toggle" :prefix "t"
-          :desc "Truncate lines"           :n "t" #'toggle-truncate-lines)
-   ))
+     :desc "Truncate lines"           :n "t" #'toggle-truncate-lines
+   )))
