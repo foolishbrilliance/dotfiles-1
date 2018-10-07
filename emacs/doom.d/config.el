@@ -15,14 +15,15 @@
  :gnvime [A-backspace] #'backward-kill-word
  :i "A-SPC"            #'+company/complete ;; I use C-SPC for Spotlight
 
- (:map with-editor-mode-map
-   "gc" #'with-editor-finish
-   )
-
  ;; evil-magit
  (:after evil-magit
-   :map (magit-status-mode-map magit-revision-mode-map)
-   :n [A-tab]          #'magit-section-cycle-diffs ;; M-tab is used by OSX
+   (:map (magit-status-mode-map magit-revision-mode-map)
+     :n [A-tab]          #'magit-section-cycle-diffs ;; M-tab is used by OSX
+     )
+   (:map with-editor-mode-map
+     :n "gc" #'with-editor-finish
+     :n "gK" #'with-editor-cancel
+     )
    ))
 
 ;; Leader bindings
