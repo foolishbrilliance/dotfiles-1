@@ -15,6 +15,10 @@
  :gnvime [A-backspace] #'backward-kill-word
  :i "A-SPC"            #'+company/complete ;; I use C-SPC for Spotlight
 
+ (:map with-editor-mode-map
+   "gc" #'with-editor-finish
+   )
+
  ;; evil-magit
  (:after evil-magit
    :map (magit-status-mode-map magit-revision-mode-map)
