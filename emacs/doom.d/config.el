@@ -2,7 +2,10 @@
 
 ;; Place your private configuration here
 
-(setq doom-font (font-spec :family "Source Code Pro" :size 18))
+(setq doom-font (font-spec :family "Source Code Pro" :size 18)
+      split-width-threshold 100    ;; split windows if the window's max width <100
+      )
+
 (add-to-list 'ivy-re-builders-alist '(counsel-M-x . ivy--regex-ignore-order))
 ;; set default regex builder for all commands
 ;; (setq ivy-re-builders-alist '((t . ivy--regex-ignore-order)))
@@ -25,6 +28,10 @@
      :n "gK" #'with-editor-cancel
      )
    ))
+
+(after! magit
+  ;; Load magit in split frame
+  (setq magit-display-buffer-function 'magit-display-buffer-traditional))
 
 ;; Leader bindings
 (map!
