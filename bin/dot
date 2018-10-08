@@ -22,7 +22,8 @@ vim +'call dein#update()' +qall && clr_green clr_bold "Updated Vim Plugins." || 
 emacs --batch --load=~/.emacs.d/init.el && clr_green clr_bold "Updated Emacs Packages." || clr_red "Emacs Packages update failed."
 
 # Update spacemacs from develop branch
-cd ~/.emacs.d && git pull --rebase && clr_green clr_bold "Updated Spacemacs from develop branch." || clr_red "Spacemacs update failed."
+cd ~/.emacs.d.spacemacs && git pull --rebase && clr_green clr_bold "Updated Spacemacs from develop branch." || clr_red "Spacemacs update failed."
+~/.emacs.d/bin/doom upgrade && clr_green clr_bold "Updated Doom Emacs from develop branch." || clr_red "Doom Emacs update failed."
 
 # Brew
 cd
