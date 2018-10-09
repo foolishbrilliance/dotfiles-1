@@ -21,22 +21,18 @@ brew update
 
 # Upgrade any already-installed formulae.
 brew upgrade
+
+# Install from Brewfile
+brew bundle -v
+
 if [ ! -e /usr/local/bin/sha256sum ]; then
   echo "  Linking /usr/local/bin/sha256sum -> /usr/local/bin/gsha256sum for you."
   sudo ln -s /usr/local/bin/gsha256sum /usr/local/bin/sha256sum
 fi
 
-# Warning: `brew linkapps` has been deprecated and will eventually be removed!
-#
-# Unfortunately `brew linkapps` cannot behave nicely with e.g. Spotlight using
-# either aliases or symlinks and Homebrew formulae do not build "proper" `.app`
-# bundles that can be relocated. Instead, please consider using `brew cask` and
-# migrate formulae using `.app`s to casks.
-brew linkapps macvim
-
 # Specific versions of software
 brew tap caskroom/versions
-brew cask install textexpander3 || echo "This cask may have been removed per https://github.com/caskroom/homebrew-versions/pull/1300, if this fails, try installing from https://cdn.smilesoftware.com/TextExpander_3.4.2.zip"
+brew cask install textexpander3 || true && echo "This cask may have been removed per https://github.com/caskroom/homebrew-versions/pull/1300, if this fails, try installing from https://cdn.smilesoftware.com/TextExpander_3.4.2.zip"
 
 echo "Homebrew packages installed!"
 

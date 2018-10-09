@@ -8,20 +8,15 @@ cd "$(dirname $0)"/..
 
 # find the OS specific (Darwin|Linux) installers and run them iteratively
 echo "  Running */install-$(uname).sh"
-find . -name install-$(uname).sh | while read installer ; do sh -c "${installer}" ; done
+find . -name install-$(uname).sh | while read installer ; do echo "Running ${installer}"; sh -c "${installer}" ; done
 echo "  Running */post-install-$(uname).sh"
-find . -name post-install-$(uname).sh | while read installer ; do sh -c "${installer}" ; done
+find . -name post-install-$(uname).sh | while read installer ; do echo "Running ${installer}"; sh -c "${installer}" ; done
 
 echo "  Running */install.sh"
-find . -name install.sh | while read installer ; do sh -c "${installer}" ; done
-
-if [ "$(uname)" == "Darwin" ]; then
-  echo "› brew bundle"
-  brew bundle
-fi
+find . -name install.sh | while read installer ; do echo "Running ${installer}"; sh -c "${installer}" ; done
 
 echo "  Running */post-install.sh"
-find . -name post-install.sh | while read installer ; do sh -c "${installer}" ; done
+find . -name post-install.sh | while read installer ; do echo "Running ${installer}"; sh -c "${installer}" ; done
 
 if [ "$(uname)" == "Darwin" ]; then
   echo "What's next? How about..."
