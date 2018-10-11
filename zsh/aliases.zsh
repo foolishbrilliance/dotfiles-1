@@ -83,7 +83,7 @@ edownload() {
     curl $1| gpg -dio- > $2
 }
 alias e2u=epoch2utc
-alias emc='emacsclient -cq &' # open in new frame
+alias emc='emacsclient -cq' # open in new frame
 alias emn='emacsclient -n'    # open in existing frame
 alias epoch='date +%s'
 
