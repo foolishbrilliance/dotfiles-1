@@ -104,13 +104,15 @@
        :nv "xP"  #'markdown-pre-region
        )))
 
+)
+
  ;; magit git commit buffer
- (:after with-editor
+(map! :after with-editor
    :map with-editor-mode-map
    (:localleader
      :desc "Finish" :n "c" #'with-editor-finish
-     :desc "Cancel" :n "k" #'with-editor-cancel))
-)
+     :desc "Cancel" :n "k" #'with-editor-cancel)
+ )
 
 (after! magit
   ;; Load magit in split frame
