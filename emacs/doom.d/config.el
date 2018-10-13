@@ -25,14 +25,10 @@
    ;; Prefix bindings
    (:desc "toggle" :prefix "t"
      :desc "Truncate lines"           :n "t" #'toggle-truncate-lines)
-   ;; Customm prefix - (e)xtended
+   ;; Custom prefix - (e)xtended
    (:desc "extended" :prefix "e"
-     (:after link-hint
        :nv "o" #'link-hint-open-link
-       :nv "y" #'link-hint-copy-link
-       )
-     )
-   )
+       :nv "y" #'link-hint-copy-link))
 
  ;; evil-magit
  (:after evil-magit
