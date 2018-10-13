@@ -54,6 +54,15 @@
   ;; Load magit in split frame
   (setq magit-display-buffer-function 'magit-display-buffer-traditional))
 
-(setq org-directory "~/WorkDocs/Notational Data")
-(setq org-default-notes-file (concat org-directory "/notes.org"))
-(setq org-footnote-auto-adjust t) ;; sort and renumber footnotes after every insert/delete
+(setq
+ evil-escape-key-sequence ";y"
+ evil-escape-unordered-key-sequence t
+
+ ;; Org mode
+ org-directory "~/WorkDocs/Notational Data"
+ org-default-notes-file (concat org-directory "/notes.org")
+ org-footnote-auto-adjust t ;; sort and renumber footnotes after every insert/delete
+ )
+
+;; failback notes directory
+(unless (file-directory-p "~/WorkDocs/Notational Data") (setq org-directory "~/Dropbox/Notes"))
