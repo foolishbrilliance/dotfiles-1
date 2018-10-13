@@ -156,3 +156,5 @@
        ;; reference for your own modules.
        ;; (default +bindings +snippets +evil-commands))
        (default +bindings +evil-commands))
+
+(setq doom-localleader-key ",")
