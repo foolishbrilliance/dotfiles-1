@@ -53,3 +53,7 @@
 (after! magit
   ;; Load magit in split frame
   (setq magit-display-buffer-function 'magit-display-buffer-traditional))
+
+(setq org-directory "~/WorkDocs/Notational Data")
+(setq org-default-notes-file (concat org-directory "/notes.org"))
+(setq org-footnote-auto-adjust t) ;; sort and renumber footnotes after every insert/delete
