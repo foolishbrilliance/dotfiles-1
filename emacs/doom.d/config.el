@@ -34,9 +34,13 @@
    (:map with-editor-mode-map
      (:localleader
        :desc "Finish" :n "c" #'with-editor-finish
-       :desc "Cancel" :n "k" #'with-editor-cancel
-       )))
- )
+       :desc "Cancel" :n "k" #'with-editor-cancel)))
+
+ (:map markdown-mode-map
+   (:localleader
+     :nv "xc" #'markdown-insert-code
+     :nv "xC" #'markdown-insert-gfm-code-block))
+)
 
 (after! magit
   ;; Load magit in split frame
