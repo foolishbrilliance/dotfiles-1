@@ -18,27 +18,26 @@
  :gnvime [A-backspace] #'backward-kill-word
  :i "A-SPC"            #'+company/complete ;; I use C-SPC for Spotlight
 
+ ;; Leader bindings
+ (:leader
+   :desc "Last buffer"    :n "\\" #'evil-switch-to-windows-last-buffer
+
+   ;; Prefix bindings
+   (:desc "toggle" :prefix "t"
+     :desc "Truncate lines"           :n "t" #'toggle-truncate-lines))
+
  ;; evil-magit
  (:after evil-magit
    (:map (magit-status-mode-map magit-revision-mode-map)
      :n [A-tab]          #'magit-section-cycle-diffs ;; M-tab is used by OSX
      )
    (:map with-editor-mode-map
-     :n "gc" #'with-editor-finish
-     :n "gK" #'with-editor-cancel
-     )
-   ))
+     (:localleader
+       :desc "Finish" :n "c" #'with-editor-finish
+       :desc "Cancel" :n "k" #'with-editor-cancel
+       )))
+ )
 
 (after! magit
   ;; Load magit in split frame
   (setq magit-display-buffer-function 'magit-display-buffer-traditional))
-
-;; Leader bindings
-(map!
- (:leader
-   :desc "Last buffer"    :n "\\" #'evil-switch-to-windows-last-buffer
-
-   ;; Prefix bindings
-   (:desc "toggle" :prefix "t"
-     :desc "Truncate lines"           :n "t" #'toggle-truncate-lines
-   )))
