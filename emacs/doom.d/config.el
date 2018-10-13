@@ -36,11 +36,73 @@
      :n [A-tab]          #'magit-section-cycle-diffs)) ;; M-tab is used by OSX
 
  ;; markdown
- (:after markdown
+ (:after markdown-mode
    (:map markdown-mode-map
      (:localleader
-       :nv "xc" #'markdown-insert-code
-       :nv "xC" #'markdown-insert-gfm-code-block)))
+       ;; Movement
+       :nv "{"   #'markdown-backward-paragraph
+       :nv "}"   #'markdown-forward-paragraph
+       ;; Completion, and Cycling
+       :nv "]"   #'markdown-complete
+       ;; Indentation
+       :nv ">"   #'markdown-indent-region
+       :nv "<"   #'markdown-exdent-region
+       ;; Element removal
+       :nv "k"   #'markdown-kill-thing-at-point
+       :nv "-"   #'markdown-insert-hr
+
+       ;; Following and Jumping
+       :n "N"   #'markdown-next-link
+       :n "f"   #'markdown-follow-thing-at-point
+       :n "P"   #'markdown-previous-link
+       :n "<RET>" #'markdown-jump
+
+       ;; Buffer-wide commands
+       :nv "c]"  #'markdown-complete-buffer
+       :nv "cc"  #'markdown-check-refs
+       :nv "ce"  #'markdown-export
+       :nv "cm"  #'markdown-other-window
+       :nv "cn"  #'markdown-cleanup-list-numbers
+       :nv "co"  #'markdown-open
+       :nv "cp"  #'markdown-preview
+       :nv "cv"  #'markdown-export-and-preview
+       :nv "cw"  #'markdown-kill-ring-save
+
+       ;; headings
+       :nv "hi"  #'markdown-insert-header-dwim
+       :nv "hI"  #'markdown-insert-header-setext-dwim
+       :nv "h1"  #'markdown-insert-header-atx-1
+       :nv "h2"  #'markdown-insert-header-atx-2
+       :nv "h3"  #'markdown-insert-header-atx-3
+       :nv "h4"  #'markdown-insert-header-atx-4
+       :nv "h5"  #'markdown-insert-header-atx-5
+       :nv "h6"  #'markdown-insert-header-atx-6
+       :nv "h!"  #'markdown-insert-header-setext-1
+       :nv "h@"  #'markdown-insert-header-setext-2
+
+       ;; Insertion of common elements
+       :nv "if"  #'markdown-insert-footnote
+       :nv "ii"  #'markdown-insert-image
+       ;;:nv "ik"  #'spacemacs/insert-keybinding-markdown
+       :nv "iI"  #'markdown-insert-reference-image
+       :nv "il"  #'markdown-insert-link
+       :nv "iL"  #'markdown-insert-reference-link-dwim
+       :nv "iw"  #'markdown-insert-wiki-link
+       :nv "iu"  #'markdown-insert-uri
+
+       ;; List editing
+       :nv "li"  #'markdown-insert-list-item
+
+       ;; region manipulation
+       :nv "xb"  #'markdown-insert-bold
+       :nv "xi"  #'markdown-insert-italic
+       :nv "xc"  #'markdown-insert-code
+       :nv "xC"  #'markdown-insert-gfm-code-block
+       :nv "xq"  #'markdown-insert-blockquote
+       :nv "xQ"  #'markdown-blockquote-region
+       :nv "xp"  #'markdown-insert-pre
+       :nv "xP"  #'markdown-pre-region
+       )))
 
  ;; magit git commit buffer
  (:after with-editor
