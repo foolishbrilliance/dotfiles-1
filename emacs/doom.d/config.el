@@ -25,6 +25,7 @@
    ;; Prefix bindings
    (:desc "toggle" :prefix "t"
      :desc "Truncate lines"           :n "t" #'toggle-truncate-lines)
+   ;; Customm prefix - (e)xtended
    (:desc "extended" :prefix "e"
      (:after link-hint
        :nv "o" #'link-hint-open-link
@@ -36,19 +37,21 @@
  ;; evil-magit
  (:after evil-magit
    (:map (magit-status-mode-map magit-revision-mode-map)
-     :n [A-tab]          #'magit-section-cycle-diffs ;; M-tab is used by OSX
-     )
-   (:map with-editor-mode-map
-     (:localleader
-       :desc "Finish" :n "c" #'with-editor-finish
-       :desc "Cancel" :n "k" #'with-editor-cancel)))
+     :n [A-tab]          #'magit-section-cycle-diffs)) ;; M-tab is used by OSX
 
+ ;; markdown
  (:after markdown
    (:map markdown-mode-map
      (:localleader
        :nv "xc" #'markdown-insert-code
-       :nv "xC" #'markdown-insert-gfm-code-block))
-   )
+       :nv "xC" #'markdown-insert-gfm-code-block)))
+
+ ;; magit git commit buffer
+ (:after with-editor
+   :map with-editor-mode-map
+   (:localleader
+     :desc "Finish" :n "c" #'with-editor-finish
+     :desc "Cancel" :n "k" #'with-editor-cancel))
 )
 
 (after! magit
