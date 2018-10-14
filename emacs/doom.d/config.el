@@ -3,8 +3,9 @@
 ;; Place your private configuration here
 
 (setq doom-font (font-spec :family "Source Code Pro" :size 18)
-      split-width-threshold 100    ;; split windows if the window's max width <100
-      )
+      evil-escape-key-sequence ";y"
+      evil-escape-unordered-key-sequence t
+      split-width-threshold 100) ;; split windows if the window's max width <100
 
 (add-to-list 'ivy-re-builders-alist '(counsel-M-x . ivy--regex-ignore-order))
 ;; set default regex builder for all commands
@@ -12,10 +13,10 @@
 
 ;; Keybindings
 ;; examples at https://github.com/hlissner/doom-emacs/blob/master/modules/private/default/%2Bbindings.el
-
-;; Global bindings
 (map!
+ ;; Global bindings
  :gnvime [A-backspace] #'backward-kill-word
+
  :i "A-SPC"            #'+company/complete ;; I use C-SPC for Spotlight
 
  ;; Leader bindings
@@ -113,26 +114,19 @@
        :nv "xq"  #'markdown-insert-blockquote
        :nv "xQ"  #'markdown-blockquote-region
        :nv "xp"  #'markdown-insert-pre
-       :nv "xP"  #'markdown-pre-region
-       )))
-)
+       :nv "xP"  #'markdown-pre-region))))
 
 (after! magit
   ;; Load magit in split frame
   (setq magit-display-buffer-function 'magit-display-buffer-traditional))
 
-(setq
- evil-escape-key-sequence ";y"
- evil-escape-unordered-key-sequence t
-
- ;; Org mode
- org-directory "~/WorkDocs/Notational Data"
- org-default-notes-file (concat org-directory "/notes.org")
- org-footnote-auto-adjust t ;; sort and renumber footnotes after every insert/delete
- )
-
-;; failback notes directory
-(unless (file-directory-p "~/WorkDocs/Notational Data") (setq org-directory "~/Dropbox/Notes"))
+(after! org
+  ;; Org mode
+  org-directory "~/WorkDocs/Notational Data"
+  org-default-notes-file (concat org-directory "/notes.org")
+  org-footnote-auto-adjust t ;; sort and renumber footnotes after every insert/delete
+  ;; failback notes directory
+  (unless (file-directory-p "~/WorkDocs/Notational Data") (setq org-directory "~/Dropbox/Notes")))
 
 ;; load local config last
 (when (file-exists-p "~/.emacs.local.el") (load "~/.emacs.local.el"))
