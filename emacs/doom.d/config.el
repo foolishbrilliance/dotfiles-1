@@ -3,11 +3,22 @@
 ;; Place your private configuration here
 
 (setq doom-font (font-spec :family "Source Code Pro" :size 18)
+      split-width-threshold 100 ;; split windows if the window's max width <100
       evil-escape-key-sequence ";y"
       evil-escape-unordered-key-sequence t
-      split-width-threshold 100) ;; split windows if the window's max width <100
+      )
+
+;; Org mode
+(setq
+ org-directory "~/WorkDocs/Notational Data"
+ org-default-notes-file (concat org-directory "/notes.org")
+ org-footnote-auto-adjust t ;; sort and renumber footnotes after every insert/delete
+ )
+;; failback notes directory
+(unless (file-directory-p org-directory) (setq org-directory "~/Dropbox/Notes"))
 
 (add-to-list 'ivy-re-builders-alist '(counsel-M-x . ivy--regex-ignore-order))
+
 ;; set default regex builder for all commands
 ;; (setq ivy-re-builders-alist '((t . ivy--regex-ignore-order)))
 
@@ -119,14 +130,6 @@
 (after! magit
   ;; Load magit in split frame
   (setq magit-display-buffer-function 'magit-display-buffer-traditional))
-
-(after! org
-  ;; Org mode
-  org-directory "~/WorkDocs/Notational Data"
-  org-default-notes-file (concat org-directory "/notes.org")
-  org-footnote-auto-adjust t ;; sort and renumber footnotes after every insert/delete
-  ;; failback notes directory
-  (unless (file-directory-p "~/WorkDocs/Notational Data") (setq org-directory "~/Dropbox/Notes")))
 
 ;; load local config last
 (when (file-exists-p "~/.emacs.local.el") (load "~/.emacs.local.el"))
