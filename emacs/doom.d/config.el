@@ -22,6 +22,11 @@
  (:leader
    :desc "Last buffer"    :n "\\" #'evil-switch-to-windows-last-buffer
 
+   ;; Recursive find-file in a target directory
+   :n "f/" (lambda! (counsel-file-jump nil (read-directory-name "From directory: ")))
+   ;; Recursive grep in target directory
+   :n "//" (lambda! (+ivy/rg nil nil (read-directory-name "From directory: ")))
+
    ;; Prefix bindings
    (:desc "toggle" :prefix "t"
      :desc "Truncate lines"           :n "t" #'toggle-truncate-lines)
@@ -129,5 +134,5 @@
 ;; failback notes directory
 (unless (file-directory-p "~/WorkDocs/Notational Data") (setq org-directory "~/Dropbox/Notes"))
 
-;; load local config
+;; load local config last
 (when (file-exists-p "~/.emacs.local.el") (load "~/.emacs.local.el"))
