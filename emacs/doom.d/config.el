@@ -35,6 +35,13 @@
    (:map (magit-status-mode-map magit-revision-mode-map)
      :n [A-tab]          #'magit-section-cycle-diffs)) ;; M-tab is used by OSX
 
+ ;; magit git commit buffer
+ (:after with-editor
+   :map with-editor-mode-map
+   (:localleader
+     :n "c" #'with-editor-finish
+     :n "k" #'with-editor-cancel))
+
  ;; markdown
  (:after markdown-mode
    (:map markdown-mode-map
@@ -49,7 +56,6 @@
        :nv "<"   #'markdown-exdent-region
        ;; Element removal
        :nv "k"   #'markdown-kill-thing-at-point
-       :nv "-"   #'markdown-insert-hr
 
        ;; Following and Jumping
        :n "N"   #'markdown-next-link
@@ -81,6 +87,7 @@
        :nv "h@"  #'markdown-insert-header-setext-2
 
        ;; Insertion of common elements
+       :nv "-"   #'markdown-insert-hr
        :nv "if"  #'markdown-insert-footnote
        :nv "ii"  #'markdown-insert-image
        ;;:nv "ik"  #'spacemacs/insert-keybinding-markdown
@@ -103,16 +110,7 @@
        :nv "xp"  #'markdown-insert-pre
        :nv "xP"  #'markdown-pre-region
        )))
-
 )
-
- ;; magit git commit buffer
-(map! :after with-editor
-   :map with-editor-mode-map
-   (:localleader
-     :desc "Finish" :n "c" #'with-editor-finish
-     :desc "Cancel" :n "k" #'with-editor-cancel)
- )
 
 (after! magit
   ;; Load magit in split frame
