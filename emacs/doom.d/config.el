@@ -24,9 +24,9 @@
    :desc "Last buffer"    :n "\\" #'evil-switch-to-windows-last-buffer
 
    ;; Recursive find-file in a target directory
-   :n "f/" (lambda! (counsel-file-jump nil (read-directory-name "From directory: ")))
+   :desc "Find file in directory" :n "f/" (lambda! (counsel-file-jump nil (read-directory-name "From directory: ")))
    ;; Recursive grep in target directory
-   :n "//" (lambda! (+ivy/rg nil nil (read-directory-name "From directory: ")))
+   :desc "Target directory" :n "//" (lambda! (+ivy/rg nil nil (read-directory-name "From directory: ")))
 
    ;; Prefix bindings
    (:desc "toggle" :prefix "t"
