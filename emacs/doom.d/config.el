@@ -128,3 +128,6 @@
 
 ;; failback notes directory
 (unless (file-directory-p "~/WorkDocs/Notational Data") (setq org-directory "~/Dropbox/Notes"))
+
+;; load local config
+(when (file-exists-p "~/emacs.local.el") (load "~/emacs.local.el"))
