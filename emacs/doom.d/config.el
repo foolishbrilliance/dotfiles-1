@@ -19,14 +19,21 @@
 
 ;; fd
 (after! projectile
-  (when (executable-find "fd") (setq projectile-generic-command "fd . -0"
-                                     projectile-git-command "fd . -0")))
+  (if (executable-find "rg") (setq projectile-generic-command "fd . -0"
+                                   projectile-git-command "fd . -0")
+    (if (executable-find "fd") (setq projectile-generic-command "rg --files -0 ."
+                                     projectile-git-command "rg --files -0 .") nil)))
 
 ;; Ivy
 (add-to-list 'ivy-re-builders-alist '(counsel-M-x . ivy--regex-ignore-order))
 
 ;; set default regex builder for all commands
 ;; (setq ivy-re-builders-alist '((t . ivy--regex-ignore-order)))
+
+(after! counsel
+  ;; TODO this doesn't work
+  ;; (add-to-list 'ivy-sort-matches-functions-alist '(counsel-recentf . ivy--sort-files-by-date))
+  )
 
 ;; Keybindings
 ;; examples at https://github.com/hlissner/doom-emacs/blob/master/modules/private/default/%2Bbindings.el
