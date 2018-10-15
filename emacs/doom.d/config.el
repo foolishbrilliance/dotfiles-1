@@ -18,7 +18,9 @@
 (unless (file-directory-p org-directory) (setq org-directory "~/Dropbox/Notes"))
 
 ;; fd
-(when (executable-find "fd") (setq projectile-generic-command "fd . -0"))
+(after! projectile
+  (when (executable-find "fd") (setq projectile-generic-command "fd . -0"
+                                     projectile-git-command "fd . -0")))
 
 ;; Ivy
 (add-to-list 'ivy-re-builders-alist '(counsel-M-x . ivy--regex-ignore-order))
