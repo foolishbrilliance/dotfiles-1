@@ -38,6 +38,8 @@
  (:leader
    :desc "Last buffer"    :n "\\" #'evil-switch-to-windows-last-buffer
 
+   :desc "Find file in project"    :n "SPC" #'+ivy/projectile-find-file
+
    ;; Recursive find-file in a target directory
    :desc "Find file in directory" :n "f/" (lambda! (counsel-file-jump nil (read-directory-name "From directory: ")))
    ;; Recursive grep in target directory
