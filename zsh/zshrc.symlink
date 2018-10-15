@@ -1,17 +1,6 @@
 # Fix Emacs TRAMP per https://www.emacswiki.org/emacs/TrampMode#toc7
 [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
 
-# Prefer GNU ls over BSD ls
-function {
-  if command -v brew &>/dev/null ; then
-    # use over $(brew --prefix coreutils)/libexec/gnubin
-    local GNU_BIN=/usr/local/opt/coreutils/libexec/gnubin
-    if command -v $GNU_BIN/ls &>/dev/null ; then
-      export PATH=$GNU_BIN:$PATH # Use newer GNU core utilities (those that come with OS X are outdated)
-    fi
-  fi
-}
-
 # grml-zsh-config (will source .zshrc.pre before and .zshrc.local after)
 if [ ! -d $HOME/.grml-etc-core ]; then
   echo "  Installing grml-zsh-config for you."
@@ -62,17 +51,6 @@ unset config_files
 ################################################################################
 # My custom config
 ################################################################################
-
-if check_com -c brew ; then
-  # For Cask per https://github.com/caskroom/homebrew-cask/blob/master/USAGE.md
-  # --appdir=/my/path changes the path where the symlinks to the applications (above) will be generated. This is commonly used to create the links in the root Applications directory instead of the home Applications directory by specifying --appdir=/Applications. Default is ~/Applications.
-  export HOMEBREW_CASK_OPTS="--appdir=/Applications"
-  export PATH=/usr/local/sbin:$PATH # Brew installs binaries here too
-  export MANPATH="/usr/local/man:$MANPATH"
-fi
-
-export PATH="$HOME/.dotfiles/bin:$HOME/bin.private:$HOME/bin:$HOME/bin.linux:/usr/local/opt/python/libexec/bin:$PATH"
-
 set -o pipefail # It is useful to have set -o pipefail somewhere in your shell startup (see [here](https://sipb.mit.edu/doc/safe-shell/) for details), otherwise pushd happens even if you exit with ctrl-c and clutters up the directory stack.
 # To allow for ^s to fwd-i-search (opposite of ^r), disable XON/XOFF for interactive shells per https://stackoverflow.com/questions/791765/unable-to-forward-search-bash-history-similarly-as-with-ctrl-r#comment39602061_791800
 [[ $- == *i* ]] && stty -ixon

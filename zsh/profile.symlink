@@ -1,1 +1,22 @@
-export PATH=/usr/local/bin:$PATH
+# Prefer GNU ls over BSD ls
+function {
+  if command -v brew &>/dev/null ; then
+    # use over $(brew --prefix coreutils)/libexec/gnubin
+    local GNU_BIN=/usr/local/opt/coreutils/libexec/gnubin
+    if command -v $GNU_BIN/ls &>/dev/null ; then
+      export PATH=$GNU_BIN:$PATH # Use newer GNU core utilities (those that come with OS X are outdated)
+    fi
+  fi
+}
+
+if check_com -c brew ; then
+  # For Cask per https://github.com/caskroom/homebrew-cask/blob/master/USAGE.md
+  # --appdir=/my/path changes the path where the symlinks to the applications (above) will be generated. This is commonly used to create the links in the root Applications directory instead of the home Applications directory by specifying --appdir=/Applications. Default is ~/Applications.
+  export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+  export PATH=/usr/local/sbin:$PATH # Brew installs binaries here too
+  export MANPATH="/usr/local/man:$MANPATH"
+fi
+
+export PATH="/usr/local/opt/python/libexec/bin:$PATH" # python
+export PATH="$HOME/.cargo/bin:$PATH" # rust
+export PATH="$HOME/.dotfiles/bin:$HOME/bin.private:$HOME/bin:$HOME/bin.linux:$PATH" # personal
