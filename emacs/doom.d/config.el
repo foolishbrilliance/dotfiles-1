@@ -17,12 +17,13 @@
 ;; failback notes directory
 (unless (file-directory-p org-directory) (setq org-directory "~/Dropbox/Notes"))
 
-;; fd
+;; make projectile faster
 (after! projectile
   (if (executable-find "rg") (setq projectile-generic-command "fd . -0"
                                    projectile-git-command "fd . -0")
     (if (executable-find "fd") (setq projectile-generic-command "rg --files -0 ."
-                                     projectile-git-command "rg --files -0 .") nil)))
+                                     projectile-git-command "rg --files -0 .") nil))
+  (setq projectile-switch-project-action 'projectile-find-file-dwim))
 
 ;; Ivy
 (add-to-list 'ivy-re-builders-alist '(counsel-M-x . ivy--regex-ignore-order))
