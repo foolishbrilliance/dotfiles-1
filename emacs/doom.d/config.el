@@ -54,13 +54,14 @@
    :desc "Find file in directory" :n "f/" (lambda! (counsel-file-jump nil (read-directory-name "From directory: ")))
    ;; Recursive grep in target directory
    :desc "Target directory" :n "//" (lambda! (+ivy/rg nil nil (read-directory-name "From directory: ")))
-   :desc "Find file in subdirectory" :n "ff" (lambda!
-                                              (let ((proot (read-directory-name "From parent directory: ")))
-                                                (projectile-completing-read
-                                                 "Find file: "
-                                                 (projectile-project-files
-                                                  (expand-file-name (projectile-complete-dir proot)
-                                                                    proot)))))
+   :desc "Find file in subdirectory" :n "ff"  (lambda!
+                                               (let* ((proot (read-directory-name "From parent directory: "))
+                                                      (pdir (expand-file-name (projectile-complete-dir proot)
+                                                                              proot))
+                                                      (file (projectile-completing-read
+                                                             "Find file: "
+                                                             (projectile-project-files pdir))))
+                                                 (find-file (expand-file-name file pdir))))
 
    ;; Prefix bindings
    (:desc "toggle" :prefix "t"
