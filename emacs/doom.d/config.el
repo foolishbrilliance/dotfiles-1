@@ -8,6 +8,9 @@
       evil-escape-unordered-key-sequence t
       )
 
+;; Default modes
+(add-to-list 'auto-mode-alist '("\\.txt\\'" . markdown-mode)) ;; default mode for .txt files
+
 ;; Org mode
 (setq
  org-directory "~/WorkDocs/Notational Data"
