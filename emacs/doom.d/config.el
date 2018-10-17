@@ -143,6 +143,8 @@
 
        ;; List editing
        :nv "li"  #'markdown-insert-list-item
+       :nv "lc"  #'markdown-insert-gfm-checkbox
+       :nv "lt"  #'markdown-toggle-gfm-checkbox
 
        ;; region manipulation
        :nv "xb"  #'markdown-insert-bold
