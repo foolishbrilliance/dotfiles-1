@@ -97,7 +97,7 @@
        :nv "]"   #'markdown-complete
        ;; Indentation
        :nv ">"   #'markdown-indent-region
-       :nv "<"   #'markdown-exdent-region
+       :nv "<"   #'markdown-outdent-region
        ;; Element removal
        :nv "k"   #'markdown-kill-thing-at-point
 
