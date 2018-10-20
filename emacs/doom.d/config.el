@@ -30,6 +30,7 @@
 
 ;; Ivy
 (add-to-list 'ivy-re-builders-alist '(counsel-M-x . ivy--regex-ignore-order))
+(add-to-list 'ivy-re-builders-alist '(counsel-describe-function . ivy--regex-ignore-order))
 
 ;; set default regex builder for all commands
 ;; (setq ivy-re-builders-alist '((t . ivy--regex-ignore-order)))
