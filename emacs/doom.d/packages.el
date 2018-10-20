@@ -6,4 +6,6 @@
 ;; (package! another-package :recipe (:fetcher github :repo "username/repo"))
 ;; (package! builtin-package :disable t)
 
-(package! link-hint :recipe (:fetcher github :repo "noctuid/link-hint.el"))
+(package! link-hint)
+(package! lua-mode)
+(package! web-mode)
