@@ -45,8 +45,8 @@
 (map!
  ;; Global bindings
  :gnvime [A-backspace] #'backward-kill-word
-
- :i "A-SPC"            #'+company/complete ;; I use C-SPC for Spotlight
+ :m "\\" nil ;; by default this is evil-execute-in-emacs-state, which I never use. TODO: This doesn't work
+ :i "A-SPC"            #'+company/complete ;; I use C-SPC for Spotlight com
 
  ;; Leader bindings
  (:leader
