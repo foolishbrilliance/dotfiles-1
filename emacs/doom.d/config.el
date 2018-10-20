@@ -2,6 +2,13 @@
 
 ;; Place your private configuration here
 
+;; Functions
+(defun joe/avy-goto-url()
+        "Use avy to go to an URL in the buffer."
+        ;; Copied from http://bit.ly/2PJQoIq
+        (interactive)
+        (avy--generic-jump "https?://" nil 'pre))
+
 (setq doom-font (font-spec :family "Source Code Pro" :size 18)
       split-width-threshold 100 ;; split windows if the window's max width <100
       evil-escape-key-sequence ";y"
@@ -73,7 +80,7 @@
      :nv "j" #'evil-avy-goto-char
      :nv "J" #'evil-avy-goto-char-2
      :nv "l" #'evil-avy-goto-line
-     :nv "u" #'link-hint-open-link
+     :nv "u" #'+joe/avy-goto-url
      :nv "w" #'evil-avy-goto-word-or-subword-1)
 
    (:desc "toggle" :prefix "t"
