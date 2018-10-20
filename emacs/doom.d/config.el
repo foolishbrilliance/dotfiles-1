@@ -36,8 +36,8 @@
 ;; (setq ivy-re-builders-alist '((t . ivy--regex-ignore-order)))
 
 (after! counsel
-  ;; TODO this doesn't work
-  ;; (add-to-list 'ivy-sort-matches-functions-alist '(counsel-recentf . ivy--sort-files-by-date))
+  ;; This currently does not work
+  (add-to-list 'ivy-sort-functions-alist '(counsel-recentf . file-newer-than-file-p))
   )
 
 ;; Keybindings
