@@ -151,7 +151,7 @@ if [[ -e ~/.dir_colors ]]; then
 fi
 
 # nvim
-check_com -c nvim && export EDITOR=nvim && export NVIM_TUI_ENABLE_TRUE_COLOR=1
+check_com -c nvim && export NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 # serverless/sls
 [[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
