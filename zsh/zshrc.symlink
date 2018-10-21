@@ -115,8 +115,9 @@ fi
 if check_com -c fd; then
   # Setting fd as the default source for fzf
   export FZF_DEFAULT_COMMAND="fd --type file --follow --hidden --color=always"
-  # To apply the command to CTRL-T as well
+
   export FZF_CTRL_T_COMMAND="fd --type file --color=always"
+  export FZF_ALT_C_COMMAND="fd --type d --color=always"
 
   # Use fd for listing path candidates.
   # - The first argument to the function ($1) is the base path to start traversal
@@ -130,6 +131,16 @@ if check_com -c fd; then
     fd --type d --hidden --follow --exclude ".git" . "$1"
   }
 fi
+
+# fzf keybind options from https://github.com/junegunn/fzf/wiki/Configuring-shell-key-bindings
+# auto select if only 1 result, exit if no results
+export FZF_CTRL_T_OPTS="--select-1 --exit-0 $FZF_CTRL_T_OPTS"
+if check_com -c highlight; then
+  # using highlight (http://www.andre-simon.de/doku/highlight/en/highlight.html)
+  export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200' $FZF_CTRL_T_OPTS"
+fi
+# Preview full command in CTRL+R with ?
+export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
 
 # GPG: You should always add the following lines to your .bashrc or whatever initialization file is used for all shell invocations. Per https://www.gnupg.org/documentation/manuals/gnupg/Invoking-GPG_002dAGENT.html
 GPG_TTY=$(tty); export GPG_TTY
