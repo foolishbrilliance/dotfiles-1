@@ -18,12 +18,21 @@ cd ~/.vim/bundles/repos/github.com/Shougo/dein.vim && git pull && clr_green clr_
 clr_red "Dein (VIM Plugin Manager) update failed."
 vim +'call dein#update()' +qall && clr_green clr_bold "Updated Vim Plugins." || clr_red "Vim Plugins Update Failed."
 
-# Emacs
-emacs --batch --load=~/.emacs.d/init.el && clr_green clr_bold "Updated Emacs Packages." || clr_red "Emacs Packages update failed."
-
-# Update spacemacs from develop branch
+# Spacemacs
+# emacs --batch --load=~/.emacs.d/init.el && clr_green clr_bold "Updated Emacs Packages." || clr_red "Emacs Packages update failed."
 cd ~/.emacs.d.spacemacs && git pull --rebase && clr_green clr_bold "Updated Spacemacs from develop branch." || clr_red "Spacemacs update failed."
+
+# Doom Emacs
+~/.emacs.d/bin/doom update && clr_green clr_bold "Updated Doom Emacs packages." || clr_red "Doom Emacs package update failed."
 ~/.emacs.d/bin/doom upgrade && clr_green clr_bold "Updated Doom Emacs from develop branch." || clr_red "Doom Emacs update failed."
+~/.emacs.d/bin/doom refresh && clr_green clr_bold "Updated Doom Emacs refreshed." || clr_red "Doom Emacs refresh failed."
+
+################################################################################
+# Mac only for rest of script
+################################################################################
+if [ "$(uname)" != "Darwin" ]; then
+  exit 0
+fi
 
 # Brew
 cd
