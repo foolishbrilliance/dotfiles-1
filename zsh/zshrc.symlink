@@ -150,6 +150,9 @@ if [[ -e ~/.dir_colors ]]; then
   check_com -c dircolors && eval $(dircolors -b ~/.dir_colors)
 fi
 
+# iterm2 shell integration
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
 # nvim
 check_com -c nvim && export NVIM_TUI_ENABLE_TRUE_COLOR=1
 
