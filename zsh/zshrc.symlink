@@ -116,7 +116,7 @@ if check_com -c fd; then
   # Setting fd as the default source for fzf
   export FZF_DEFAULT_COMMAND="fd --type file --follow --hidden --color=always"
   # To apply the command to CTRL-T as well
-  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+  export FZF_CTRL_T_COMMAND="fd --type file --color=always"
 
   # Use fd for listing path candidates.
   # - The first argument to the function ($1) is the base path to start traversal
@@ -142,6 +142,9 @@ fi
 # nvim
 check_com -c nvim && export EDITOR=nvim && export NVIM_TUI_ENABLE_TRUE_COLOR=1
 
+# serverless/sls
+[[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
+[[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
 
 ################################################################################
 # Prompt
