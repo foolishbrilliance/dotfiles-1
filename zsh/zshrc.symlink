@@ -63,6 +63,7 @@ unset config_files
 # My custom config
 ################################################################################
 
+# PATH
 if check_com -c brew ; then
   # For Cask per https://github.com/caskroom/homebrew-cask/blob/master/USAGE.md
   # --appdir=/my/path changes the path where the symlinks to the applications (above) will be generated. This is commonly used to create the links in the root Applications directory instead of the home Applications directory by specifying --appdir=/Applications. Default is ~/Applications.
@@ -71,7 +72,9 @@ if check_com -c brew ; then
   export MANPATH="/usr/local/man:$MANPATH"
 fi
 
-export PATH="$HOME/.dotfiles/bin:$HOME/bin.private:$HOME/bin:$HOME/bin.linux:/usr/local/opt/python/libexec/bin:$PATH"
+export PATH="/usr/local/opt/python/libexec/bin:$PATH" # python
+export PATH="$HOME/.cargo/bin:$PATH" # rust
+export PATH="$HOME/bin.private:$HOME/bin.linux:$HOME/.dotfiles/bin:$HOME/bin:$PATH" # personal
 
 set -o pipefail # It is useful to have set -o pipefail somewhere in your shell startup (see [here](https://sipb.mit.edu/doc/safe-shell/) for details), otherwise pushd happens even if you exit with ctrl-c and clutters up the directory stack.
 # To allow for ^s to fwd-i-search (opposite of ^r), disable XON/XOFF for interactive shells per https://stackoverflow.com/questions/791765/unable-to-forward-search-bash-history-similarly-as-with-ctrl-r#comment39602061_791800
