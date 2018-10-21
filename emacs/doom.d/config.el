@@ -177,5 +177,12 @@
   ;; Load magit in split frame
   (setq magit-display-buffer-function 'magit-display-buffer-traditional))
 
+;; Terminal-specific config
+(unless (display-graphic-p)
+  (progn
+    (add-hook 'minibuffer-setup-hook (lambda () (setq truncate-lines t))) ;; don't wrap in ivy results
+    (setq term-suppress-hard-newline t) ;; disable newlines
+    (set-display-table-slot standard-display-table 'wrap ?\b))) ;; disable wrap character
+
 ;; load local config last
 (when (file-exists-p "~/.emacs.local.el") (load "~/.emacs.local.el"))
