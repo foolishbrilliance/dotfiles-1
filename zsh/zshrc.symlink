@@ -115,7 +115,6 @@ fi
 if check_com -c fd; then
   # Setting fd as the default source for fzf
   export FZF_DEFAULT_COMMAND="fd --type file --follow --hidden --color=always"
-
   export FZF_CTRL_T_COMMAND="fd --type file --color=always"
   export FZF_ALT_C_COMMAND="fd --type d --color=always"
 
