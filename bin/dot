@@ -8,24 +8,24 @@ source ~/.bash_colors
 export ZSH=$HOME/.dotfiles
 
 # Dotfiles
-cd $ZSH && git pull && clr_green "Updated dotfiles." || clr_red "Dotfiles update failed."
+TARGET=Dotfiles; cd $ZSH && git pull && clr_green "Updated ${TARGET}." || clr_red "${TARGET} update failed."
 
 # Grml zshrc
-cd ~/.grml-etc-core && git pull && clr_green clr_bold "Updated GRML." || clr_red "GRML update failed."
+TARGET=GRML; cd ~/.grml-etc-core && git pull && clr_green clr_bold "Updated ${TARGET}." || clr_red "${TARGET} update failed."
 
 # Vim
-cd ~/.vim/bundles/repos/github.com/Shougo/dein.vim && git pull && clr_green clr_bold "Updated Dein (VIM Plugin Manager)." ||
-clr_red "Dein (VIM Plugin Manager) update failed."
-vim +'call dein#update()' +qall && clr_green clr_bold "Updated Vim Plugins." || clr_red "Vim Plugins Update Failed."
+TARGET="Dein - VIM Plugin Manager"; cd ~/.vim/bundles/repos/github.com/Shougo/dein.vim && git pull && clr_green clr_bold "Updated ${TARGET}." ||
+clr_red "${TARGET} update failed."
+TARGET="VIM Plugins"; vim +'call dein#update()' +qall && clr_green clr_bold "Updated ${TARGET}" || clr_red "${TARGET} update failed."
 
 # Spacemacs
 # emacs --batch --load=~/.emacs.d/init.el && clr_green clr_bold "Updated Emacs Packages." || clr_red "Emacs Packages update failed."
-cd ~/.emacs.d.spacemacs && git pull --rebase && clr_green clr_bold "Updated Spacemacs from develop branch." || clr_red "Spacemacs update failed."
+TARGET=Spacemacs; cd ~/.emacs.d.spacemacs && git pull --rebase && clr_green clr_bold "Updated ${TARGET}." || clr_red "${TARGET} update failed."
 
 # Doom Emacs
-~/.emacs.d/bin/doom update && clr_green clr_bold "Updated Doom Emacs packages." || clr_red "Doom Emacs package update failed."
-~/.emacs.d/bin/doom upgrade && clr_green clr_bold "Updated Doom Emacs from develop branch." || clr_red "Doom Emacs update failed."
-~/.emacs.d/bin/doom refresh && clr_green clr_bold "Updated Doom Emacs refreshed." || clr_red "Doom Emacs refresh failed."
+TARGET="Doom Emacs packages"; ~/.emacs.d/bin/doom update && clr_green clr_bold "Updated ${TARGET}." || clr_red "${TARGET} update failed."
+TARGET="Doom Emacs"; ~/.emacs.d/bin/doom upgrade && clr_green clr_bold "Updated ${TARGET}." || clr_red "${TARGET} update failed."
+TARGET="Doom Emacs"; ~/.emacs.d/bin/doom refresh && clr_green clr_bold "Updated ${TARGET} refreshed." || clr_red "${TARGET} refresh failed."
 
 ################################################################################
 # Mac only for rest of script
