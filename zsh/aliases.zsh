@@ -49,27 +49,8 @@ c() {
 
 alias calc='bc <<<'
 
-# cdf - cd into the directory of the selected file
-cdf() {
-   local file
-   local dir
-   file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
-}
-
-# cdp - cd to selected parent directory (fdr from https://github.com/junegunn/fzf/wiki/examples)
-cdp() {
-  local declare dirs=()
-  get_parent_dirs() {
-    if [[ -d "${1}" ]]; then dirs+=("$1"); else return; fi
-    if [[ "${1}" == '/' ]]; then
-      for _dir in "${dirs[@]}"; do echo $_dir; done
-    else
-      get_parent_dirs $(dirname "$1")
-    fi
-  }
-  local DIR=$(get_parent_dirs $(realpath "${1:-$PWD}") | fzf-tmux --tac)
-  cd "$DIR"
-}
+# cd. - fuzzy cd into subdirectory (non-recursive) within current directory
+alias cd.='cd $(fd --type d --max-depth 1 --hidden |fzf)'
 
 alias cl="fc -e -|pbcopy && echo Copied output of last command to clipboard"
 alias clitxt='curl -sF "upfile=@-" https://clitxt.com |tee /dev/tty | pbcopy'
@@ -94,7 +75,7 @@ etransfer() {
 }
 
 # fcd - cd to selected directory
-# from https://github.com/junegunn/fzf/wiki/examples | change to fcd to avoid conflict with https://github.com/sharkdp/fd
+# originally fd from https://github.com/junegunn/fzf/wiki/examples | change to fcd to avoid conflict with https://github.com/sharkdp/fd
 fcd() {
   local dir
   dir=$(find ${1:-.} -path '*/\.*' -prune \
@@ -102,11 +83,30 @@ fcd() {
   cd "$dir"
 }
 
+# fcdf - cd into the directory of the selected file
+fcdf() {
+   local file
+   local dir
+   file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
+}
+
+# fcdp - cd to selected parent directory (fdr from https://github.com/junegunn/fzf/wiki/examples)
+fcdp() {
+  local declare dirs=()
+  get_parent_dirs() {
+    if [[ -d "${1}" ]]; then dirs+=("$1"); else return; fi
+    if [[ "${1}" == '/' ]]; then
+      for _dir in "${dirs[@]}"; do echo $_dir; done
+    else
+      get_parent_dirs $(dirname "$1")
+    fi
+  }
+  local DIR=$(get_parent_dirs $(realpath "${1:-$PWD}") | fzf-tmux --tac)
+  cd "$DIR"
+}
+
 # fuzzy find clipboard Alfred history (sort by timestamp in sqlite, then don't sort in fzf)
 alias fclip='sqlite3 -header -csv ~/Library/Application\ Support/Alfred\ 3/Databases/clipboard.alfdb "select item from clipboard order by ts desc" |fzf |pbcopy'
-
-
-alias fpath='perl -MCwd -e "print Cwd::abs_path shift"' # cpath is another alias, think "canonical path"
 
 # fe - fuzzy edit
 fe() {
@@ -125,6 +125,8 @@ ff() {
     local file
     file="$(fasd -Rfl "$1" | fzf -1 -0 --no-sort +m)" && vi "${file}" || return 1
 }
+
+alias fpath='perl -MCwd -e "print Cwd::abs_path shift"' # cpath is another alias, think "canonical path"
 
 # fv - fuzzy view
 fv() {
@@ -195,10 +197,6 @@ FZF-EOF"
 
 alias glog="git log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
 alias github="open \`git remote -v | grep github.com | grep fetch | head -1 | field 2 | sed 's/git:/http:/g'\`"
-alias gityolo="git commit -am 'Updating everything.'; git push origin master"
-alias gpm="git push origin master"
-alias irca='growl-irc.sh; ssh -t trundle tmux attach -d'
-alias isearch='ircsearch' # Function to search irssi logs
 
 j() {
     local dir="$(fasd -ld "$@")"
@@ -309,6 +307,7 @@ tm() {
 }
 
 alias trimw="pbpaste |sed -e 's/[[[:space:]]\r\n]//g' |pbcopy" # Trim all whitespace
+alias tpcalc='perl -ne "push @t,1*\$1 if(/(\d+)/); END{@t=sort{\$a<=>\$b}@t; map{printf qq(TP%.1f %d\n),100*\$_,@t[int(scalar(@t))*\$_]}(.5,.9,.99,.999) }"'
 alias ud='cd ~/dotfiles && git pull; cd -'
 alias utc='date -u'
 
@@ -319,6 +318,3 @@ if check_com -c vimr ; then
   }
 fi
 alias worddiff='git diff --word-diff=color'
-
-alias zpup='cd .zprezto && git pull && git submodule update --init --recursive; cd -' # Update prezto
-
