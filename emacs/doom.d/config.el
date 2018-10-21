@@ -180,7 +180,7 @@
 ;; Terminal-specific config
 (unless (display-graphic-p)
   (progn
-    (add-hook 'minibuffer-setup-hook (lambda () (setq truncate-lines t))) ;; don't wrap in ivy results
+    (setq-hook! 'minibuffer-setup-hook truncate-lines t) ;; don't wrap in ivy results
     (setq term-suppress-hard-newline t) ;; disable newlines
     (set-display-table-slot standard-display-table 'wrap ?\b))) ;; disable wrap character
 
