@@ -55,6 +55,9 @@ alias cd.='cd $(fd --type d --max-depth 1 --hidden |fzf)'
 alias cl="fc -e -|pbcopy && echo Copied output of last command to clipboard"
 alias clitxt='curl -sF "upfile=@-" https://clitxt.com |tee /dev/tty | pbcopy'
 
+# count uniq
+alias count='sort | uniq -c | sort -rn'
+
 edownload() {
     if [ $# -ne 2 ];
     then
@@ -239,13 +242,16 @@ alias myip='curl -s checkip.amazonaws.com'
 # Pipe my public key to my clipboard.
 alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to pasteboard.'"
 alias ql='qlmanage -p "$@" >& /dev/null'
-alias reload!='. ~/.zshrc'
+alias reload!='. ~/.zshrc && echo reloaded .zshrc'
 alias removetimestamp='sed -i.bak "s/\(.*\)..:..:..$/\1/"'
 alias removetimestampandcopy='sed "s/\(.*\)..:..:..$/\1/" $@ |pbcopy'
 alias rg='rg --smart-case'
 alias rs='screen -RD'
 alias sl='ls'
 alias ss="open /System/Library/Frameworks/ScreenSaver.framework/Versions/A/Resources/ScreenSaverEngine.app" # Start ScreenSaver. This will lock the screen if locking is enabled.
+
+# sum numbers
+alias sum-numbers="awk '{ sum += \$1 } END { print sum }'"
 
 transfer() { # transfer.sh function from https://gist.github.com/nl5887/a511f172d3fb3cd0e42d#gistcomment-2093683
     # check arguments
