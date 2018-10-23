@@ -13,10 +13,23 @@
       split-width-threshold 100 ;; split windows if the window's max width <100
       evil-escape-key-sequence ";y"
       evil-escape-unordered-key-sequence t
+
+      ;; deft
+      deft-directory "~/WorkDocs/Notational Data"
+      deft-extensions '("md" "org" "txt")
+      deft-use-filename-as-title t
       )
 
 ;; Default modes
 (add-to-list 'auto-mode-alist '("\\.txt\\'" . markdown-mode)) ;; default mode for .txt files
+
+;; deft
+;; Overwrite `deft-current-files` for the `deft-buffer-setup` and limit it to 30 entries: https://github.com/jrblevin/deft/issues/43#issuecomment-350198825
+(defun anks-deft-limiting-fn (orig-fun &rest args)
+  (let
+      ((deft-current-files (-take 30 deft-current-files)))
+    (apply orig-fun args)))
+(advice-add 'deft-buffer-setup :around #'anks-deft-limiting-fn)
 
 ;; Org mode
 (setq
