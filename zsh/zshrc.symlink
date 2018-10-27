@@ -72,9 +72,18 @@ if check_com -c brew ; then
   export MANPATH="/usr/local/man:$MANPATH"
 fi
 
-export PATH="/usr/local/opt/python/libexec/bin:$PATH" # python
-export PATH="$HOME/.cargo/bin:$PATH" # rust
-export PATH="$HOME/bin.private:$HOME/bin.linux:$HOME/.dotfiles/bin:$HOME/bin:$PATH" # personal
+for d in \
+    $HOME/.cargo/bin `# rust` \
+    /usr/local/opt/python/libexec/bin \
+    $HOME/bin \
+    $HOME/bin.linux \
+    $HOME/bin.private \
+    $HOME/.dotfiles/bin \
+    ; do
+  if [[ -d $d ]]; then
+    export PATH=$d:$PATH
+  fi
+done
 
 set -o pipefail # It is useful to have set -o pipefail somewhere in your shell startup (see [here](https://sipb.mit.edu/doc/safe-shell/) for details), otherwise pushd happens even if you exit with ctrl-c and clutters up the directory stack.
 # To allow for ^s to fwd-i-search (opposite of ^r), disable XON/XOFF for interactive shells per https://stackoverflow.com/questions/791765/unable-to-forward-search-bash-history-similarly-as-with-ctrl-r#comment39602061_791800
