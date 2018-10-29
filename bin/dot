@@ -14,7 +14,7 @@ TARGET=Dotfiles; cd $ZSH && git pull && clr_green "Updated ${TARGET}." || clr_re
 TARGET=GRML; cd ~/.grml-etc-core && git pull && clr_green clr_bold "Updated ${TARGET}." || clr_red "${TARGET} update failed."
 
 # Vim
-TARGET="Dein - VIM Plugin Manager"; cd ~/.vim/bundles/repos/github.com/Shougo/dein.vim && git pull && clr_green clr_bold "Updated ${TARGET}." ||
+TARGET="Dein - VIM Plugin Manager"; cd ~/.vim/plugins/repos/github.com/Shougo/dein.vim && git pull && clr_green clr_bold "Updated ${TARGET}." ||
 clr_red "${TARGET} update failed."
 TARGET="VIM Plugins"; vim +'call dein#update()' +qall && clr_green clr_bold "Updated ${TARGET}" || clr_red "${TARGET} update failed."
 
