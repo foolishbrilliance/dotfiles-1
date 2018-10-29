@@ -1,3 +1,5 @@
+# -*-sh-*-
+
 # Fix Emacs TRAMP per https://www.emacswiki.org/emacs/TrampMode#toc7
 [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
 
@@ -195,7 +197,8 @@ if [ $(version $ZSH_VERSION) -ge $(version "5.2") ]; then # Pure prompt requires
   }
 
   # show right prompt with date ONLY when command is executed
-  preexec () {
+  # rename this function to preexec() in order to enable the date on the prompt
+  preexec_disabled () {
     DATE=$( date +"[%H:%M:%S]" )
     local len_right=$( strlen "$DATE" )
     len_right=$(( $len_right+1 ))
