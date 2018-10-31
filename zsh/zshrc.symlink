@@ -142,6 +142,9 @@ if check_com -c fd; then
   }
 fi
 
+# For gtags per https://github.com/syl20bnr/spacemacs/tree/master/layers/%2Btags/gtags#install-on-osx-using-homebrew
+export GTAGSLABEL=pygments
+
 # fzf keybind options from https://github.com/junegunn/fzf/wiki/Configuring-shell-key-bindings
 # auto select if only 1 result, exit if no results
 export FZF_CTRL_T_OPTS="--select-1 --exit-0 $FZF_CTRL_T_OPTS"
