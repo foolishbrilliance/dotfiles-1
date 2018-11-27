@@ -36,6 +36,7 @@
  org-directory "~/WorkDocs/Notational Data"
  org-default-notes-file (concat org-directory "/notes.org")
  org-footnote-auto-adjust t ;; sort and renumber footnotes after every insert/delete
+ +workspaces-on-switch-project-behavior nil ;; make switch-project not open new workspace
  )
 ;; failback notes directory
 (unless (file-directory-p org-directory) (setq org-directory "~/Dropbox/Notes"))
