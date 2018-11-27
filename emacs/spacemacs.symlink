@@ -401,9 +401,9 @@ you should place your code here."
   (unless (display-graphic-p) ;; if run in terminal
     (progn
       ;; fix solarized theme in terminal per https://github.com/syl20bnr/spacemacs/issues/1269#issuecomment-198309213
-      (set-terminal-parameter nil 'background-mode 'dark)
-      (set-frame-parameter nil 'background-mode 'dark)
-      (spacemacs/load-theme 'zenburn)
+      ;; (set-terminal-parameter nil 'background-mode 'dark)
+      ;; (set-frame-parameter nil 'background-mode 'dark)
+      ;; (spacemacs/load-theme 'zenburn)
 
       ;; make it easier to copy and paste in terminal mode
       (xterm-mouse-mode -1) ;; disable mouse mode
@@ -463,7 +463,7 @@ you should place your code here."
 
   ;; Default mode
   (add-to-list 'auto-mode-alist '("\\.txt\\'" . markdown-mode)) ;; in .txt files
-  (add-to-list 'auto-mode-alist '("\\.xml\\'" . xml-mode)) ;; in .txt files
+  (add-to-list 'auto-mode-alist '("\\.xml\\'" . xml-mode)) ;; in .xml files
   (setq-default major-mode 'markdown-mode)                      ;; for all buffers
 
   ;; Org config
