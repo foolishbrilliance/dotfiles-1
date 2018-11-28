@@ -1,0 +1,15 @@
+# -*- mode: editorconfig-conf -*-
+# https://EditorConfig.org
+
+# top-most EditorConfig file; stop searching fr other files
+root = true
+
+# Defaults for every file
+[*]
+end_of_line = lf            # Unix-style newlines
+insert_final_newline = true # newline ending every file
+trim_trailing_whitespace = true
+
+# Indents
+indent_style = space
+indent_size = 4
