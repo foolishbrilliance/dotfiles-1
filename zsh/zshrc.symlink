@@ -20,9 +20,7 @@ if [ ! -d $HOME/.grml-etc-core ]; then
   git clone git://git.grml.org/grml-etc-core.git ~/.grml-etc-core
   ln -s ~/.grml-etc-core/etc/zsh/zshrc ~/.grml-zsh-config
 fi
-if [[ -e ~/.grml-zsh-config ]]; then
-  source ~/.grml-zsh-config
-fi
+FILE="${HOME}/.grml-zsh-config"; [ -f $FILE ] && . $FILE
 
 ################################################################################
 ## BEGIN holman/dotfiles
@@ -164,10 +162,14 @@ if [[ -e ~/.dir_colors ]]; then
 fi
 
 # iterm2 shell integration
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+FILE="${HOME}/.iterm2_shell_integration.zsh"; [ -f $FILE ] && . $FILE
 
 # nvim
 check_com -c nvim && export NVIM_TUI_ENABLE_TRUE_COLOR=1
+
+# chruby
+FILE="/usr/local/share/chruby/chruby.sh"; [ -f $FILE ] && . $FILE
+FILE="/usr/local/share/chruby/auto.sh"; [ -f $FILE ] && . $FILE
 
 # serverless/sls
 [[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
@@ -229,6 +231,4 @@ else # fallback to grml prompt
 fi
 
 # use .zshrc.secret for SUPER SECRET stuff not stored in repo
-if [[ -a ~/.zshrc.secret ]]; then
-  source ~/.zshrc.secret
-fi
+FILE="${HOME}/.zshrc.secret"; [ -f $FILE ] && . $FILE
