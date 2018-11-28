@@ -1,9 +1,8 @@
-git/gitconfig.local.symlink
 *.log
-
+git/gitconfig.local.symlink
+emacs/doom.d/scratch
 system/maid.symlink/maid.log
-
-# don't store plugins as they get updated/downloaded via dein
+# don't store vim plugins as they get updated/downloaded via dein
 vim/vim.symlink/plugins/*
 vim/vim.symlink/plugin/*
 vim/vim.symlink/bundles/*
