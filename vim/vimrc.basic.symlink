@@ -1,0 +1,2 @@
+source plugin/sensible.vim
+source plugin/sleuth.vim
