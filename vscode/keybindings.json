@@ -1,8 +1,36 @@
 // Place your key bindings in this file to overwrite the defaults
 [
+    // Focus editor
     {
-        // Focus editor
         "key": "ALT+space",
         "command": "workbench.action.focusActiveEditorGroup"
+    },
+    // Toggle Focus - Problems Panel
+    {
+        "key": "ALT+m",
+        "command": "workbench.actions.view.problems",
+        "when": "!panelFocus"
+    },
+    // Toggle Focus - Problems Panel
+    {
+        "key": "ALT+m",
+        "command": "workbench.actions.view.problems",
+        "when": "!panelFocus"
+    },
+    // Toggle Problems
+    {
+        "key": "ALT+p",
+        "command": "workbench.actions.view.problems"
+    },
+    // Panel switching
+    {
+        "key": "cmd+]",
+        "command": "workbench.action.nextPanelView",
+        "when": "panelFocus"
+    },
+    {
+        "key": "cmd+[",
+        "command": "workbench.action.previousPanelView",
+        "when": "panelFocus"
     }
 ]
