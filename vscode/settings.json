@@ -1,17 +1,50 @@
 {
+    "editor.cursorBlinking": "visible",
+    "editor.detectIndentation": true,
     "editor.fontFamily": "Fira Code, Inconsolata, Menlo, Monaco, 'Courier New', monospace",
     "editor.fontLigatures": true,
-    "editor.fontSize": 14,
+    "editor.fontSize": 18,
+    "editor.insertSpaces": true,
     "editor.renderWhitespace": "boundary",
+    "editor.tabSize": 4,
     "files.insertFinalNewline": true,
     "files.trimFinalNewlines": true,
     "files.trimTrailingWhitespace": true,
+    "workbench.colorTheme": "Monokai Pro",
+
+    // VIM Settings
     "vim.cmdLineInitialColon": true,
     "vim.disableAnnoyingNeovimMessage": true,
+    "vim.incsearch": true,
     "vim.hlsearch": true,
-    "vim.leader": ",",
+    "vim.leader": "<space>",
     "vim.useSystemClipboard": true,
     "vim.visualstar": true,
-    "workbench.colorTheme": "Braver's Solarized Dark (themed workbench)",
-    "vim.easymotion": true
+    "vim.easymotion": true,
+    "vim.sneak": true,
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before":["<C-l>"],
+            "commands": [
+                ":nohl",
+            ]
+        },
+        {
+            "before": ["leader", "w"],
+            "commands": [
+                "workbench.action.files.save",
+            ]
+        }
+    ],
+    "gitlens.currentLine.enabled": false,
+    "gitlens.hovers.currentLine.over": "line",
+    "workbench.statusBar.feedback.visible": false,
+    // Language specific
+    // Markdown
+    "[markdown]": {
+        "editor.renderWhitespace": "all",
+        "editor.acceptSuggestionOnEnter": "off"
+      },
+    // Python
+    "python.linting.pylintPath": "/usr/local/bin/pylint",
 }
