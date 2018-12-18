@@ -11,7 +11,6 @@
     "files.trimFinalNewlines": true,
     "files.trimTrailingWhitespace": true,
     "workbench.colorTheme": "Monokai Pro",
-
     // VIM Settings
     "vim.cmdLineInitialColon": true,
     "vim.disableAnnoyingNeovimMessage": true,
@@ -24,15 +23,60 @@
     "vim.sneak": true,
     "vim.normalModeKeyBindingsNonRecursive": [
         {
-            "before":["<C-l>"],
+            "before": [
+                "<C-l>"
+            ],
             "commands": [
                 ":nohl",
             ]
         },
         {
-            "before": ["leader", "w"],
+            "before": [
+                "leader",
+                "w"
+            ],
             "commands": [
                 "workbench.action.files.save",
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "g",
+                "d"
+            ],
+            "commands": [
+                "editor.action.peekDefinition"
+            ]
+        },
+        {
+            "before": [
+                "g",
+                "D"
+            ],
+            "commands": [
+                "editor.action.referenceSearch.trigger"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "g",
+                "D"
+            ],
+            "commands": [
+                "references-view.find"
+            ]
+        },
+        // toggle buffer
+        {
+            "before": [
+                "<leader>",
+                "<leader>"
+            ],
+            "commands": [
+                { "command": "workbench.action.openPreviousEditorFromHistory" },
+                { "command": "workbench.action.acceptSelectedQuickOpenItem" }
             ]
         }
     ],
@@ -44,7 +88,7 @@
     "[markdown]": {
         "editor.renderWhitespace": "all",
         "editor.acceptSuggestionOnEnter": "off"
-      },
+    },
     // Python
     "python.linting.pylintPath": "/usr/local/bin/pylint",
 }
