@@ -352,71 +352,77 @@ if &compatible
 endif
 
 " Required:
-set runtimepath^=~/.vim/plugins/repos/github.com/Shougo/dein.vim
+set runtimepath+=~/.vim/plugins/repos/github.com/Shougo/dein.vim
 
 " Required:
-call dein#begin(expand('~/.vim/plugins'))
 
-" Let dein manage dein
-" Required:
-call dein#add('Shougo/dein.vim')
+if dein#load_state('~/.vim/plugins')
+    call dein#begin('~/.vim/plugins')
 
-" Add or remove your plugins here:
-" My plugins here:
-" DISABLED
-"call dein#add('jeetsukumaran/vim-buffergator')
-"call dein#add('jooize/vim-colemak')
-"call dein#add('Lokaltog/vim-easymotion')
-"call dein#add('jeetsukumaran/vim-filebeagle') " not really using
-"call dein#add('haya14busa/incsearch.vim', { 'rev': 'dev'}) "dev branch for MacVim paste fix: https://github.com/haya14busa/incsearch.vim/issues/35#issuecomment-67504976
-"call dein#add('haya14busa/incsearch.vim') "incsearch feature merged in VIM Patch 8.0.1238 ( https://github.com/vim/vim/commit/2e51d9a0972080b087d566608472928d5b7b35d7 )
-"call dein#add('scrooloose/nerdtree')
-"call dein#add('scrooloose/syntastic')
-"call dein#add('sjl/gundo.vim.git')
-"call dein#add('mikewest/vimroom') " not using
-"call dein#add('gmarik/Vundle.vim')
-"
-"call dein#add('mattn/webapi-vim') "required for mattn/gist-vim
-"call dein#add('mattn/gist-vim') " depends on mattn/webapi-vim; not using
-call dein#add('airblade/vim-gitgutter')
-call dein#add('altercation/vim-colors-solarized')
-call dein#add('frankier/neovim-colors-solarized-truecolor-only') " for solarized in neovim
-call dein#add('bling/vim-airline')
-call dein#add('vim-airline/vim-airline-themes')
-call dein#add('elzr/vim-json')
-call dein#add('justinmk/vim-sneak')
-call dein#add('kien/ctrlp.vim')
-call dein#add('mbbill/undotree')
-call dein#add('michaeljsmith/vim-indent-object')
-call dein#add('tpope/vim-abolish')
-call dein#add('tpope/vim-commentary')
-call dein#add('tpope/vim-eunuch')
-call dein#add('tpope/vim-fugitive')
-call dein#add('tpope/vim-jdaddy')
-call dein#add('tpope/vim-repeat')
-call dein#add('tpope/vim-sensible')
-call dein#add('tpope/vim-sleuth')
-call dein#add('tpope/vim-surround')
-call dein#add('tpope/vim-unimpaired')
-"call dein#add('tpope/vim-vinegar')
-call dein#add('bkad/CamelCaseMotion')
-call dein#add('reedes/vim-wordy')
-call dein#add('mtth/scratch.vim')
-call dein#add('flazz/vim-colorschemes')
-call dein#add('kana/vim-textobj-user') " required for mattn/vim-textobj-url
-call dein#add('mattn/vim-textobj-url') " depends on kana/vim-textobj-user
-for fzf_plugin_dir in ['/usr/local/opt/fzf', '/home/linuxbrew/.linuxbrew/opt/fzf', '~/.fzf/plugin']
-  if isdirectory(fzf_plugin_dir)
-    call dein#add(fzf_plugin_dir) " required for fzf.vim
-    call dein#add('junegunn/fzf.vim')   " depends on fzf_plugin_dir
-  endif
-endfor
 
-" You can specify revision/branch/tag.
-"call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
+    " Let dein manage dein
+    " Required:
+    call dein#add('~/.vim/plugins/repos/github.com/Shougo/dein.vim')
 
-" Required:
-call dein#end()
+
+    " Add or remove your plugins here:
+    " My plugins here:
+    " DISABLED
+    "call dein#add('jeetsukumaran/vim-buffergator')
+    "call dein#add('jooize/vim-colemak')
+    "call dein#add('Lokaltog/vim-easymotion')
+    "call dein#add('jeetsukumaran/vim-filebeagle') " not really using
+    "call dein#add('haya14busa/incsearch.vim', { 'rev': 'dev'}) "dev branch for MacVim paste fix: https://github.com/haya14busa/incsearch.vim/issues/35#issuecomment-67504976
+    "call dein#add('haya14busa/incsearch.vim') "incsearch feature merged in VIM Patch 8.0.1238 ( https://github.com/vim/vim/commit/2e51d9a0972080b087d566608472928d5b7b35d7 )
+    "call dein#add('scrooloose/nerdtree')
+    "call dein#add('scrooloose/syntastic')
+    "call dein#add('sjl/gundo.vim.git')
+    "call dein#add('mikewest/vimroom') " not using
+    "call dein#add('gmarik/Vundle.vim')
+    "
+    "call dein#add('mattn/webapi-vim') "required for mattn/gist-vim
+    "call dein#add('mattn/gist-vim') " depends on mattn/webapi-vim; not using
+    call dein#add('airblade/vim-gitgutter')
+    call dein#add('altercation/vim-colors-solarized')
+    call dein#add('frankier/neovim-colors-solarized-truecolor-only') " for solarized in neovim
+    call dein#add('bling/vim-airline')
+    call dein#add('vim-airline/vim-airline-themes')
+    call dein#add('elzr/vim-json')
+    call dein#add('justinmk/vim-sneak')
+    call dein#add('kien/ctrlp.vim')
+    call dein#add('mbbill/undotree')
+    call dein#add('michaeljsmith/vim-indent-object')
+    call dein#add('tpope/vim-abolish')
+    call dein#add('tpope/vim-commentary')
+    call dein#add('tpope/vim-eunuch')
+    call dein#add('tpope/vim-fugitive')
+    call dein#add('tpope/vim-jdaddy')
+    call dein#add('tpope/vim-repeat')
+    call dein#add('tpope/vim-sensible')
+    call dein#add('tpope/vim-sleuth')
+    call dein#add('tpope/vim-surround')
+    call dein#add('tpope/vim-unimpaired')
+    "call dein#add('tpope/vim-vinegar')
+    call dein#add('bkad/CamelCaseMotion')
+    call dein#add('reedes/vim-wordy')
+    call dein#add('mtth/scratch.vim')
+    call dein#add('flazz/vim-colorschemes')
+    call dein#add('kana/vim-textobj-user') " required for mattn/vim-textobj-url
+    call dein#add('mattn/vim-textobj-url') " depends on kana/vim-textobj-user
+    for fzf_plugin_dir in ['/usr/local/opt/fzf', '/home/linuxbrew/.linuxbrew/opt/fzf', '~/.fzf/plugin']
+    if isdirectory(fzf_plugin_dir)
+        call dein#add(fzf_plugin_dir) " required for fzf.vim
+        call dein#add('junegunn/fzf.vim')   " depends on fzf_plugin_dir
+    endif
+    endfor
+
+    " You can specify revision/branch/tag.
+    "call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
+
+    " Required:
+    call dein#end()
+    call dein#save_state()
+endif
 
 " Required:
 filetype plugin indent on
