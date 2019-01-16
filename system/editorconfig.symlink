@@ -1,7 +1,7 @@
 # -*- mode: editorconfig-conf -*-
 # https://EditorConfig.org
 
-# top-most EditorConfig file; stop searching fr other files
+# top-most EditorConfig file; stop searching for other files
 root = true
 
 # Defaults for every file
