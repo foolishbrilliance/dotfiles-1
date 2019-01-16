@@ -19,9 +19,7 @@ clr_red "${TARGET} update failed."
 TARGET="VIM Plugins"; vim +'call dein#update()' +qall && clr_green clr_bold "Updated ${TARGET}" || clr_red "${TARGET} update failed."
 
 # Doom Emacs
-TARGET="Doom Emacs packages"; ~/.emacs.d/bin/doom update && clr_green clr_bold "Updated ${TARGET}." || clr_red "${TARGET} update failed."
 TARGET="Doom Emacs"; ~/.emacs.d/bin/doom upgrade && clr_green clr_bold "Updated ${TARGET}." || clr_red "${TARGET} update failed."
-TARGET="Doom Emacs"; ~/.emacs.d/bin/doom refresh && clr_green clr_bold "Updated ${TARGET} refreshed." || clr_red "${TARGET} refresh failed."
 
 # Spacemacs
 # emacs --batch --load=~/.emacs.d/init.el && clr_green clr_bold "Updated Emacs Packages." || clr_red "Emacs Packages update failed."
