@@ -319,7 +319,7 @@ alias utc='date -u'
 
 alias vi='vim'
 if check_com -c vimr ; then
-  vim () { # from https://github.com/grml/grml-etc-core/blob/master/etc/zsh/zshrc#L3130
+  vimr () { # from https://github.com/grml/grml-etc-core/blob/master/etc/zsh/zshrc#L3130
     VIM_PLEASE_SET_TITLE='yes' command vimr ${VIM_OPTIONS} "$@"
   }
 fi
