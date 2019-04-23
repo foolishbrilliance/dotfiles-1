@@ -475,7 +475,7 @@ autocmd BufNewFile filebeagle,filebeagle-? setlocal number " always show line nu
 
 " fzf
 "
-" Mapping selecting mappings
+" Search and execute vim mappings
 nmap <leader><tab> <plug>(fzf-maps-n)
 xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
@@ -487,11 +487,20 @@ imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
 
 " Advanced customization using autoload functions
+" Complete word from dictionary
 inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
 
-" My custom fzf mappings
-nmap <Leader>t :Files<CR>
-nmap <Leader>r :Tags<CR>
+" Custom fzf mappings, inspired from
+" https://github.com/zenbro/dotfiles/blob/d3f4bd3136aab297191c062345dfc680abb1efac/.nvimrc#L225-L233
+nnoremap <silent> <leader><leader> :History<CR>
+nnoremap <silent> <Leader>. :Files<CR>
+nnoremap <silent> <Leader>: :History:<CR>
+nnoremap <silent> <Leader>\ :History/<CR>
+nnoremap <silent> <Leader><space> :Buffers<CR>
+nnoremap <silent> <Leader>; :Commands<CR>
+nnoremap <silent> <Leader>ll :Lines<CR>
+nnoremap <silent> <Leader>lb :BLines<CR>
+nnoremap <silent> <leader>/ :execute 'Rg ' . input('Rg/')<CR>
 
 "
 " gist-vim
