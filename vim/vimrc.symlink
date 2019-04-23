@@ -200,7 +200,6 @@ nnoremap <silent> gw    "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><C-o><C-
 "
 " tabs
 "
-nnoremap <Leader>tl :BuffergatorTabsToggle<CR>
 nnoremap <Leader>ti :tabnext<CR>
 nnoremap <Leader>th :tabprev<CR>
 nnoremap <Leader>tn :tabnew<CR>
@@ -241,11 +240,7 @@ nnoremap <Leader>bf :CtrlP<CR>
 nnoremap <Leader>bm :CtrlPMixed<CR>
 nnoremap <Leader>bs :CtrlPMRU<CR>
 nnoremap <Leader>bl :CtrlPBuffer<CR>
-nnoremap <Leader>bg :BuffergatorToggle<CR>
 nnoremap <Leader>p :CtrlPMRU<CR>
-" Cycle through MRU buffers
-nnoremap <Leader>nn :BuffergatorMruCyclePrev<CR>
-nnoremap <Leader>ee :BuffergatorMruCycleNext<CR>
 
 "
 " windows
@@ -359,7 +354,6 @@ set runtimepath+=~/.vim/plugins/repos/github.com/Shougo/dein.vim
 if dein#load_state('~/.vim/plugins')
     call dein#begin('~/.vim/plugins')
 
-
     " Let dein manage dein
     " Required:
     call dein#add('~/.vim/plugins/repos/github.com/Shougo/dein.vim')
@@ -368,7 +362,6 @@ if dein#load_state('~/.vim/plugins')
     " Add or remove your plugins here:
     " My plugins here:
     " DISABLED
-    "call dein#add('jeetsukumaran/vim-buffergator')
     "call dein#add('jooize/vim-colemak')
     "call dein#add('Lokaltog/vim-easymotion')
     "call dein#add('jeetsukumaran/vim-filebeagle') " not really using
@@ -436,11 +429,6 @@ endif
 
 " Section: Plugin configs {{{2
 " ---------------------
-
-"
-" Buffergator
-"
-let g:buffergator_suppress_keymaps = 1
 
 "
 " CtrlP
