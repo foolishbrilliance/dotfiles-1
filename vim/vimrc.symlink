@@ -402,7 +402,7 @@ if dein#load_state('~/.vim/plugins')
     call dein#add('flazz/vim-colorschemes')
     call dein#add('kana/vim-textobj-user') " required for mattn/vim-textobj-url
     call dein#add('mattn/vim-textobj-url') " depends on kana/vim-textobj-user
-    for fzf_plugin_dir in ['/usr/local/opt/fzf', '/home/linuxbrew/.linuxbrew/opt/fzf', '~/.fzf/plugin']
+    for fzf_plugin_dir in ['/usr/local/opt/fzf', '/home/linuxbrew/.linuxbrew/opt/fzf', $HOME.'/.fzf']
     if isdirectory(fzf_plugin_dir)
         call dein#add(fzf_plugin_dir) " required for fzf.vim
         call dein#add('junegunn/fzf.vim')   " depends on fzf_plugin_dir
