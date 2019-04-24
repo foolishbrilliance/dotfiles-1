@@ -107,6 +107,7 @@ case "$-" in; *i*) stty -ixon;; esac # POSIX
 # These files will be checked and if a change is detected zgen reset is called.
 ZGEN_RESET_ON_CHANGE=(${HOME}/.zshrc)
 
+unalias up # conflicts with up.zsh plugin
 xsource "${HOME}/.zgen/zgen.zsh" # load zgen
 
 # if the init scipt doesn't exist
