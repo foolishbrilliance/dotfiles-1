@@ -92,7 +92,7 @@ done
 ################################# zsh options ##################################
 ################################################################################
 # It is useful to have set -o pipefail somewhere in your shell startup (see [here](https://sipb.mit.edu/doc/safe-shell/) for details), otherwise pushd happens even if you exit with ctrl-c and clutters up the directory stack.
-set -o pipefail 
+set -o pipefail
 
 # To allow for ^s to fwd-i-search (opposite of ^r), disable XON/XOFF for interactive shells per https://stackoverflow.com/questions/791765/unable-to-forward-search-bash-history-similarly-as-with-ctrl-r#comment39602061_791800
 # [[ $- == *i* ]] && stty -ixon # [[ is not POSIX
@@ -168,10 +168,12 @@ export GPG_TTY=$(tty)
 # GNU ls colors
 if [ -e ~/.dir_colors ]; then
   check_com -c dircolors && eval $(dircolors -b ~/.dir_colors)
+else
+  curl https://raw.githubusercontent.com/huyz/dircolors-solarized/master/dircolors.ansi-universal -o ~/.dir_colors
 fi
 
 # For gtags per https://github.com/syl20bnr/spacemacs/tree/master/layers/%2Btags/gtags#install-on-osx-using-homebrew
-export GTAGSLABEL=pygments
+check_com -c pygments && export GTAGSLABEL=pygments
 
 # nvim
 check_com -c nvim && export NVIM_TUI_ENABLE_TRUE_COLOR=1
