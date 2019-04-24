@@ -187,7 +187,7 @@ if is-at-least "5.2"; then # Pure prompt requires ZSH 5.2+
   zfun="${HOME}/.zfunctions"
   if [ ! -d "${zfun}" ]; then
     mkdir -p "${zfun}" \
-      && ln -s ~/.zgen/sindresorhus/pure-master/pure.zsh "${zfun}/pure" \
+      && ln -s ~/.zgen/sindresorhus/pure-master/pure.zsh "${zfun}/prompt_pure_setup" \
       && ln -s ~/.zgen/sindresorhus/pure-master/async.zsh "${zfun}/async"
   fi
   fpath=( "$HOME/.zfunctions" $fpath )
