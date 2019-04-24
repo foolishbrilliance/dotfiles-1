@@ -182,6 +182,16 @@ check_com -c nvim && export NVIM_TUI_ENABLE_TRUE_COLOR=1
 #################################### Prompt ####################################
 ################################################################################
 if is-at-least "5.2"; then # Pure prompt requires ZSH 5.2+
+
+  # Setup per https://github.com/sindresorhus/pure#manually
+  zfun="${HOME}/.zfunctions"
+  if [ ! -d "${zfun}" ]; then
+    mkdir -p "${zfun}" \
+      && ln -s ~/.zgen/sindresorhus/pure-master/pure.zsh "${zfun}/pure" \
+      && ln -s ~/.zgen/sindresorhus/pure-master/async.zsh "${zfun}/async"
+  fi
+  fpath=( "$HOME/.zfunctions" $fpath )
+
   # Pure: Pretty, minimal and fast ZSH prompt
   # https://github.com/sindresorhus/pure
   autoload -U promptinit; promptinit
@@ -234,3 +244,4 @@ xsource /usr/local/share/chruby/chruby.sh \
 xsource ~/.fzf.zsh
 xsource ~/.iterm2_shell_integration.zsh
 xsource ~/.zshrc.secret # last, for secrets
+
