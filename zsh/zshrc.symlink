@@ -132,9 +132,17 @@ fi
 ##################################### apps #####################################
 ################################################################################
 # Fzf - A command-line fuzzy finder written in Go -  https://github.com/junegunn/fzf#using-homebrew-or-linuxbrew
+xsource ~/.fzf.zsh
 export FZF_DEFAULT_OPTS='--height 40% --reverse --border --ansi'
 # auto select if only 1 result, exit if no results
 export FZF_CTRL_T_OPTS="--select-1 --exit-0 $FZF_CTRL_T_OPTS"
+
+# Dedicated completion key
+# > Instead of using `TAB` key with a trigger sequence (`**<TAB>`), you can assign a dedicated key for fuzzy completion while retaining the default behavior of `TAB` key.
+# > https://github.com/junegunn/fzf/wiki/Configuring-fuzzy-completion#dedicated-completion-key
+export FZF_COMPLETION_TRIGGER=''
+bindkey '^T' fzf-completion
+bindkey '^I' $fzf_default_completion
 
 # Use fd (https://github.com/sharkdp/fd) with fzf if possible
 if check_com -c fd; then
@@ -242,7 +250,6 @@ fi
 # Source additional zsh files, if they exist
 xsource /usr/local/share/chruby/chruby.sh \
   /usr/local/share/chruby/auto.sh
-xsource ~/.fzf.zsh
 xsource ~/.iterm2_shell_integration.zsh
 xsource ~/.zshrc.secret # last, for secrets
 

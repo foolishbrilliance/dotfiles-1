@@ -16,6 +16,12 @@ z() {
     dir="$(fasd -Rdl "$1" | fzf -1 -0 --no-sort +m)" && cd "${dir}" || return 1
 }
 
+# fasd & fzf change directory - filter output of `fasd` with argument using `fzf`
+zf() {
+    local dir
+    dir="$(fasd -Rdl "$1" | fzf -1 -0 --no-sort +m)" && cd "${dir}" || return 1
+}
+
 alias zz='fasd_cd -d -i' # cd with interactive selection
 alias e='f -e $EDITOR' # quick opening files with vim
 alias o='a -e open' # quick opening files with open (OSX)
@@ -125,6 +131,12 @@ fe() {
 # fasd & fzf edit file - open best matched file using `fasd` if given argument, filter output of `fasd` using `fzf` else
 ff() {
     [ $# -gt 0 ] && fasd -f -e ${EDITOR} "$*" && return
+    local file
+    file="$(fasd -Rfl "$1" | fzf -1 -0 --no-sort +m)" && vi "${file}" || return 1
+}
+
+# fasd & fzf find and edit file - filter output of `fasd` with argument using `fzf`
+ffe() {
     local file
     file="$(fasd -Rfl "$1" | fzf -1 -0 --no-sort +m)" && vi "${file}" || return 1
 }
@@ -243,8 +255,6 @@ alias myip='curl -s checkip.amazonaws.com'
 alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to pasteboard.'"
 alias ql='qlmanage -p "$@" >& /dev/null'
 alias reload!='. ~/.zshrc && echo reloaded .zshrc'
-alias removetimestamp='sed -i.bak "s/\(.*\)..:..:..$/\1/"'
-alias removetimestampandcopy='sed "s/\(.*\)..:..:..$/\1/" $@ |pbcopy'
 alias rg='rg --smart-case'
 alias rs='screen -RD'
 alias sl='ls'
