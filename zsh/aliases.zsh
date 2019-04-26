@@ -17,12 +17,13 @@ z() {
 }
 
 # fasd & fzf change directory - filter output of `fasd` with argument using `fzf`
-zf() {
+unalias zz
+zz() {
+    [ $# -lt 1 ] && echo "Error: Requires 1 argument." && return 1
     local dir
     dir="$(fasd -Rdl "$1" | fzf -1 -0 --no-sort +m)" && cd "${dir}" || return 1
 }
 
-alias zz='fasd_cd -d -i' # cd with interactive selection
 alias e='f -e $EDITOR' # quick opening files with vim
 alias o='a -e open' # quick opening files with open (OSX)
 
@@ -117,10 +118,23 @@ fcdp() {
 # fuzzy find clipboard Alfred history (sort by timestamp in sqlite, then don't sort in fzf)
 alias fclip='sqlite3 -header -csv ~/Library/Application\ Support/Alfred\ 3/Databases/clipboard.alfdb "select item from clipboard order by ts desc" |fzf |pbcopy'
 
-# fe - fuzzy edit
+# fasd & fzf edit file - open best matched file using `fasd` if given argument, filter output of `fasd` using `fzf` else
 fe() {
+    [ $# -gt 0 ] && fasd -f -e ${EDITOR} "$*" && return
+    local file
+    file="$(fasd -Rfl "$1" | fzf -1 -0 --no-sort +m)" && vi "${file}" || return 1
+}
+
+# (f)uzzy (f)ind. Like `f`, but select with fzf
+ff() {
+    [ $# -lt 1 ] && echo "Error: Requires 1 argument." && return 1
+    fasd -Rfl "$1"| fzf -1 -0 +m
+}
+
+# (f)uzzy find (.) and (e)dit
+f.e() {
   local out file key
-  IFS=$'\n' out=($(fzf-tmux --query="$1" --exit-0 --expect=ctrl-o,ctrl-e))
+  IFS=$'\n' out=($(fzf --query="$1" --exit-0 --expect=ctrl-o,ctrl-e))
   key=$(head -1 <<< "$out")
   file=$(head -2 <<< "$out" | tail -1)
   if [ -n "$file" ]; then
@@ -128,15 +142,16 @@ fe() {
   fi
 }
 
-# fasd & fzf edit file - open best matched file using `fasd` if given argument, filter output of `fasd` using `fzf` else
-ff() {
-    [ $# -gt 0 ] && fasd -f -e ${EDITOR} "$*" && return
+# (f)uzzy (r)ecent and (e)dit
+fre() {
     local file
-    file="$(fasd -Rfl "$1" | fzf -1 -0 --no-sort +m)" && vi "${file}" || return 1
+    file="$(fasd -Rfl | fzf -1 -0 --no-sort +m)" && vi "${file}" || return 1
 }
 
+# (f)uzzy (s)earch and (e)dit
 # fasd & fzf find and edit file - filter output of `fasd` with argument using `fzf`
-ffe() {
+fse() {
+    [ $# -lt 1 ] && echo "Error: Requires 1 argument." && return 1
     local file
     file="$(fasd -Rfl "$1" | fzf -1 -0 --no-sort +m)" && vi "${file}" || return 1
 }
