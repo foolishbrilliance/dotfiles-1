@@ -60,7 +60,7 @@ alias calc='bc <<<'
 alias cd.='cd $(fd --type d --max-depth 1 --hidden |fzf)'
 
 alias cl="fc -e -|pbcopy && echo Copied output of last command to clipboard"
-alias clitxt='curl -sF "upfile=@-" https://clitxt.com |tee /dev/tty | pbcopy'
+isdarwin && alias clitxt='curl -sF "upfile=@-" https://clitxt.com |tee /dev/tty | pbcopy'
 
 # count uniq
 alias count='sort | uniq -c | sort -rn'
@@ -116,7 +116,7 @@ fcdp() {
 }
 
 # fuzzy find clipboard Alfred history (sort by timestamp in sqlite, then don't sort in fzf)
-alias fclip='sqlite3 -header -csv ~/Library/Application\ Support/Alfred\ 3/Databases/clipboard.alfdb "select item from clipboard order by ts desc" |fzf |pbcopy'
+isdarwin && alias fclip='sqlite3 -header -csv ~/Library/Application\ Support/Alfred\ 3/Databases/clipboard.alfdb "select item from clipboard order by ts desc" |fzf |pbcopy'
 
 # fasd & fzf edit file - open best matched file using `fasd` if given argument, filter output of `fasd` using `fzf` else
 fe() {
@@ -272,12 +272,12 @@ alias msgviewer='java -jar ~/Dropbox/Thumbdrive/PortableApps/MSGViewer-1.9/MSGVi
 alias myip='curl -s checkip.amazonaws.com'
 # Pipe my public key to my clipboard.
 alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to pasteboard.'"
-alias ql='qlmanage -p "$@" >& /dev/null'
+isdarwin && alias ql='qlmanage -p "$@" >& /dev/null'
 alias reload!='. ~/.zshrc && echo reloaded .zshrc'
 alias rg='rg --smart-case'
 alias rs='screen -RD'
 alias sl='ls'
-alias ss="open /System/Library/Frameworks/ScreenSaver.framework/Versions/A/Resources/ScreenSaverEngine.app" # Start ScreenSaver. This will lock the screen if locking is enabled.
+isdarwin && alias ss="open /System/Library/Frameworks/ScreenSaver.framework/Versions/A/Resources/ScreenSaverEngine.app" # Start ScreenSaver. This will lock the screen if locking is enabled.
 
 # sum numbers
 alias sum-numbers="awk '{ sum += \$1 } END { print sum }'"
@@ -341,7 +341,7 @@ tm() {
   session=$(tmux list-sessions -F "#{session_name}" 2>/dev/null | fzf --exit-0) &&  tmux $change -t "$session" || echo "No sessions found."
 }
 
-alias trimw="pbpaste |sed -e 's/[[[:space:]]\r\n]//g' |pbcopy" # Trim all whitespace
+isdarwin && alias trimw="pbpaste |sed -e 's/[[[:space:]]\r\n]//g' |pbcopy" # Trim all whitespace
 alias tpcalc='perl -ne "push @t,1*\$1 if(/(\d+)/); END{@t=sort{\$a<=>\$b}@t; map{printf qq(TP%.1f %d\n),100*\$_,@t[int(scalar(@t))*\$_]}(.5,.9,.99,.999) }"'
 alias ud='cd ~/dotfiles && git pull; cd -'
 alias utc='date -u'
