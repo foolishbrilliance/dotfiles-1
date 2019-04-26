@@ -19,7 +19,6 @@ z() {
 # fasd & fzf change directory - filter output of `fasd` with argument using `fzf`
 unalias zz
 zz() {
-    [ $# -gt 0 ] || echo "Error: Requires >=1 argument." && return 1
     local dir
     dir="$(fasd -Rdl "$*" | fzf -1 -0 --no-sort +m)" && cd "${dir}" || return 1
 }
@@ -59,7 +58,7 @@ alias calc='bc <<<'
 # cd. - fuzzy cd into subdirectory (non-recursive) within current directory
 alias cd.='cd $(find . -maxdepth 1 -type d |fzf)'
 
-alias cl="fc -e -|pbcopy && echo Copied output of last command to clipboard"
+alias copylastoutput="fc -e -|pbcopy && echo Copied output of last command to clipboard"
 isdarwin && alias clitxt='curl -sF "upfile=@-" https://clitxt.com |tee /dev/tty | pbcopy'
 
 # count uniq
@@ -155,7 +154,6 @@ fre() {
 # (f)uzzy (s)earch and (e)dit
 # fasd & fzf find and edit file - filter output of `fasd` with argument using `fzf`
 fse() {
-    [ $# -gt 0 ] || echo "Error: Requires >=1 argument." && return 1
     local file
     file="$(fasd -Rfl "$1" | fzf -1 -0 --no-sort +m)" && vi "${file}" || return 1
 }
@@ -344,6 +342,13 @@ tm() {
 isdarwin && alias trimw="pbpaste |sed -e 's/[[[:space:]]\r\n]//g' |pbcopy" # Trim all whitespace
 alias tpcalc='perl -ne "push @t,1*\$1 if(/(\d+)/); END{@t=sort{\$a<=>\$b}@t; map{printf qq(TP%.1f %d\n),100*\$_,@t[int(scalar(@t))*\$_]}(.5,.9,.99,.999) }"'
 alias ud='cd ~/dotfiles && git pull; cd -'
+# cd up the directory tree to a directory
+upto() {
+    [ -z "$1" ] && return
+    local upto=$1
+    cd "${PWD/\/$upto\/*//$upto}"
+}
+
 alias utc='date -u'
 
 alias vi='vim'
