@@ -57,7 +57,7 @@ c() {
 alias calc='bc <<<'
 
 # cd. - fuzzy cd into subdirectory (non-recursive) within current directory
-alias cd.='cd $(fd --type d --max-depth 1 --hidden |fzf)'
+alias cd.='cd $(find . -maxdepth 1 -type d |fzf)'
 
 alias cl="fc -e -|pbcopy && echo Copied output of last command to clipboard"
 isdarwin && alias clitxt='curl -sF "upfile=@-" https://clitxt.com |tee /dev/tty | pbcopy'
@@ -206,7 +206,7 @@ alias gwS='git status'
 # From https://gist.github.com/vlymar/4e43dbeae70ff71f861d
 # fuzzy multi-select modified file
 gfmod() {
-  git ls-files -m | fzf -m
+  git ls-files $(git rev-parse --show-toplevel) -m | fzf -m
 }
 # stage files multi-selected modified files
 gfadd() {
