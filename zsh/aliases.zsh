@@ -13,15 +13,15 @@ unalias z # fasd sets this by default
 z() {
     [ $# -gt 0 ] && fasd_cd -d "$*" && return
     local dir
-    dir="$(fasd -Rdl "$1" | fzf -1 -0 --no-sort +m)" && cd "${dir}" || return 1
+    dir="$(fasd -Rdl "$*" | fzf -1 -0 --no-sort +m)" && cd "${dir}" || return 1
 }
 
 # fasd & fzf change directory - filter output of `fasd` with argument using `fzf`
 unalias zz
 zz() {
-    [ $# -lt 1 ] && echo "Error: Requires 1 argument." && return 1
+    [ $# -gt 0 ] || echo "Error: Requires >=1 argument." && return 1
     local dir
-    dir="$(fasd -Rdl "$1" | fzf -1 -0 --no-sort +m)" && cd "${dir}" || return 1
+    dir="$(fasd -Rdl "$*" | fzf -1 -0 --no-sort +m)" && cd "${dir}" || return 1
 }
 
 alias e='f -e $EDITOR' # quick opening files with vim
@@ -122,13 +122,17 @@ alias fclip='sqlite3 -header -csv ~/Library/Application\ Support/Alfred\ 3/Datab
 fe() {
     [ $# -gt 0 ] && fasd -f -e ${EDITOR} "$*" && return
     local file
-    file="$(fasd -Rfl "$1" | fzf -1 -0 --no-sort +m)" && vi "${file}" || return 1
+    file="$(fasd -Rfl "$*" | fzf -1 -0 --no-sort +m)" && vi "${file}" || return 1
 }
 
-# (f)uzzy (f)ind. Like `f`, but select with fzf
+# (f)uzzy (d)ir. Like `d`, but select with fzf
+fd() {
+    fasd -Rdl "$*"| fzf -1 -0 +m
+}
+
+# (f)uzzy (f)ile. Like `f`, but select with fzf
 ff() {
-    [ $# -lt 1 ] && echo "Error: Requires 1 argument." && return 1
-    fasd -Rfl "$1"| fzf -1 -0 +m
+    fasd -Rfl "$*"| fzf -1 -0 +m
 }
 
 # (f)uzzy find (.) and (e)dit
@@ -151,7 +155,7 @@ fre() {
 # (f)uzzy (s)earch and (e)dit
 # fasd & fzf find and edit file - filter output of `fasd` with argument using `fzf`
 fse() {
-    [ $# -lt 1 ] && echo "Error: Requires 1 argument." && return 1
+    [ $# -gt 0 ] || echo "Error: Requires >=1 argument." && return 1
     local file
     file="$(fasd -Rfl "$1" | fzf -1 -0 --no-sort +m)" && vi "${file}" || return 1
 }
