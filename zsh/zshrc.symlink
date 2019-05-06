@@ -122,7 +122,7 @@ if ! zgen saved; then
 
   # prompt
   zgen load mafredri/zsh-async
-  zgen load sindresorhus/pure
+  #zgen load sindresorhus/pure
 
   # generate the init script from plugins above
   zgen save
@@ -190,62 +190,7 @@ check_com -c nvim && export NVIM_TUI_ENABLE_TRUE_COLOR=1
 ################################################################################
 #################################### Prompt ####################################
 ################################################################################
-if is-at-least "5.2"; then # Pure prompt requires ZSH 5.2+
-
-  # Setup per https://github.com/sindresorhus/pure#manually
-  zfun="${HOME}/.zfunctions"
-  if [ ! -d "${zfun}" ]; then
-    mkdir -p "${zfun}" \
-      && ln -s ~/.zgen/sindresorhus/pure-master/pure.zsh "${zfun}/prompt_pure_setup" \
-      && ln -s ~/.zgen/sindresorhus/pure-master/async.zsh "${zfun}/async"
-  fi
-  fpath=( "$HOME/.zfunctions" $fpath )
-
-  # Pure: Pretty, minimal and fast ZSH prompt
-  # https://github.com/sindresorhus/pure
-  autoload -U promptinit; promptinit
-  prompt pure
-
-  PURE_PROMPT_SYMBOL='>'
-  PURE_GIT_DOWN_ARROW='↑'
-  PURE_GIT_UP_ARROW='↓'
-  PROMPT='%(?.%F{green}$PURE_PROMPT_SYMBOL.%F{red}$PURE_PROMPT_SYMBOL)%f '
-
-  # update prompt with current time when a command is started: http://stackoverflow.com/a/26585789
-  strlen () {
-    FOO=$1
-    local zero='%([BSUbfksu]|([FB]|){*})'
-    LEN=${#${(S%%)FOO//$~zero/}}
-    echo $LEN
-  }
-
-  # show right prompt with date ONLY when command is executed
-  # rename this function to preexec() in order to enable the date on the prompt
-  preexec_disabled () {
-    DATE=$( date +"[%H:%M:%S]" )
-    local len_right=$( strlen "$DATE" )
-    len_right=$(( $len_right+1 ))
-    local right_start=$(($COLUMNS - $len_right))
-
-    local len_cmd=$( strlen "$@" )
-    local len_prompt=$(strlen "$PROMPT" )
-    local len_left=$(($len_cmd+$len_prompt))
-
-    RDATE="\033[${right_start}C ${DATE}"
-
-    if [ $len_left -lt $right_start ]; then
-      # command does not overwrite right prompt
-      # ok to move up one line
-      echo -e "\033[1A${RDATE}"
-    else
-      echo -e "${RDATE}"
-    fi
-  }
-else # fallback to grml prompt
-  prompt grml
-  # Add time and sad smiley for failed commands
-  zstyle ':prompt:grml:right:setup' items time sad-smiley
-fi
+zstyle ':prompt:grml:right:setup' items time sad-smiley
 
 # Source additional zsh files, if they exist
 xsource /usr/local/share/chruby/chruby.sh \
