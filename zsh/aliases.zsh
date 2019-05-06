@@ -155,7 +155,7 @@ fre() {
 # fasd & fzf find and edit file - filter output of `fasd` with argument using `fzf`
 fse() {
     local file
-    file="$(fasd -Rfl "$1" | fzf -1 -0 --no-sort +m)" && vi "${file}" || return 1
+    file="$(fasd -Rfl "$*" | fzf -1 -0 --no-sort +m)" && vi "${file}" || return 1
 }
 
 alias fpath='perl -MCwd -e "print Cwd::abs_path shift"' # cpath is another alias, think "canonical path"
