@@ -196,17 +196,24 @@ zstyle ':prompt:grml:right:setup' items time sad-smiley
 xsource /usr/local/share/chruby/chruby.sh \
   /usr/local/share/chruby/auto.sh
 
-# if running in tmux, enable iterm integration and badge support
-# per https://groups.google.com/d/msg/iterm2-discuss/RYVdkJyWIJo/9bO44sfIBQAJ
+# if running in tmux, enable iterm2 integration and badge support
 case "$TERM" in
-  *screen*)
+  *screen*|*tmux*)
     export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=1
+
+    # https://groups.google.com/d/msg/iterm2-discuss/RYVdkJyWIJo/9bO44sfIBQAJ
     function iterm2_print_user_vars() {
       NAME=hostname
       VALUE=$(hostname)
       printf "\033Ptmux;\033\033]1337;SetUserVar=%s=%s\a\033\\" "$NAME" $(printf "%s" "$VALUE" | base64 | tr -d '\n')
     }
-  ;;
+    ;;
+  *)
+    # https://www.iterm2.com/documentation-badges.html
+    iterm2_print_user_vars() {
+        iterm2_set_user_var hostname $(hostname)
+      }
+    ;;
 esac
 xsource ~/.iterm2_shell_integration.zsh
 xsource ~/.zshrc.secret # last, for secrets
