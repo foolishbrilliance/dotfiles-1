@@ -1,4 +1,5 @@
-# -*-sh-*-
+# -*- mode: sh; -*-
+# vim: filetype=zsh
 
 # Fix Emacs TRAMP per https://www.emacswiki.org/emacs/TrampMode#toc7
 [ $TERM = "dumb" ] && unsetopt zle && PS1='$ ' && return
@@ -116,7 +117,6 @@ if ! zgen saved; then
   # specify plugins here
   zgen load djui/alias-tips
   zgen load zdharma/fast-syntax-highlighting
-  zgen load supercrabtree/k
   zgen load peterhurford/up.zsh
   zgen load unixorn/warhol.plugin.zsh
 
@@ -195,6 +195,19 @@ zstyle ':prompt:grml:right:setup' items time sad-smiley
 # Source additional zsh files, if they exist
 xsource /usr/local/share/chruby/chruby.sh \
   /usr/local/share/chruby/auto.sh
+
+# if running in tmux, enable iterm integration and badge support
+# per https://groups.google.com/d/msg/iterm2-discuss/RYVdkJyWIJo/9bO44sfIBQAJ
+case "$TERM" in
+  *screen*)
+    export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=1
+    function iterm2_print_user_vars() {
+      NAME=hostname
+      VALUE=$(hostname)
+      printf "\033Ptmux;\033\033]1337;SetUserVar=%s=%s\a\033\\" "$NAME" $(printf "%s" "$VALUE" | base64 | tr -d '\n')
+    }
+  ;;
+esac
 xsource ~/.iterm2_shell_integration.zsh
 xsource ~/.zshrc.secret # last, for secrets
 
