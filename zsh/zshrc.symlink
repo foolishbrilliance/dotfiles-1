@@ -8,9 +8,8 @@
 if [ ! -d $HOME/.grml-etc-core ]; then
   echo "  Installing grml-zsh-config for you."
   git clone git://git.grml.org/grml-etc-core.git ~/.grml-etc-core
-  ln -s ~/.grml-etc-core/etc/zsh/zshrc ~/.grml-zsh-config
 fi
-FILE="${HOME}/.grml-zsh-config"; [ -f $FILE ] && . $FILE
+FILE="${HOME}/.grml-etc-core/etc/zsh/zshrc"; [ -f $FILE ] && . $FILE
 
 # grml functions used after this point
 # check_com, is-at-least, xsource
