@@ -10,3 +10,6 @@
 (package! link-hint)
 (package! lua-mode)
 (package! web-mode)
+(package! 'google)
+
+;;; .emacs ends here
