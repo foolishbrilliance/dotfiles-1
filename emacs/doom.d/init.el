@@ -129,6 +129,7 @@
        ;;swift             ; who asked for emoji variables?
        ;;web               ; the tubes
 
+
        ;; Applications are complex and opinionated modules that transform Emacs
        ;; toward a specific purpose. They may have additional dependencies and
        ;; should be loaded late.
@@ -149,6 +150,9 @@
        ;; For literate config users. This will tangle+compile a config.org
        ;; literate config in your `doom-private-dir' whenever it changes.
        ;;literate
+
+       ;; Load local module in ~/.doom.d/modules/config/local
+       local
 
        ;; The default module sets reasonable defaults for Emacs. It also
        ;; provides a Spacemacs-inspired keybinding scheme, a custom yasnippet
