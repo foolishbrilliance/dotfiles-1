@@ -10,6 +10,6 @@
 (package! link-hint)
 (package! lua-mode)
 (package! web-mode)
-(package! 'google)
+(load! "~/.doom.local.packages" nil t)
 
 ;;; .emacs ends here
