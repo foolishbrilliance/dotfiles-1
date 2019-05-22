@@ -43,9 +43,9 @@
 
 ;; make projectile faster
 (after! projectile
-  (if (executable-find "rg") (setq projectile-generic-command "fd . -0"
+  (if (executable-find "fd") (setq projectile-generic-command "fd . -0"
                                    projectile-git-command "fd . -0")
-    (if (executable-find "fd") (setq projectile-generic-command "rg --files -0 ."
+    (if (executable-find "rg") (setq projectile-generic-command "rg --files -0 ."
                                      projectile-git-command "rg --files -0 .") nil))
   (setq projectile-switch-project-action 'projectile-find-file-dwim))
 

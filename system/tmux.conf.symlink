@@ -1,77 +1,37 @@
-# .tmux.conf
+# start with grml config
+source-file ~/.grml-etc-core/etc/tmux.conf
 
-# Change key binding to C-x
-set-option -g prefix C-x
+# Reload tmux configuration
+bind C-r source-file ~/.tmux.conf \; display "Config reloaded"
 
-# use send-prefix to pass C-a through to application
-bind C-a send-prefix
+# new window and retain cwd
+bind c new-window -c "#{pane_current_path}"
 
-# set window and pane index to 1 (0 by default)
-set-option -g base-index 1
-setw -g pane-base-index 1
+# Prompt to rename window right after it's created
+# set-hook -g after-new-window 'command-prompt -I "#{window_name}" "rename-window '%%'"'
 
-# use vim keybindings in copy mode
-setw -g mode-keys vi
+# Rename session and window
+bind r command-prompt -I "#{window_name}" "rename-window '%%'"
+bind R command-prompt -I "#{session_name}" "rename-session '%%'"
 
-# Set TERM for colors!
-set -g default-terminal "screen-256color"
+# Split panes
+bind | split-window -h -c "#{pane_current_path}"
+bind _ split-window -v -c "#{pane_current_path}"
 
-# Last window
-bind-key C-x last-window
+# Don't use mouse mode because it copies newline characters where the line
+# wraps
+set-option -g mouse off
 
-# Set window notifications
-setw -g monitor-activity on
-set -g visual-activity on
+# List of plugins
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-copycat'
+set -g @plugin 'tmux-plugins/tmux-sensible'
+set -g @plugin 'tmux-plugins/tmux-yank'
 
-set -g status-left '#[fg=cyan]#(hostname -s)'
-set -g status-right "#[fg=blue]%k:%M"
+# Other examples:
+# set -g @plugin 'github_username/plugin_name'
+# set -g @plugin 'git@github.com/user/plugin'
+# set -g @plugin 'git@bitbucket.com/user/plugin'
 
-# Increase history limit
-set -g history-limit 5000
-
-# ---------------------
-# Copy & Paste for OSX
-# ---------------------
-
-# setup 'v' to begin selection as in Vim
-# update default binding of 'Enter' to also use copy-pipe
-#if-shell "uname | grep -q Darwin" "set-option -g default-command 'reattach-to-user-namespace -l fish'" "set-window-option -g automatic-rename on" "bind-key -t vi-copy v begin-selection" "bind-key -t vi-copy y copy-pipe 'reattach-to-user-namespace pbcopy'" "unbind -t vi-copy Enter" "bind-key -t vi-copy Enter copy-pipe 'reattach-to-user-namespace pbcopy'" "bind y run 'tmux save-buffer - | reattach-to-user-namespace pbcopy '" "bind C-y run 'tmux save-buffer - | reattach-to-user-namespace pbcopy '"
-
-# use vim keybindings in copy mode
-setw -g mode-keys vi
-
-################################################################################
-# From https://bbs.archlinux.org/viewtopic.php?id=164108
-# --- colors (solarized dark)
-# default statusbar colors
-set -g status-bg black
-set -g status-fg yellow
-set -g status-attr default
-
-# default window title colors
-set-window-option -g window-status-fg colour244 #base0
-set-window-option -g window-status-bg default
-set-window-option -g window-status-attr dim
-
-# active window title colors
-set-window-option -g window-status-current-fg colour166 #orange
-set-window-option -g window-status-current-bg default
-set-window-option -g window-status-current-attr bright
-
-# pane border
-set -g pane-border-fg black
-set -g pane-border-bg default
-set -g pane-active-border-fg yellow
-set -g pane-active-border-bg default
-
-# command line/message text
-set -g message-bg black
-set -g message-fg yellow
-
-# pane number display
-set -g display-panes-active-colour yellow
-set -g display-panes-colour brightblue
-
-# clock
-setw -g clock-mode-colour yellow
-# --- end colors
+# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
+run -b '~/.tmux/plugins/tpm/tpm'

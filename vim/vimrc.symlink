@@ -72,8 +72,7 @@ set mousemodel=popup
 set nocompatible        " disable vi compatibility
 set pastetoggle=<F2>    " don't alter my pasting
 set relativenumber      " relative line numbers
-set report=0            " Report when more than 0 lines affected
-set report=1            " always report changes
+set report=0            " always report line changes to file
 set scrolloff=1         " Always show one line below or above cursor for context
 set shortmess=I         " Don't show the startup message
 set showcmd             " Show commands being typed
@@ -200,7 +199,6 @@ nnoremap <silent> gw    "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><C-o><C-
 "
 " tabs
 "
-nnoremap <Leader>tl :BuffergatorTabsToggle<CR>
 nnoremap <Leader>ti :tabnext<CR>
 nnoremap <Leader>th :tabprev<CR>
 nnoremap <Leader>tn :tabnew<CR>
@@ -241,11 +239,7 @@ nnoremap <Leader>bf :CtrlP<CR>
 nnoremap <Leader>bm :CtrlPMixed<CR>
 nnoremap <Leader>bs :CtrlPMRU<CR>
 nnoremap <Leader>bl :CtrlPBuffer<CR>
-nnoremap <Leader>bg :BuffergatorToggle<CR>
 nnoremap <Leader>p :CtrlPMRU<CR>
-" Cycle through MRU buffers
-nnoremap <Leader>nn :BuffergatorMruCyclePrev<CR>
-nnoremap <Leader>ee :BuffergatorMruCycleNext<CR>
 
 "
 " windows
@@ -359,7 +353,6 @@ set runtimepath+=~/.vim/plugins/repos/github.com/Shougo/dein.vim
 if dein#load_state('~/.vim/plugins')
     call dein#begin('~/.vim/plugins')
 
-
     " Let dein manage dein
     " Required:
     call dein#add('~/.vim/plugins/repos/github.com/Shougo/dein.vim')
@@ -368,7 +361,6 @@ if dein#load_state('~/.vim/plugins')
     " Add or remove your plugins here:
     " My plugins here:
     " DISABLED
-    "call dein#add('jeetsukumaran/vim-buffergator')
     "call dein#add('jooize/vim-colemak')
     "call dein#add('Lokaltog/vim-easymotion')
     "call dein#add('jeetsukumaran/vim-filebeagle') " not really using
@@ -409,7 +401,7 @@ if dein#load_state('~/.vim/plugins')
     call dein#add('flazz/vim-colorschemes')
     call dein#add('kana/vim-textobj-user') " required for mattn/vim-textobj-url
     call dein#add('mattn/vim-textobj-url') " depends on kana/vim-textobj-user
-    for fzf_plugin_dir in ['/usr/local/opt/fzf', '/home/linuxbrew/.linuxbrew/opt/fzf', '~/.fzf/plugin']
+    for fzf_plugin_dir in ['/usr/local/opt/fzf', '/home/linuxbrew/.linuxbrew/opt/fzf', $HOME.'/.fzf']
     if isdirectory(fzf_plugin_dir)
         call dein#add(fzf_plugin_dir) " required for fzf.vim
         call dein#add('junegunn/fzf.vim')   " depends on fzf_plugin_dir
@@ -436,11 +428,6 @@ endif
 
 " Section: Plugin configs {{{2
 " ---------------------
-
-"
-" Buffergator
-"
-let g:buffergator_suppress_keymaps = 1
 
 "
 " CtrlP
@@ -487,7 +474,7 @@ autocmd BufNewFile filebeagle,filebeagle-? setlocal number " always show line nu
 
 " fzf
 "
-" Mapping selecting mappings
+" Search and execute vim mappings
 nmap <leader><tab> <plug>(fzf-maps-n)
 xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
@@ -499,12 +486,20 @@ imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
 
 " Advanced customization using autoload functions
+" Complete word from dictionary
 inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
 
-" My custom fzf mappings
-nmap ; :Buffers<CR>
-nmap <Leader>t :Files<CR>
-nmap <Leader>r :Tags<CR>
+" Custom fzf mappings, inspired from
+" https://github.com/zenbro/dotfiles/blob/d3f4bd3136aab297191c062345dfc680abb1efac/.nvimrc#L225-L233
+nnoremap <silent> <leader><leader> :History<CR>
+nnoremap <silent> <Leader>. :Files<CR>
+nnoremap <silent> <Leader>: :History:<CR>
+nnoremap <silent> <Leader>\ :History/<CR>
+nnoremap <silent> <Leader><space> :Buffers<CR>
+nnoremap <silent> <Leader>; :Commands<CR>
+nnoremap <silent> <Leader>ll :Lines<CR>
+nnoremap <silent> <Leader>lb :BLines<CR>
+nnoremap <silent> <leader>/ :execute 'Rg ' . input('Rg/')<CR>
 
 "
 " gist-vim
@@ -553,7 +548,7 @@ call togglebg#map("<F4>")
 syntax enable
 " setting the following line makes iTerm vim color really strange (brown)
 "let g:solarized_termcolors=256
-if has('nvim')
+if has('nvim') || has("gui_macvim")
   colorscheme solarized-truecolor-only
 else
   colorscheme solarized

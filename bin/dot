@@ -1,29 +1,77 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 #
 # dot
 #
 # `dot` handles installation, updates, things like that. Run it periodically
 # to make sure you're on the latest and greatest.
-source ~/.bash_colors
-export ZSH=$HOME/.dotfiles
+
+# Default options
+FULL=false
+for arg in "$@"
+do
+  case "$arg" in
+    -f|--full)
+      # Update all the things, else only perform fast partial update
+      FULL=true
+      ;;
+  esac
+done
+
+#
+# for printing status messages
+#
+
+# new way: print_status $? "update x"
+print_status () {
+  if [[ ${1} == 0 ]]; then
+    echo -e "[\e[32mOK\e[39m] ${2}"
+  else
+    echo -e "[\e[31mFAILED\e[39m] ${2}"
+  fi
+}
 
 # Dotfiles
-TARGET=Dotfiles; cd $ZSH && git pull && clr_green "Updated ${TARGET}." || clr_red "${TARGET} update failed."
+cd ${HOME}/.dotfiles && git pull >/dev/null
+print_status $? "update personal dotfiles"
 
-# Grml zshrc
-TARGET=GRML; cd ~/.grml-etc-core && git pull && clr_green clr_bold "Updated ${TARGET}." || clr_red "${TARGET} update failed."
+# Grml config
+cd ~/.grml-etc-core && git pull >/dev/null
+print_status $? "update grml config"
+
+if [ ${FULL} != true ]; then
+  exit 0
+fi
+
+##########################################################
+##### Full Update ########################################
+##########################################################
 
 # Vim
-TARGET="Dein - VIM Plugin Manager"; cd ~/.vim/plugins/repos/github.com/Shougo/dein.vim && git pull && clr_green clr_bold "Updated ${TARGET}." ||
-clr_red "${TARGET} update failed."
-TARGET="VIM Plugins"; vim +'call dein#update()' +qall && clr_green clr_bold "Updated ${TARGET}" || clr_red "${TARGET} update failed."
+cd ~/.vim/plugins/repos/github.com/Shougo/dein.vim && git pull >/dev/null
+print_status $? "install vim plugin manager (Dein)"
+vim +'call dein#update()' +qall
+print_status $? "install vim plugins"
+
+# Tmux Plugin Manager (tpm) and plugins
+if [ ! -d "${HOME}/.tmux/plugins/tpm" ]; then
+  if [ -L "${HOME}/.tmux" ]; then
+    unlink ~/.tmux
+  fi
+  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm && ~/.tmux/plugins/tpm/bin/install_plugins
+  print_status $? "install tmux plugin manager (tpm) and plugins"
+else
+  ~/.tmux/plugins/tpm/bin/update_plugins all >/dev/null
+  print_status $? "update tpm and plugins"
+fi
+
+# zsh zgen plugins
+[ -d $HOME/.zgen ] || git clone https://github.com/tarjoilija/zgen.git "${HOME}/.zgen"
+[ -d $HOME/.zgen ] && source "${HOME}/.zgen/zgen.zsh" && zgen selfupdate &>/dev/null && zgen update &>/dev/null
+print_status $? "update zsh plugins"
 
 # Doom Emacs
-TARGET="Doom Emacs"; ~/.emacs.d/bin/doom upgrade && clr_green clr_bold "Updated ${TARGET}." || clr_red "${TARGET} update failed."
-
-# Spacemacs
-# emacs --batch --load=~/.emacs.d/init.el && clr_green clr_bold "Updated Emacs Packages." || clr_red "Emacs Packages update failed."
-TARGET=Spacemacs; cd ~/.emacs.d.spacemacs && git pull --rebase && clr_green clr_bold "Updated ${TARGET}." || clr_red "${TARGET} update failed."
+~/.emacs.d/bin/doom upgrade &>/dev/null
+print_status $? "update Doom Emacs"
 
 ################################################################################
 # Mac only for rest of script
@@ -31,6 +79,9 @@ TARGET=Spacemacs; cd ~/.emacs.d.spacemacs && git pull --rebase && clr_green clr_
 if [ "$(uname)" != "Darwin" ]; then
   exit 0
 fi
+
+# echo colors, for example: update_command && clr_green "Updated." || clr_red "Update failed."
+source ~/.bash_colors
 
 # Brew
 cd

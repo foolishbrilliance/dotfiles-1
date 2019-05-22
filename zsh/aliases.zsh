@@ -13,10 +13,16 @@ unalias z # fasd sets this by default
 z() {
     [ $# -gt 0 ] && fasd_cd -d "$*" && return
     local dir
-    dir="$(fasd -Rdl "$1" | fzf -1 -0 --no-sort +m)" && cd "${dir}" || return 1
+    dir="$(fasd -Rdl "$*" | fzf -1 -0 --no-sort +m)" && cd "${dir}" || return 1
 }
 
-alias zz='fasd_cd -d -i' # cd with interactive selection
+# fasd & fzf change directory - filter output of `fasd` with argument using `fzf`
+unalias zz
+zz() {
+    local dir
+    dir="$(fasd -Rdl "$*" | fzf -1 -0 --no-sort +m)" && cd "${dir}" || return 1
+}
+
 alias e='f -e $EDITOR' # quick opening files with vim
 alias o='a -e open' # quick opening files with open (OSX)
 
@@ -50,10 +56,10 @@ c() {
 alias calc='bc <<<'
 
 # cd. - fuzzy cd into subdirectory (non-recursive) within current directory
-alias cd.='cd $(fd --type d --max-depth 1 --hidden |fzf)'
+alias cd.='cd $(find . -maxdepth 1 -type d |fzf)'
 
-alias cl="fc -e -|pbcopy && echo Copied output of last command to clipboard"
-alias clitxt='curl -sF "upfile=@-" https://clitxt.com |tee /dev/tty | pbcopy'
+alias copylastoutput="fc -e -|pbcopy && echo Copied output of last command to clipboard"
+isdarwin && alias clitxt='curl -sF "upfile=@-" https://clitxt.com |tee /dev/tty | pbcopy'
 
 # count uniq
 alias count='sort | uniq -c | sort -rn'
@@ -109,12 +115,29 @@ fcdp() {
 }
 
 # fuzzy find clipboard Alfred history (sort by timestamp in sqlite, then don't sort in fzf)
-alias fclip='sqlite3 -header -csv ~/Library/Application\ Support/Alfred\ 3/Databases/clipboard.alfdb "select item from clipboard order by ts desc" |fzf |pbcopy'
+isdarwin && alias fclip='sqlite3 -header -csv ~/Library/Application\ Support/Alfred\ 3/Databases/clipboard.alfdb "select item from clipboard order by ts desc" |fzf |pbcopy'
 
-# fe - fuzzy edit
+# fasd & fzf edit file - open best matched file using `fasd` if given argument, filter output of `fasd` using `fzf` else
 fe() {
+    [ $# -gt 0 ] && fasd -f -e ${EDITOR} "$*" && return
+    local file
+    file="$(fasd -Rfl "$*" | fzf -1 -0 --no-sort +m)" && vi "${file}" || return 1
+}
+
+# (f)uzzy (d)ir. Like `d`, but select with fzf
+fd() {
+    fasd -Rdl "$*"| fzf -1 -0 +m
+}
+
+# (f)uzzy (f)ile. Like `f`, but select with fzf
+ff() {
+    fasd -Rfl "$*"| fzf -1 -0 +m
+}
+
+# (f)uzzy find (.) and (e)dit
+f.e() {
   local out file key
-  IFS=$'\n' out=($(fzf-tmux --query="$1" --exit-0 --expect=ctrl-o,ctrl-e))
+  IFS=$'\n' out=($(fzf --query="$1" --exit-0 --expect=ctrl-o,ctrl-e))
   key=$(head -1 <<< "$out")
   file=$(head -2 <<< "$out" | tail -1)
   if [ -n "$file" ]; then
@@ -122,11 +145,17 @@ fe() {
   fi
 }
 
-# fasd & fzf edit file - open best matched file using `fasd` if given argument, filter output of `fasd` using `fzf` else
-ff() {
-    [ $# -gt 0 ] && fasd -f -e ${EDITOR} "$*" && return
+# (f)uzzy (r)ecent and (e)dit
+fre() {
     local file
-    file="$(fasd -Rfl "$1" | fzf -1 -0 --no-sort +m)" && vi "${file}" || return 1
+    file="$(fasd -Rfl | fzf -1 -0 --no-sort +m)" && vi "${file}" || return 1
+}
+
+# (f)uzzy (s)earch and (e)dit
+# fasd & fzf find and edit file - filter output of `fasd` with argument using `fzf`
+fse() {
+    local file
+    file="$(fasd -Rfl "$*" | fzf -1 -0 --no-sort +m)" && vi "${file}" || return 1
 }
 
 alias fpath='perl -MCwd -e "print Cwd::abs_path shift"' # cpath is another alias, think "canonical path"
@@ -175,7 +204,7 @@ alias gwS='git status'
 # From https://gist.github.com/vlymar/4e43dbeae70ff71f861d
 # fuzzy multi-select modified file
 gfmod() {
-  git ls-files -m | fzf -m
+  git ls-files $(git rev-parse --show-toplevel) -m | fzf -m
 }
 # stage files multi-selected modified files
 gfadd() {
@@ -241,14 +270,12 @@ alias msgviewer='java -jar ~/Dropbox/Thumbdrive/PortableApps/MSGViewer-1.9/MSGVi
 alias myip='curl -s checkip.amazonaws.com'
 # Pipe my public key to my clipboard.
 alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to pasteboard.'"
-alias ql='qlmanage -p "$@" >& /dev/null'
+isdarwin && alias ql='qlmanage -p "$@" >& /dev/null'
 alias reload!='. ~/.zshrc && echo reloaded .zshrc'
-alias removetimestamp='sed -i.bak "s/\(.*\)..:..:..$/\1/"'
-alias removetimestampandcopy='sed "s/\(.*\)..:..:..$/\1/" $@ |pbcopy'
 alias rg='rg --smart-case'
 alias rs='screen -RD'
 alias sl='ls'
-alias ss="open /System/Library/Frameworks/ScreenSaver.framework/Versions/A/Resources/ScreenSaverEngine.app" # Start ScreenSaver. This will lock the screen if locking is enabled.
+isdarwin && alias ss="open /System/Library/Frameworks/ScreenSaver.framework/Versions/A/Resources/ScreenSaverEngine.app" # Start ScreenSaver. This will lock the screen if locking is enabled.
 
 # sum numbers
 alias sum-numbers="awk '{ sum += \$1 } END { print sum }'"
@@ -312,9 +339,16 @@ tm() {
   session=$(tmux list-sessions -F "#{session_name}" 2>/dev/null | fzf --exit-0) &&  tmux $change -t "$session" || echo "No sessions found."
 }
 
-alias trimw="pbpaste |sed -e 's/[[[:space:]]\r\n]//g' |pbcopy" # Trim all whitespace
+isdarwin && alias trimw="pbpaste |sed -e 's/[[[:space:]]\r\n]//g' |pbcopy" # Trim all whitespace
 alias tpcalc='perl -ne "push @t,1*\$1 if(/(\d+)/); END{@t=sort{\$a<=>\$b}@t; map{printf qq(TP%.1f %d\n),100*\$_,@t[int(scalar(@t))*\$_]}(.5,.9,.99,.999) }"'
 alias ud='cd ~/dotfiles && git pull; cd -'
+# cd up the directory tree to a directory
+upto() {
+    [ -z "$1" ] && return
+    local upto=$1
+    cd "${PWD/\/$upto\/*//$upto}"
+}
+
 alias utc='date -u'
 
 alias vi='vim'

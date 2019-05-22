@@ -1,26 +1,18 @@
-# -*-sh-*-
+# -*- mode: sh; -*-
+# vim: filetype=zsh
 
 # Fix Emacs TRAMP per https://www.emacswiki.org/emacs/TrampMode#toc7
-[[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
-
-# Prefer GNU ls over BSD ls
-function {
-  if command -v brew &>/dev/null ; then
-    # use over $(brew --prefix coreutils)/libexec/gnubin
-    local GNU_BIN=/usr/local/opt/coreutils/libexec/gnubin
-    if command -v $GNU_BIN/ls &>/dev/null ; then
-      export PATH=$GNU_BIN:$PATH # Use newer GNU core utilities (those that come with OS X are outdated)
-    fi
-  fi
-}
+[ $TERM = "dumb" ] && unsetopt zle && PS1='$ ' && return
 
 # grml-zsh-config (will source .zshrc.pre before and .zshrc.local after)
 if [ ! -d $HOME/.grml-etc-core ]; then
   echo "  Installing grml-zsh-config for you."
   git clone git://git.grml.org/grml-etc-core.git ~/.grml-etc-core
-  ln -s ~/.grml-etc-core/etc/zsh/zshrc ~/.grml-zsh-config
 fi
-FILE="${HOME}/.grml-zsh-config"; [ -f $FILE ] && . $FILE
+FILE="${HOME}/.grml-etc-core/etc/zsh/zshrc"; [ -f $FILE ] && . $FILE
+
+# grml functions used after this point
+# check_com, is-at-least, xsource
 
 ################################################################################
 ## BEGIN holman/dotfiles
@@ -46,10 +38,6 @@ do
   source $file
 done
 
-# initialize autocomplete here, otherwise functions won't be loaded
-autoload -U compinit
-compinit
-
 # load every completion after autocomplete loads
 for file in ${(M)config_files:#*/completion.zsh}
 do
@@ -63,8 +51,19 @@ unset config_files
 # My custom config
 ################################################################################
 
-# PATH
-if check_com -c brew ; then
+################################################################################
+##################################### PATH #####################################
+################################################################################
+# Prefer GNU tools over BSD tools
+if check_com -c brew; then
+  # use over $(brew --prefix coreutils)/libexec/gnubin
+  local GNU_BIN=/usr/local/opt/coreutils/libexec/gnubin
+  if command -v $GNU_BIN/ls &>/dev/null ; then
+    export PATH=$GNU_BIN:$PATH # Use newer GNU core utilities (those that come with OS X are outdated)
+  fi
+fi
+
+if check_com -c brew; then
   # For Cask per https://github.com/caskroom/homebrew-cask/blob/master/USAGE.md
   # --appdir=/my/path changes the path where the symlinks to the applications (above) will be generated. This is commonly used to create the links in the root Applications directory instead of the home Applications directory by specifying --appdir=/Applications. Default is ~/Applications.
   export HOMEBREW_CASK_OPTS="--appdir=/Applications"
@@ -80,24 +79,32 @@ for d in \
     $HOME/bin.private \
     $HOME/.dotfiles/bin \
     ; do
-  if [[ -d $d ]]; then
+  if [ -d $d ]; then
     export PATH=$d:$PATH
   fi
 done
 
-set -o pipefail # It is useful to have set -o pipefail somewhere in your shell startup (see [here](https://sipb.mit.edu/doc/safe-shell/) for details), otherwise pushd happens even if you exit with ctrl-c and clutters up the directory stack.
-# To allow for ^s to fwd-i-search (opposite of ^r), disable XON/XOFF for interactive shells per https://stackoverflow.com/questions/791765/unable-to-forward-search-bash-history-similarly-as-with-ctrl-r#comment39602061_791800
-[[ $- == *i* ]] && stty -ixon
+################################################################################
+################################# zsh options ##################################
+################################################################################
+# It is useful to have set -o pipefail somewhere in your shell startup (see [here](https://sipb.mit.edu/doc/safe-shell/) for details), otherwise pushd happens even if you exit with ctrl-c and clutters up the directory stack.
+set -o pipefail
 
-# zgen
-if [ ! -d $HOME/.zgen ]; then
-  git clone https://github.com/tarjoilija/zgen.git "${HOME}/.zgen"
-fi
+# To allow for ^s to fwd-i-search (opposite of ^r), disable XON/XOFF for interactive shells per https://stackoverflow.com/questions/791765/unable-to-forward-search-bash-history-similarly-as-with-ctrl-r#comment39602061_791800
+# [[ $- == *i* ]] && stty -ixon # [[ is not POSIX
+case "$-" in; *i*) stty -ixon;; esac # POSIX
+
+################################################################################
+############################# zgen plugin manager ##############################
+################################################################################
+# Install zgen, if neccessary
+[ -d $HOME/.zgen ] || git clone https://github.com/tarjoilija/zgen.git "${HOME}/.zgen"
 
 # These files will be checked and if a change is detected zgen reset is called.
 ZGEN_RESET_ON_CHANGE=(${HOME}/.zshrc)
 
-source "${HOME}/.zgen/zgen.zsh" # load zgen
+(( ${+aliases[up]} )) && unalias up # grml alias conflicts with up.zsh plugin
+xsource "${HOME}/.zgen/zgen.zsh" # load zgen
 
 # if the init scipt doesn't exist
 if ! zgen saved; then
@@ -105,20 +112,32 @@ if ! zgen saved; then
   # specify plugins here
   zgen load djui/alias-tips
   zgen load zdharma/fast-syntax-highlighting
-  zgen load supercrabtree/k
   zgen load peterhurford/up.zsh
   zgen load unixorn/warhol.plugin.zsh
 
   # prompt
   zgen load mafredri/zsh-async
-  zgen load sindresorhus/pure
+  #zgen load sindresorhus/pure
 
   # generate the init script from plugins above
   zgen save
 fi
 
+################################################################################
+##################################### apps #####################################
+################################################################################
 # Fzf - A command-line fuzzy finder written in Go -  https://github.com/junegunn/fzf#using-homebrew-or-linuxbrew
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh && export FZF_DEFAULT_OPTS='--height 40% --reverse --border --ansi'
+xsource ~/.fzf.zsh
+export FZF_DEFAULT_OPTS='--height 40% --reverse --border --ansi'
+# auto select if only 1 result, exit if no results
+export FZF_CTRL_T_OPTS="--select-1 --exit-0 $FZF_CTRL_T_OPTS"
+
+# Dedicated completion key
+# > Instead of using `TAB` key with a trigger sequence (`**<TAB>`), you can assign a dedicated key for fuzzy completion while retaining the default behavior of `TAB` key.
+# > https://github.com/junegunn/fzf/wiki/Configuring-fuzzy-completion#dedicated-completion-key
+export FZF_COMPLETION_TRIGGER=''
+bindkey '^T' fzf-completion
+bindkey '^I' $fzf_default_completion
 
 # Use fd (https://github.com/sharkdp/fd) with fzf if possible
 if check_com -c fd; then
@@ -140,12 +159,6 @@ if check_com -c fd; then
   }
 fi
 
-# For gtags per https://github.com/syl20bnr/spacemacs/tree/master/layers/%2Btags/gtags#install-on-osx-using-homebrew
-export GTAGSLABEL=pygments
-
-# fzf keybind options from https://github.com/junegunn/fzf/wiki/Configuring-shell-key-bindings
-# auto select if only 1 result, exit if no results
-export FZF_CTRL_T_OPTS="--select-1 --exit-0 $FZF_CTRL_T_OPTS"
 if check_com -c highlight; then
   # using highlight (http://www.andre-simon.de/doku/highlight/en/highlight.html)
   export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200' $FZF_CTRL_T_OPTS"
@@ -154,81 +167,51 @@ fi
 export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
 
 # GPG: You should always add the following lines to your .bashrc or whatever initialization file is used for all shell invocations. Per https://www.gnupg.org/documentation/manuals/gnupg/Invoking-GPG_002dAGENT.html
-GPG_TTY=$(tty); export GPG_TTY
+export GPG_TTY=$(tty)
 
 # GNU ls colors
-if [[ -e ~/.dir_colors ]]; then
+if [ -e ~/.dir_colors ]; then
   check_com -c dircolors && eval $(dircolors -b ~/.dir_colors)
+else
+  curl https://raw.githubusercontent.com/huyz/dircolors-solarized/master/dircolors.ansi-universal -o ~/.dir_colors
 fi
 
-# iterm2 shell integration
-FILE="${HOME}/.iterm2_shell_integration.zsh"; [ -f $FILE ] && . $FILE
+# For gtags per https://github.com/syl20bnr/spacemacs/tree/master/layers/%2Btags/gtags#install-on-osx-using-homebrew
+check_com -c pygments && export GTAGSLABEL=pygments
 
 # nvim
 check_com -c nvim && export NVIM_TUI_ENABLE_TRUE_COLOR=1
 
-# chruby
-FILE="/usr/local/share/chruby/chruby.sh"; [ -f $FILE ] && . $FILE
-FILE="/usr/local/share/chruby/auto.sh"; [ -f $FILE ] && . $FILE
-
-# serverless/sls
-[[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
-[[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
-
 ################################################################################
-# Prompt
+#################################### Prompt ####################################
 ################################################################################
+zstyle ':prompt:grml:right:setup' items time sad-smiley
 
-# version checking function per https://stackoverflow.com/a/37939589/908640
-function version { echo "$@" | awk -F. '{ printf("%d%03d%03d%03d\n", $1,$2,$3,$4); }'; }
+xsource /usr/local/share/chruby/chruby.sh \
+  /usr/local/share/chruby/auto.sh
 
-if [ $(version $ZSH_VERSION) -ge $(version "5.2") ]; then # Pure prompt requires ZSH 5.2+
-  # Pure: Pretty, minimal and fast ZSH prompt
-  # https://github.com/sindresorhus/pure
-  autoload -U promptinit; promptinit
-  prompt pure
+# iterm2
+# if running in tmux, enable iterm2 integration and badge support
+case "$TERM" in
+  *screen*|*tmux*)
+    export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=1
 
-  PURE_PROMPT_SYMBOL='>'
-  PURE_GIT_DOWN_ARROW='↑'
-  PURE_GIT_UP_ARROW='↓'
-  PROMPT='%(?.%F{green}$PURE_PROMPT_SYMBOL.%F{red}$PURE_PROMPT_SYMBOL)%f '
+    # https://groups.google.com/d/msg/iterm2-discuss/RYVdkJyWIJo/9bO44sfIBQAJ
+    function iterm2_print_user_vars() {
+      NAME=hostname
+      VALUE=$(hostname)
+      printf "\033Ptmux;\033\033]1337;SetUserVar=%s=%s\a\033\\" "$NAME" $(printf "%s" "$VALUE" | base64 | tr -d '\n')
+    }
+    ;;
+  *)
+    # https://www.iterm2.com/documentation-badges.html
+    iterm2_print_user_vars() {
+        iterm2_set_user_var hostname $(hostname)
+      }
+    ;;
+esac
+[[ -f ~/.iterm2_shell_integration.zsh ]] || curl -L https://iterm2.com/shell_integration/zsh -o ~/.iterm2_shell_integration.zsh ||'ERROR: failed to download iterm2 shell integration'
+xsource ~/.iterm2_shell_integration.zsh
 
-  # update prompt with current time when a command is started: http://stackoverflow.com/a/26585789
-  strlen () {
-    FOO=$1
-    local zero='%([BSUbfksu]|([FB]|){*})'
-    LEN=${#${(S%%)FOO//$~zero/}}
-    echo $LEN
-  }
+xsource ~/.zshrc.secret # last, for secrets
 
-  # show right prompt with date ONLY when command is executed
-  # rename this function to preexec() in order to enable the date on the prompt
-  preexec_disabled () {
-    DATE=$( date +"[%H:%M:%S]" )
-    local len_right=$( strlen "$DATE" )
-    len_right=$(( $len_right+1 ))
-    local right_start=$(($COLUMNS - $len_right))
-
-    local len_cmd=$( strlen "$@" )
-    local len_prompt=$(strlen "$PROMPT" )
-    local len_left=$(($len_cmd+$len_prompt))
-
-    RDATE="\033[${right_start}C ${DATE}"
-
-    if [ $len_left -lt $right_start ]; then
-      # command does not overwrite right prompt
-      # ok to move up one line
-      echo -e "\033[1A${RDATE}"
-    else
-      echo -e "${RDATE}"
-    fi
-  }
-
-else # fallback to grml prompt
-  prompt grml
-  # Add time and sad smiley for failed commands
-  zstyle ':prompt:grml:right:setup' items time sad-smiley
-fi
-
-# use .zshrc.secret for SUPER SECRET stuff not stored in repo
-FILE="${HOME}/.zshrc.secret"; [ -f $FILE ] && . $FILE
