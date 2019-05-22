@@ -32,8 +32,9 @@ alias ....='cd ../../../'
 alias .....='cd ../../../../'
 alias ......='cd ../../../../../'
 
+alias ax="chmod a+x"
 # c - fuzzy browse chrome history
-c() {
+bm() {
   local cols sep google_history open
   cols=$(( COLUMNS / 3 ))
   sep='{::}'
