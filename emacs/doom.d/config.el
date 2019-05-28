@@ -18,8 +18,6 @@
       deft-directory "~/Google Drive/Notational Velocity"
       deft-extensions '("md" "org" "txt")
       deft-use-filename-as-title t
-
-      ispell-dictionary "en_US"
       )
 
 ;; Default modes

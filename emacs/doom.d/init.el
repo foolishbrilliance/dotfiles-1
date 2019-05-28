@@ -162,3 +162,4 @@
        (default +bindings +snippets +evil-commands))
 
 (setq doom-localleader-key ",")
+(when (file-exists-p "~/.emacs.init.el") (load "~/.emacs.init.el"))
