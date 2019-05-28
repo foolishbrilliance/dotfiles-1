@@ -376,14 +376,24 @@ if dein#load_state('~/.vim/plugins')
     "call dein#add('mattn/gist-vim') " depends on mattn/webapi-vim; not using
     call dein#add('airblade/vim-gitgutter')
     call dein#add('altercation/vim-colors-solarized')
-    call dein#add('frankier/neovim-colors-solarized-truecolor-only') " for solarized in neovim
+    call dein#add('bkad/CamelCaseMotion')
     call dein#add('bling/vim-airline')
-    call dein#add('vim-airline/vim-airline-themes')
     call dein#add('elzr/vim-json')
+    call dein#add('flazz/vim-colorschemes')
+    call dein#add('frankier/neovim-colors-solarized-truecolor-only') " for solarized in neovim
+    for fzf_plugin_dir in ['/usr/local/opt/fzf', '/usr/local/brew/opt/fzf', '/home/linuxbrew/.linuxbrew/opt/fzf', $HOME.'/.fzf']
+      if isdirectory(fzf_plugin_dir)
+          call dein#add(fzf_plugin_dir) " required for fzf.vim
+          call dein#add('junegunn/fzf.vim')   " depends on fzf_plugin_dir
+      endif
+    endfor
     call dein#add('justinmk/vim-sneak')
     call dein#add('kien/ctrlp.vim')
     call dein#add('mbbill/undotree')
     call dein#add('michaeljsmith/vim-indent-object')
+    call dein#add('mtth/scratch.vim')
+    call dein#add('nelstrom/vim-visual-star-search')
+    call dein#add('reedes/vim-wordy')
     call dein#add('tpope/vim-abolish')
     call dein#add('tpope/vim-commentary')
     call dein#add('tpope/vim-eunuch')
@@ -395,18 +405,9 @@ if dein#load_state('~/.vim/plugins')
     call dein#add('tpope/vim-surround')
     call dein#add('tpope/vim-unimpaired')
     "call dein#add('tpope/vim-vinegar')
-    call dein#add('bkad/CamelCaseMotion')
-    call dein#add('reedes/vim-wordy')
-    call dein#add('mtth/scratch.vim')
-    call dein#add('flazz/vim-colorschemes')
+    call dein#add('vim-airline/vim-airline-themes')
     call dein#add('kana/vim-textobj-user') " required for mattn/vim-textobj-url
     call dein#add('mattn/vim-textobj-url') " depends on kana/vim-textobj-user
-    for fzf_plugin_dir in ['/usr/local/opt/fzf', '/home/linuxbrew/.linuxbrew/opt/fzf', $HOME.'/.fzf']
-    if isdirectory(fzf_plugin_dir)
-        call dein#add(fzf_plugin_dir) " required for fzf.vim
-        call dein#add('junegunn/fzf.vim')   " depends on fzf_plugin_dir
-    endif
-    endfor
 
     " You can specify revision/branch/tag.
     "call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
