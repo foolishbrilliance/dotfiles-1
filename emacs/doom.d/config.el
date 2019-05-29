@@ -125,12 +125,14 @@
  ;; markdown
  (:after markdown-mode
    (:map markdown-mode-map
+       :nv [tab]     #'markdown-cycle
      (:localleader
        ;; Movement
        :nv "{"   #'markdown-backward-paragraph
        :nv "}"   #'markdown-forward-paragraph
        ;; Completion, and Cycling
-       :nv "]"   #'markdown-complete
+       :nv "]"       #'markdown-complete
+       :nv [tab]     #'markdown-cycle
        ;; Indentation
        :nv ">"   #'markdown-indent-region
        :nv "<"   #'markdown-outdent-region
