@@ -105,6 +105,11 @@
        :nv "o" #'link-hint-open-link
        :nv "y" #'link-hint-copy-link))
 
+ ;; deft
+ (:after deft
+   (:map (deft-mode-map)
+     :i [M-backspace]          #'deft-filter-decrement-word))
+
  ;; evil-magit
  (:after evil-magit
    (:map (magit-status-mode-map magit-revision-mode-map)
