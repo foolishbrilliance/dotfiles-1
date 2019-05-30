@@ -139,7 +139,9 @@ export FZF_COMPLETION_TRIGGER=''
 bindkey '^T' fzf-completion
 bindkey '^I' $fzf_default_completion
 
-# Use fd (https://github.com/sharkdp/fd) with fzf if possible
+# Prefer the following (in order) over find, if available
+# - fd (https://github.com/sharkdp/fd)
+# - rg (https://github.com/BurntSushi/ripgrep)
 if check_com -c fd; then
   # Setting fd as the default source for fzf
   export FZF_DEFAULT_COMMAND="fd --type file --follow --hidden --color=always"
@@ -157,6 +159,9 @@ if check_com -c fd; then
   _fzf_compgen_dir() {
     fd --type d --hidden --follow --exclude ".git" . "$1"
   }
+elif check_com -c rg; then
+  export FZF_DEFAULT_COMMAND="rg --files --follow --hidden"
+  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 fi
 
 if check_com -c highlight; then
