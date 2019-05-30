@@ -125,11 +125,6 @@ fe() {
     file="$(fasd -Rfl "$*" | fzf -1 -0 --no-sort +m)" && vi "${file}" || return 1
 }
 
-# (f)uzzy (d)ir. Like `d`, but select with fzf
-fd() {
-    fasd -Rdl "$*"| fzf -1 -0 +m
-}
-
 # (f)uzzy (f)ile. Like `f`, but select with fzf
 ff() {
     fasd -Rfl "$*"| fzf -1 -0 +m
@@ -171,6 +166,11 @@ fv() {
           --select-1 --exit-0)
         [ -n "$file" ] && les "$file"
     fi
+}
+
+# (f)uzzy (z). Like `z`, but select with fzf
+fz() {
+    fasd -Rdl "$*"| fzf -1 -0 +m
 }
 
 # Git aliases from zprezto: https://github.com/sorin-ionescu/prezto/blob/master/modules/git/alias.zsh
