@@ -109,6 +109,7 @@
  ;; deft
  (:after deft
    (:map (deft-mode-map)
+     :i "C-u"                  #'deft-filter-clear
      :i [M-backspace]          #'deft-filter-decrement-word))
 
  ;; evil-magit
