@@ -142,7 +142,12 @@ bindkey '^I' $fzf_default_completion
 # Prefer the following (in order) over find, if available
 # - fd (https://github.com/sharkdp/fd)
 # - rg (https://github.com/BurntSushi/ripgrep)
-if check_com -c fd; then
+if ((${+FZF_FORCE_DEFAULT_SEARCH})); then
+  # nop
+  # for some reason fd/rg seems slower than find on network mounts, so disabling
+  # don't use find alternatives on some systems
+  # can set in ~/.zshrc.pre, which gets sourced by grml config
+elif check_com -c fd; then
   # Setting fd as the default source for fzf
   export FZF_DEFAULT_COMMAND="fd --type file --follow --hidden --color=always"
   export FZF_CTRL_T_COMMAND="fd --type file --color=always"
