@@ -15,6 +15,7 @@
       evil-escape-unordered-key-sequence t
 
       ;; deft
+      deft-default-extension "txt"
       deft-directory "~/Google Drive/Notational Velocity"
       deft-extensions '("md" "org" "txt")
       deft-use-filename-as-title t
