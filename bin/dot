@@ -4,6 +4,7 @@
 #
 # `dot` handles installation, updates, things like that. Run it periodically
 # to make sure you're on the latest and greatest.
+# --full to update everything
 
 # Default options
 FULL=false
@@ -17,28 +18,46 @@ do
   esac
 done
 
+# Usage:
+# MESSAGE="updating"; print_status1 "${MESSAGE}"
+# do_something_useful_here
+# print_status2 $? ${MESSAGE}
 #
-# for printing status messages
-#
-
-# new way: print_status $? "update x"
-print_status () {
-  if [[ ${1} == 0 ]]; then
-    echo -e "[\e[32mOK\e[39m] ${2}"
-  else
-    echo -e "[\e[31mFAILED\e[39m] ${2}"
-  fi
+# Output:
+# [OK] updating
+# [FAILED] updating
+print_status1 () {
+  string="[  ] ${1} "
+  printf "%s" "$string"
 }
 
+print_status2 () {
+  if [[ ${1} == 0 ]]; then
+    # clear previous line, add UTF checkmar to string
+    printf "\r%b" "\033[2K"
+    # string="[\U2713] ${2} "
+    string="[\e[32mOK\e[39m] ${2}"
+  else
+    # clear previous line, add UTF checkmar to string
+    printf "\r%b" "\033[2K"
+    # string="[\U274C] ${2} "
+    string="[\e[31mFAILED\e[39m] ${2}"
+  fi
+  printf "%b" "$string\n"
+}
+
+
 # Dotfiles
+MESSAGE="update personal dotfiles"; print_status1 "${MESSAGE}"
 cd ${HOME}/.dotfiles && git pull >/dev/null
-print_status $? "update personal dotfiles"
+print_status2 $? ${MESSAGE}
 
 # Grml config
+MESSAGE="update grml config"; print_status1 "${MESSAGE}"
 cd ~/.grml-etc-core && git pull >/dev/null
-print_status $? "update grml config"
+print_status2 $? ${MESSAGE}
 
-if [ ${FULL} != true ]; then
+if [[ ${FULL} != true ]]; then
   exit 0
 fi
 
@@ -47,70 +66,77 @@ fi
 ##########################################################
 
 # Vim
+MESSAGE="update vim plugin manager (Dein)"; print_status1 "${MESSAGE}"
 cd ~/.vim/plugins/repos/github.com/Shougo/dein.vim && git pull >/dev/null
-print_status $? "install vim plugin manager (Dein)"
+print_status2 $? ${MESSAGE}
+
+MESSAGE="update vim plugins"; print_status1 "${MESSAGE}"
 vim +'call dein#update()' +qall
-print_status $? "install vim plugins"
+print_status2 $? ${MESSAGE}
 
 # Tmux Plugin Manager (tpm) and plugins
 if [ ! -d "${HOME}/.tmux/plugins/tpm" ]; then
   if [ -L "${HOME}/.tmux" ]; then
     unlink ~/.tmux
   fi
+  MESSAGE="install tmux plugin manager (tpm) and plugins"; print_status1 "${MESSAGE}"
   git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm && ~/.tmux/plugins/tpm/bin/install_plugins
-  print_status $? "install tmux plugin manager (tpm) and plugins"
+  print_status2 $? ${MESSAGE}
 else
+  MESSAGE="update tpm and plugins"; print_status1 "${MESSAGE}"
   ~/.tmux/plugins/tpm/bin/update_plugins all >/dev/null
-  print_status $? "update tpm and plugins"
+  print_status2 $? ${MESSAGE}
 fi
 
 # zsh zgen plugins
-[ -d $HOME/.zgen ] || git clone https://github.com/tarjoilija/zgen.git "${HOME}/.zgen"
-[ -d $HOME/.zgen ] && source "${HOME}/.zgen/zgen.zsh" && zgen selfupdate &>/dev/null && zgen update &>/dev/null
-print_status $? "update zsh plugins"
+ZGEN="$HOME/.zgen"
+[ -d ${ZGEN} ] || git clone https://github.com/tarjoilija/zgen.git "${HOME}/.zgen"
+MESSAGE="update zsh plugins"; print_status1 "${MESSAGE}"
+[ -d ${ZGEN} ] && source "${ZGEN}/zgen.zsh" && cd ${ZGEN} && git pull &>/dev/null && cd - && zgen update &>/dev/null
+print_status2 $? ${MESSAGE}
 
 # Doom Emacs
-~/.emacs.d/bin/doom upgrade &>/dev/null
-print_status $? "update Doom Emacs"
+MESSAGE="update Doom Emacs"; print_status1 "${MESSAGE}"
+~/.emacs.d/bin/doom -y upgrade &>/dev/null && ~/.emacs.d/bin/doom -y a &>/dev/null
+print_status2 $? ${MESSAGE}
 
 ################################################################################
 # Mac only for rest of script
 ################################################################################
-if [ "$(uname)" != "Darwin" ]; then
-  exit 0
+if [[ "$(uname)" == "Darwin" ]]; then
+  # echo colors, for example: update_command && clr_green "Updated." || clr_red "Update failed."
+  source ~/.bash_colors
+
+  # Brew
+  cd
+  brew update
+  brew upgrade
+  brew cleanup -s
+  brew cask cleanup
+  # Diagnotics
+  brew doctor
+  brew missing
+
+  # Node
+  npm update -g && clr_green "Updated npm packages." || clr_red "npm package update failed."
+
+  # Ruby
+  gem update && clr_green "Updated Ruby gems." || clr_red "Ruby gem update failed."
+
+  # Python
+  python3 -m pip install --upgrade pip
+  python2 -m pip install --upgrade pip
+  python3 -m pip install --upgrade setuptools
+  python2 -m pip install --upgrade setuptools
+  #pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U && clr_green "Updated pip packages." || clr_red "pip packages update failed."
+  pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip3 install -U && clr_green "Updated pip3 packages." || clr_red "pip3 packages update failed."
+  pip2 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip2 install -U && clr_green "Updated pip2 packages." || clr_red "pip2 packages update failed."
+
+  if [[ $(mas outdated) ]]; then
+    clr_brown "You can run 'mas upgrade' to upgrade theses apps from the app store:"
+    mas outdated
+  else
+    clr_green "Mac App Store up to date."
+  fi
 fi
 
-# echo colors, for example: update_command && clr_green "Updated." || clr_red "Update failed."
-source ~/.bash_colors
-
-# Brew
-cd
-brew update
-brew upgrade
-brew cleanup -s
-brew cask cleanup
-# Diagnotics
-brew doctor
-brew missing
-
-# Node
-npm update -g
-
-# Ruby
-gem update && clr_green "Updated Ruby gems." || clr_red "Ruby gem update failed."
-
-# Python
-python3 -m pip install --upgrade pip
-python2 -m pip install --upgrade pip
-python3 -m pip install --upgrade setuptools
-python2 -m pip install --upgrade setuptools
-#pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U && clr_green "Updated pip packages." || clr_red "pip packages update failed."
-pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip3 install -U && clr_green "Updated pip3 packages." || clr_red "pip3 packages update failed."
-pip2 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip2 install -U && clr_green "Updated pip2 packages." || clr_red "pip2 packages update failed."
-
-if [[ $(mas outdated) ]]; then
-  clr_brown "You can run 'mas upgrade' to upgrade theses apps from the app store:"
-  mas outdated
-else
-  clr_green "Mac App Store up to date."
-fi
