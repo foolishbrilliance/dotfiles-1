@@ -343,7 +343,7 @@ tm() {
 isdarwin && alias trimw="pbpaste |sed -e 's/[[[:space:]]\r\n]//g' |pbcopy" # Trim all whitespace
 alias tpcalc='perl -ne "push @t,1*\$1 if(/(\d+)/); END{@t=sort{\$a<=>\$b}@t; map{printf qq(TP%.1f %d\n),100*\$_,@t[int(scalar(@t))*\$_]}(.5,.9,.99,.999) }"'
 alias ud='cd ~/dotfiles && git pull; cd -'
-alias updoom='~/.emacs.d/bin/doom -y upgrade && ~/.emacs.d/bin/doom -y a'
+alias updoom='cd ~/.emacs.d && git pull && ~/.emacs.d/bin/doom -y upgrade && ~/.emacs.d/bin/doom -y a'
 # cd up the directory tree to a directory
 upto() {
     [ -z "$1" ] && return
