@@ -8,7 +8,7 @@
        :completion
        (company          ; the ultimate code completion backend
         +auto)           ; as-you-type code completion
-       ;; (helm             ; the *other* search engine for love and life
+       helm             ; the *other* search engine for love and life
        ;;  +fuzzy)          ; enable fuzzy search backend for helm
        ;;ido               ; the other *other* search engine...
        (ivy              ; a search engine for love and life
@@ -44,7 +44,7 @@
        multiple-cursors  ; editing in many places at once
        ;;parinfer          ; turn lisp into python, sort of
        rotate-text       ; cycle region at point between text candidates
-       snippets          ; my elves. They type so I don't have to
+       ;;snippets          ; my elves. They type so I don't have to
 
        :emacs
        dired             ; making dired pretty [functional]
@@ -156,8 +156,8 @@
        ;; provides a Spacemacs-inspired keybinding scheme, a custom yasnippet
        ;; library, and additional ex commands for evil-mode. Use it as a
        ;; reference for your own modules.
-       ;; (default +bindings +snippets +evil-commands))
-       (default +bindings +snippets +evil-commands))
+       ;; (default +bindings +evil-commands))
+       (default +bindings +evil-commands))
 
 (setq doom-localleader-key ",")
 (when (file-exists-p "~/.emacs.init.el") (load "~/.emacs.init.el"))
