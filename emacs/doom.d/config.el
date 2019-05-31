@@ -2,6 +2,8 @@
 
 ;; Place your private configuration here
 
+(restore-frame-position)
+
 ;; Functions
 (defun joe/avy-goto-url()
         "Use avy to go to an URL in the buffer."

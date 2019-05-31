@@ -9,6 +9,7 @@
 (package! deft)
 (package! link-hint)
 (package! lua-mode)
+(package! restore-frame-position :recipe (:fetcher github :repo "aaronjensen/restore-frame-position"))
 (package! web-mode)
 (load! "~/.doom.local.packages" nil t)
 
