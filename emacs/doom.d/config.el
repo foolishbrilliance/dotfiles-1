@@ -6,11 +6,12 @@
 
 ;; Functions
 (defun joe/avy-goto-url()
-        "Use avy to go to an URL in the buffer."
-        ;; Copied from http://bit.ly/2PJQoIq
-        (interactive)
-        (avy--generic-jump "https?://" nil 'pre))
+  "Use avy to go to an URL in the buffer."
+  ;; Copied from http://bit.ly/2PJQoIq
+  (interactive)
+  (avy--generic-jump "https?://" nil 'pre))
 
+;; Variables
 (setq doom-font (font-spec :family "Source Code Pro" :size 18)
       split-width-threshold 100 ;; split windows if the window's max width <100
       evil-escape-key-sequence ";y"
