@@ -8,23 +8,33 @@ fi
 source "$fasd_cache"
 unset fasd_cache
 
-# fasd & fzf change directory - jump using `fasd` if given argument, filter output of `fasd` using `fzf` else
-unalias z # fasd sets this by default
-z() {
-    [ $# -gt 0 ] && fasd_cd -d "$*" && return
-    local dir
-    dir="$(fasd -Rdl "$*" | fzf -1 -0 --no-sort +m)" && cd "${dir}" || return 1
-}
+# fasd & fzf change directory - jump using to frecent dirs (from `fasd`) if
+# given argument, else filter frecent dirs using `fzf`
+#
+# unalias first, because fasd sets this by default
+unalias z; alias z='fasd_fzf_cd_smart'
 
-# fasd & fzf change directory - filter output of `fasd` with argument using `fzf`
-unalias zz
-zz() {
-    local dir
-    dir="$(fasd -Rdl "$*" | fzf -1 -0 --no-sort +m)" && cd "${dir}" || return 1
-}
+# like z, but requires arg to filter initial frecent directories to present
+unalias zz; alias zz='fasd_fzf_cd_filtered'
 
-alias e='f -e $EDITOR' # quick opening files with vim
-alias o='a -e open' # quick opening files with open (OSX)
+alias e='fasd_fzf_edit_smart' # quick edit
+alias ee='fasd_fzf_edit_filtered'
+alias ef='fzf_edit_open_from_cwd'
+alias fre='fasd_fzf_edit'
+alias f.e='fzf_edit_open_from_cwd'
+isdarwin && alias o='a -e open' # quick opening files in OSX
+
+# utility fasd functions similar to fasd's f, usually used to pipe into other
+# commands
+alias fz='fasd_fzf_dir'
+alias ff='fasd_fzf_file'
+
+alias fv='fzf_view'
+
+alias fcd='fzf_cd'
+alias fcda='fzf_cd_all'
+alias fcdf='fzf_cd_file'
+alias fcdp='fzf_cd_parent'
 
 alias ..='cd ..'
 alias ...='cd ../../'
@@ -84,94 +94,10 @@ etransfer() {
   cat $1|gpg -ac -o-|curl --progress-bar -X PUT --upload-file "-" https://transfer.sh/test.txt |tee
 }
 
-# fcd - cd to selected directory
-# originally fd from https://github.com/junegunn/fzf/wiki/examples | change to fcd to avoid conflict with https://github.com/sharkdp/fd
-fcd() {
-  local dir
-  dir=$(find ${1:-.} -path '*/\.*' -prune \
-                  -o -type d -print 2> /dev/null | fzf +m) &&
-  cd "$dir"
-}
-
-# fcdf - cd into the directory of the selected file
-fcdf() {
-   local file
-   local dir
-   file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
-}
-
-# fcdp - cd to selected parent directory (fdr from https://github.com/junegunn/fzf/wiki/examples)
-fcdp() {
-  local declare dirs=()
-  get_parent_dirs() {
-    if [[ -d "${1}" ]]; then dirs+=("$1"); else return; fi
-    if [[ "${1}" == '/' ]]; then
-      for _dir in "${dirs[@]}"; do echo $_dir; done
-    else
-      get_parent_dirs $(dirname "$1")
-    fi
-  }
-  local DIR=$(get_parent_dirs $(realpath "${1:-$PWD}") | fzf-tmux --tac)
-  cd "$DIR"
-}
-
 # fuzzy find clipboard Alfred history (sort by timestamp in sqlite, then don't sort in fzf)
 isdarwin && alias fclip='sqlite3 -header -csv ~/Library/Application\ Support/Alfred\ 3/Databases/clipboard.alfdb "select item from clipboard order by ts desc" |fzf |pbcopy'
 
-# fasd & fzf edit file - open best matched file using `fasd` if given argument, filter output of `fasd` using `fzf` else
-fe() {
-    [ $# -gt 0 ] && fasd -f -e ${EDITOR} "$*" && return
-    local file
-    file="$(fasd -Rfl "$*" | fzf -1 -0 --no-sort +m)" && vi "${file}" || return 1
-}
-
-# (f)uzzy (f)ile. Like `f`, but select with fzf
-ff() {
-    fasd -Rfl "$*"| fzf -1 -0 +m
-}
-
-# (f)uzzy find (.) and (e)dit
-f.e() {
-  local out file key
-  IFS=$'\n' out=($(fzf --query="$1" --exit-0 --expect=ctrl-o,ctrl-e))
-  key=$(head -1 <<< "$out")
-  file=$(head -2 <<< "$out" | tail -1)
-  if [ -n "$file" ]; then
-    [ "$key" = ctrl-o ] && open "$file" || ${EDITOR:-vim} "$file"
-  fi
-}
-
-# (f)uzzy (r)ecent and (e)dit
-fre() {
-    local file
-    file="$(fasd -Rfl | fzf -1 -0 --no-sort +m)" && vi "${file}" || return 1
-}
-
-# (f)uzzy (s)earch and (e)dit
-# fasd & fzf find and edit file - filter output of `fasd` with argument using `fzf`
-fse() {
-    local file
-    file="$(fasd -Rfl "$*" | fzf -1 -0 --no-sort +m)" && vi "${file}" || return 1
-}
-
 alias fpath='perl -MCwd -e "print Cwd::abs_path shift"' # cpath is another alias, think "canonical path"
-
-# fv - fuzzy view
-fv() {
-    local file
-    if [[ -e "$1" ]]; then
-        les "$1"
-    else
-        file=$(fzf --query="$1"\
-          --select-1 --exit-0)
-        [ -n "$file" ] && les "$file"
-    fi
-}
-
-# (f)uzzy (z). Like `z`, but select with fzf
-fz() {
-    fasd -Rdl "$*"| fzf -1 -0 +m
-}
 
 # Git aliases from zprezto: https://github.com/sorin-ionescu/prezto/blob/master/modules/git/alias.zsh
 
@@ -230,30 +156,6 @@ FZF-EOF"
 
 alias glog="git log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
 alias github="open \`git remote -v | grep github.com | grep fetch | head -1 | field 2 | sed 's/git:/http:/g'\`"
-
-j() {
-    local dir="$(fasd -ld "$@")"
-    [[ -d "$dir" ]] && pushd "$dir"
-}
-
-jd() {
-    local dir
-    dir=$(find ${1:-*} -path '*/\.*'\
-
-        -prune -o -type d\
-        -print 2> /dev/null | fzf +m)
-    [ -d "$dir" ] && pushd "$dir"
-}
-
-jj() {
-    local dir
-    dir=$(fasd -Rdl |\
-        sed "s:$HOME:~:" |\
-        fzf --no-sort +m -q "$*" |\
-        sed "s:~:$HOME:")\
-    && pushd "$dir"
-}
-
 alias js='jekyll serve --limit_posts 10 -w'
 alias krbcurl='curl --negotiate -u :'
 listcert() { openssl s_client -showcerts -connect $1:443 </dev/null 2>/dev/null | openssl x509 -inform PEM -text } # Usage: listcert google.com
@@ -343,7 +245,7 @@ tm() {
 isdarwin && alias trimw="pbpaste |sed -e 's/[[[:space:]]\r\n]//g' |pbcopy" # Trim all whitespace
 alias tpcalc='perl -ne "push @t,1*\$1 if(/(\d+)/); END{@t=sort{\$a<=>\$b}@t; map{printf qq(TP%.1f %d\n),100*\$_,@t[int(scalar(@t))*\$_]}(.5,.9,.99,.999) }"'
 alias ud='cd ~/dotfiles && git pull; cd -'
-alias updoom='cd ~/.emacs.d && git pull && ~/.emacs.d/bin/doom -y upgrade && ~/.emacs.d/bin/doom -y a'
+alias updoom='cd ~/.emacs.d && git pull && ~/.emacs.d/bin/doom -y upgrade && ~/.emacs.d/bin/doom -y a; cd -'
 # cd up the directory tree to a directory
 upto() {
     [ -z "$1" ] && return
@@ -360,3 +262,108 @@ if check_com -c vimr ; then
   }
 fi
 alias worddiff='git diff --word-diff=color'
+
+
+#
+# Fzf/fasd functions
+#
+
+fasd_fzf_cd_filtered() {
+    local dir
+    dir="$(fasd -Rdl "$*" | fzf -1 -0 --no-sort +m)" && cd "${dir}" || return 1
+}
+
+# cd to best matched dir using `fasd` if given argument, filter output of `fasd` using `fzf` else
+fasd_fzf_cd_smart() {
+    [ $# -gt 0 ] && fasd_cd -d "$*" && return
+    local dir
+    dir="$(fasd -Rdl "$*" | fzf -1 -0 --no-sort +m)" && cd "${dir}" || return 1
+}
+
+# Like `d` (directories), but select with fzf
+fasd_fzf_dir() {
+    fasd -Rdl "$*"| fzf -1 -0 --no-sort
+}
+
+# Like `f` (files), but select with fzf
+fasd_fzf_file() {
+    fasd -Rfl "$*"| fzf -1 -0 --no-sort +m
+}
+
+# fasd & fzf find and edit file - filter output of `fasd` with argument using `fzf`
+fasd_fzf_edit() {
+    local file
+    file="$(fasd -Rfl "$*" | fzf -1 -0 --no-sort +m)" && vi "${file}" || return 1
+}
+
+# open best matched file using `fasd` if given argument, filter output of `fasd` using `fzf` else
+fasd_fzf_edit_smart() {
+    [ $# -gt 0 ] && fasd -f -e ${EDITOR} "$*" && return
+    local file
+    file="$(fasd -Rfl "$*" | fzf -1 -0 --no-sort +m)" && vi "${file}" || return 1
+}
+
+fasd_fzf_edit_filtered() {
+    local file
+    file="$(fasd -Rfl "$*" | fzf -1 -0 --no-sort +m)" && vi "${file}" || return 1
+}
+
+# cd to selected directory
+# from https://github.com/junegunn/fzf/wiki/examples | change fd -> fcd to avoid conflict with https://github.com/sharkdp/fd
+fzf_cd() {
+  local dir
+  dir=$(find ${1:-.} -path '*/\.*' -prune \
+                  -o -type d -print 2> /dev/null | fzf +m) &&
+  cd "$dir"
+}
+
+# fzf cd, but include hidden directories
+fzf_cd_all() {
+  local dir
+  dir=$(find ${1:-.} -type d 2> /dev/null | fzf +m) && cd "$dir"
+}
+
+# cd into the directory of the selected file
+fzf_cd_file() {
+   local file
+   local dir
+   file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
+}
+
+# cd to selected parent directory (fdr from https://github.com/junegunn/fzf/wiki/examples)
+fzf_cd_parent() {
+  local declare dirs=()
+  get_parent_dirs() {
+    if [[ -d "${1}" ]]; then dirs+=("$1"); else return; fi
+    if [[ "${1}" == '/' ]]; then
+      for _dir in "${dirs[@]}"; do echo $_dir; done
+    else
+      get_parent_dirs $(dirname "$1")
+    fi
+  }
+  local DIR=$(get_parent_dirs $(realpath "${1:-$PWD}") | fzf-tmux --tac)
+  cd "$DIR"
+}
+
+# - CTRL-O to open with `open` command,
+# - CTRL-E or Enter key to open with the $EDITOR
+fzf_edit_open_from_cwd() {
+  local out file key
+  IFS=$'\n' out=($(fzf --query="$*" -1 -0 --expect=ctrl-o,ctrl-e))
+  key=$(head -1 <<< "$out")
+  file=$(head -2 <<< "$out" | tail -1)
+  if [ -n "$file" ]; then
+    [ "$key" = ctrl-o ] && open "$file" || ${EDITOR:-vim} "$file"
+  fi
+}
+
+fzf_view() {
+    local file
+    if [[ -e "$1" ]]; then
+        les "$1"
+    else
+        file=$(fzf --query="$1"\
+          --select-1 --exit-0)
+        [ -n "$file" ] && les "$file"
+    fi
+}
