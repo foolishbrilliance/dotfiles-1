@@ -17,18 +17,17 @@ unalias z; alias z='fasd_fzf_cd_smart'
 # like z, but requires arg to filter initial frecent directories to present
 unalias zz; alias zz='fasd_fzf_cd_filtered'
 
+# utility fasd functions similar to fasd's f, usually used to pipe into other
+# commands
+alias fz='fasd_fzf_dir'
+alias ff='fasd_fzf_file'
+
 alias e='fasd_fzf_edit_smart' # quick edit
 alias ee='fasd_fzf_edit_filtered'
 alias ef='fzf_edit_open_from_cwd'
 alias fre='fasd_fzf_edit'
 alias f.e='fzf_edit_open_from_cwd'
 isdarwin && alias o='a -e open' # quick opening files in OSX
-
-# utility fasd functions similar to fasd's f, usually used to pipe into other
-# commands
-alias fz='fasd_fzf_dir'
-alias ff='fasd_fzf_file'
-
 alias fv='fzf_view'
 
 alias fcd='fzf_cd'
@@ -282,12 +281,12 @@ fasd_fzf_cd_smart() {
 
 # Like `d` (directories), but select with fzf
 fasd_fzf_dir() {
-    fasd -Rdl "$*"| fzf -1 -0 --no-sort
+    fasd -Rdl "$*"| fzf -1 -0 --no-sort -m
 }
 
 # Like `f` (files), but select with fzf
 fasd_fzf_file() {
-    fasd -Rfl "$*"| fzf -1 -0 --no-sort +m
+    fasd -Rfl "$*"| fzf -1 -0 --no-sort -m
 }
 
 # fasd & fzf find and edit file - filter output of `fasd` with argument using `fzf`
