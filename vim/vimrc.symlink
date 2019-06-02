@@ -216,7 +216,7 @@ nnoremap <Leader>i :bnext<CR>
 " Move to the previous buffer
 nnoremap <Leader>h :bprevious<CR>
 " Close the current buffer and move to the previous one. This replicates the idea of closing a tab
-nnoremap <Leader>bq :bp <BAR> bd #<CR>
+nnoremap <Leader>bk :bp <BAR> bd #<CR>
 " delete (close) buffer
 nnoremap <Leader>bdd :bd<CR>
 nnoremap <Leader>b!! :bd<CR>
@@ -236,10 +236,8 @@ nnoremap <Leader>sv :ls<CR>:vertical sbuffer<Space>
 "
 " windows
 "
-"nnoremap <C-h> <C-w>h " breaks ^H "last tab" mapping
 nnoremap <C-n> <C-w>j
 nnoremap <C-e> <C-w>k
-"nnoremap <C-i> <C-w>l " breaks ^i for jumping to next position in the change list
 nnoremap <Leader>wc <C-w>c
 
 " Remove trailing whitespace
@@ -260,10 +258,6 @@ endfunction
 nnoremap <Leader>O O<Esc>
 " Blank line below
 nnoremap <Leader>o o<Esc>
-
-" Comment and uncomment out a section (uses marks 'a and 'b)
-nnoremap <Leader>z :'a,'b s/^/#/
-nnoremap <Leader>y :'a,'b s/#//
 
 " Duplicate line, comment original using vim-commentary
 nmap <Leader>n yyPgccj<Esc> " deliberate recursive map (nmap) to use vim-commentary
