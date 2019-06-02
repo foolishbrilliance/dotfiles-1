@@ -545,14 +545,16 @@ let g:sneak#use_ic_scs = 1
 " Solarized
 " Theme not accessible until Bundle command is run per
 " https://github.com/gmarik/Vundle.vim/issues/119#issuecomment-3089931
-call togglebg#map("<F4>")
-syntax enable
-" setting the following line makes iTerm vim color really strange (brown)
-"let g:solarized_termcolors=256
-if has('nvim') || has("gui_macvim")
-  colorscheme solarized-truecolor-only
-else
-  colorscheme solarized
+  if !has('nvim')
+  call togglebg#map("<F4>")
+  syntax enable
+  " setting the following line makes iTerm vim color really strange (brown)
+  "let g:solarized_termcolors=256
+  if has('nvim') || has("gui_macvim")
+    colorscheme solarized-truecolor-only
+  else
+    colorscheme solarized
+  endif
 endif
 
 "
