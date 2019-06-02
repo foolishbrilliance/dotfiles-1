@@ -234,13 +234,6 @@ nnoremap <Leader>g :ls<CR>:b<Space>
 nnoremap <Leader>sh :ls<CR>:sbuffer<Space>
 nnoremap <Leader>sv :ls<CR>:vertical sbuffer<Space>
 
-" buffer search
-nnoremap <Leader>bf :CtrlP<CR>
-nnoremap <Leader>bm :CtrlPMixed<CR>
-nnoremap <Leader>bs :CtrlPMRU<CR>
-nnoremap <Leader>bl :CtrlPBuffer<CR>
-nnoremap <Leader>p :CtrlPMRU<CR>
-
 "
 " windows
 "
@@ -388,7 +381,6 @@ if dein#load_state('~/.vim/plugins')
       endif
     endfor
     call dein#add('justinmk/vim-sneak')
-    call dein#add('kien/ctrlp.vim')
     call dein#add('mbbill/undotree')
     call dein#add('michaeljsmith/vim-indent-object')
     call dein#add('mtth/scratch.vim')
@@ -429,22 +421,6 @@ endif
 
 " Section: Plugin configs {{{2
 " ---------------------
-
-"
-" CtrlP
-"
-let g:ctrlp_map = '<C-p>'
-let g:ctrlp_cmd = 'CtrlP' " quick buffer switching
-
-let g:ctrlp_user_command = {
-      \ 'types': {
-      \ 1: ['.git', 'cd %s && git ls-files'],
-      \ },
-      \ 'fallback': 'find %s -type f'
-      \ }
-
-" Use nearest .git dir
-let g:ctrlp_working_path_mode = 'ra'
 
 "
 " EasyMotion
