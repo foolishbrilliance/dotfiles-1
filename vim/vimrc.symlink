@@ -337,35 +337,17 @@ if &compatible
   set nocompatible               " Be iMproved
 endif
 
-" Required:
 set runtimepath+=~/.vim/plugins/repos/github.com/Shougo/dein.vim
-
-" Required:
 
 if dein#load_state('~/.vim/plugins')
     call dein#begin('~/.vim/plugins')
 
     " Let dein manage dein
-    " Required:
     call dein#add('~/.vim/plugins/repos/github.com/Shougo/dein.vim')
 
 
     " Add or remove your plugins here:
-    " My plugins here:
-    " DISABLED
-    "call dein#add('jooize/vim-colemak')
     "call dein#add('Lokaltog/vim-easymotion')
-    "call dein#add('jeetsukumaran/vim-filebeagle') " not really using
-    "call dein#add('haya14busa/incsearch.vim', { 'rev': 'dev'}) "dev branch for MacVim paste fix: https://github.com/haya14busa/incsearch.vim/issues/35#issuecomment-67504976
-    "call dein#add('haya14busa/incsearch.vim') "incsearch feature merged in VIM Patch 8.0.1238 ( https://github.com/vim/vim/commit/2e51d9a0972080b087d566608472928d5b7b35d7 )
-    "call dein#add('scrooloose/nerdtree')
-    "call dein#add('scrooloose/syntastic')
-    "call dein#add('sjl/gundo.vim.git')
-    "call dein#add('mikewest/vimroom') " not using
-    "call dein#add('gmarik/Vundle.vim')
-    "
-    "call dein#add('mattn/webapi-vim') "required for mattn/gist-vim
-    "call dein#add('mattn/gist-vim') " depends on mattn/webapi-vim; not using
     call dein#add('airblade/vim-gitgutter')
     call dein#add('altercation/vim-colors-solarized')
     call dein#add('bkad/CamelCaseMotion')
@@ -380,11 +362,9 @@ if dein#load_state('~/.vim/plugins')
       endif
     endfor
     call dein#add('justinmk/vim-sneak')
-    call dein#add('mbbill/undotree')
     call dein#add('michaeljsmith/vim-indent-object')
     call dein#add('mtth/scratch.vim')
     call dein#add('nelstrom/vim-visual-star-search')
-    call dein#add('reedes/vim-wordy')
     call dein#add('tpope/vim-abolish')
     call dein#add('tpope/vim-commentary')
     call dein#add('tpope/vim-eunuch')
@@ -443,11 +423,6 @@ endif
 "map <Leader>j <Plug>(easymotion-j)
 "map <Leader>k <Plug>(easymotion-k)
 
-"
-" filebeagle
-"
-autocmd BufNewFile filebeagle,filebeagle-? setlocal number " always show line numbers when using filebeagle
-
 " fzf
 "
 " Search and execute vim mappings
@@ -478,36 +453,10 @@ nnoremap <silent> <Leader>lb :BLines<CR>
 nnoremap <silent> <leader>/ :execute 'Rg ' . input('Rg/')<CR>
 
 "
-" gist-vim
-"
-if has("mac")
-  let g:gist_clip_command = 'pbcopy'
-end
-
-"
 " gitgutter
 "
 highlight clear SignColumn " For the same appearance as your line number column
 let g:gitgutter_map_keys = 0 " No default keys
-
-"
-" Gundo
-"
-"nnoremap <F5> :GundoToggle<CR>
-
-"
-" incsearch.vim (deprecated; see comment in plugin loading section above)
-"
-" map /  <Plug>(incsearch-forward)
-" map ?  <Plug>(incsearch-backward)
-" map g/ <Plug>(incsearch-stay)
-" let g:incsearch#auto_nohlsearch = 1
-" map n  <Plug>(incsearch-nohl-n)
-" map N  <Plug>(incsearch-nohl-N)
-" map *  <Plug>(incsearch-nohl-*)
-" map #  <Plug>(incsearch-nohl-#)
-" map g* <Plug>(incsearch-nohl-g*)
-" map g# <Plug>(incsearch-nohl-g#)
 
 "
 " Sneak
@@ -584,22 +533,6 @@ augroup END
 
 " Timestamps
 " map ,t <Esc>o# Created: TIME<Esc>ASTAMP by foolishbrilliance<CR># Last Modified: TIME<Esc>ASTAMP by foolishbrilliance<Esc>
-
-"
-" for colemak-vim
-"
-" Fix for colemak.vim keymap collision. tpope/vim-fugitive's maps y<C-g>
-" and colemak.vim maps 'y' to 'w' (word). In combination this stalls 'y'
-" because Vim must wait to see if the user wants to press <C-g> as well.
-"augroup RemoveFugitiveMappingForColemak
-"    autocmd!
-"    autocmd BufEnter * silent! execute "nunmap <buffer> <silent> y<C-g>"
-"augroup END
-
-" It is recommended to load colemak.vim after all other Vim scripts. If you
-" use Vundle or Pathogen, I suggest adding a line to reload the script at the
-" bottom of your Vim configuration file.
-"silent! source "$HOME/.vim/bundle/vim-colemak/plugin/colemak.vim"
 
 if filereadable(expand("~/.vimrc.local"))
   source ~/.vimrc.local
