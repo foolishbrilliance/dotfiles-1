@@ -353,6 +353,7 @@ if dein#load_state('~/.vim/plugins')
       if isdirectory(fzf_plugin_dir)
           call dein#add(fzf_plugin_dir) " required for fzf.vim
           call dein#add('junegunn/fzf.vim')   " depends on fzf_plugin_dir
+          break
       endif
     endfor
     call dein#add('justinmk/vim-sneak')
