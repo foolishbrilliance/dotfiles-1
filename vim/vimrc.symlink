@@ -228,9 +228,8 @@ nnoremap <C-q> :bd!<CR>       " force
 nnoremap <BS> :b#<CR>
 nnoremap <C-h> :b#<CR>
 
-" primitive buffer switching/splitting
-nnoremap <Leader>bb :ls<CR>:b<Space>
-nnoremap <Leader>g :ls<CR>:b<Space>
+" buffer switching/splitting
+nnoremap <Leader>bb :Buffers<CR>
 nnoremap <Leader>sh :ls<CR>:sbuffer<Space>
 nnoremap <Leader>sv :ls<CR>:vertical sbuffer<Space>
 
