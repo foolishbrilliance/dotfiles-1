@@ -356,6 +356,7 @@ if dein#load_state('~/.vim/plugins')
     call dein#add('mtth/scratch.vim')
     call dein#add('nelstrom/vim-visual-star-search')
     call dein#add('ntpeters/vim-better-whitespace')
+    call dein#add('terryma/vim-expand-region')
     call dein#add('tpope/vim-abolish')
     call dein#add('tpope/vim-commentary')
     call dein#add('tpope/vim-eunuch')
@@ -368,6 +369,8 @@ if dein#load_state('~/.vim/plugins')
     call dein#add('tpope/vim-unimpaired')
     "call dein#add('tpope/vim-vinegar')
     call dein#add('vim-airline/vim-airline-themes')
+    call dein#add('kana/vim-textobj-indent')
+    call dein#add('kana/vim-textobj-line')
     call dein#add('kana/vim-textobj-user') " required for mattn/vim-textobj-url
     call dein#add('mattn/vim-textobj-url') " depends on kana/vim-textobj-user
 
@@ -490,6 +493,21 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 
 let g:airline_theme='solarized'
 " let g:airline_powerline_fonts = 1
+
+"
+" vim-expand-region
+"
+" Extend the global default
+if !has('nvim')
+    call expand_region#custom_text_objects({
+        \ 'a]' :1,
+        \ 'ab' :1,
+        \ 'aB' :1,
+        \ 'ii' :0,
+        \ 'ai' :0,
+        \ })
+endif
+
 
 "
 " vim-highlightedyank
