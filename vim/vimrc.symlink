@@ -126,18 +126,17 @@ endif
 " Section: Custom Keybindings {{{1
 " ---------------------
 
-" change the mapleader from \ to , (mapleader will be used for custom mappings)
-let mapleader=","
+" downsides to <space> as leader, it is used to toggle folds by default?
+let mapleader=" "
 
 " Use space instead of : to save pinkies
-noremap <Space> :
+"noremap <Space> :
 
 " use :wq! instead
 nnoremap ZZ <Nop>
 nnoremap <C-s> :update<CR>
 
 " avoid <Esc>
-inoremap <Leader>m <Esc>`^
 inoremap jj <Esc>`^
 inoremap <C-c> <Esc>`^
 " Not sure if it's a bad idea to remap <Esc>
@@ -149,6 +148,8 @@ noremap! <F1>   <Esc>
 "inoremap zne <Esc>:update<CR>`^i
 inoremap zne <Esc>:update<CR>
 nnoremap zne <Esc>:update<CR>
+nnoremap <Leader>fs <Esc>:update<CR>
+nnoremap <Leader>bs <Esc>:update<CR>
 
 " call actions from other modes
 inoremap <M-o>      <C-o>o
@@ -216,7 +217,7 @@ nnoremap <Leader>i :bnext<CR>
 " Move to the previous buffer
 nnoremap <Leader>h :bprevious<CR>
 " Close the current buffer and move to the previous one. This replicates the idea of closing a tab
-nnoremap <Leader>bq :bp <BAR> bd #<CR>
+nnoremap <Leader>bk :bp <BAR> bd #<CR>
 " delete (close) buffer
 nnoremap <Leader>bdd :bd<CR>
 nnoremap <Leader>b!! :bd<CR>
@@ -228,31 +229,21 @@ nnoremap <C-q> :bd!<CR>       " force
 nnoremap <BS> :b#<CR>
 nnoremap <C-h> :b#<CR>
 
-" primitive buffer switching/splitting
-nnoremap <Leader>bb :ls<CR>:b<Space>
-nnoremap <Leader>g :ls<CR>:b<Space>
+" buffer switching/splitting
+nnoremap <Leader>bb :Buffers<CR>
 nnoremap <Leader>sh :ls<CR>:sbuffer<Space>
 nnoremap <Leader>sv :ls<CR>:vertical sbuffer<Space>
-
-" buffer search
-nnoremap <Leader>bf :CtrlP<CR>
-nnoremap <Leader>bm :CtrlPMixed<CR>
-nnoremap <Leader>bs :CtrlPMRU<CR>
-nnoremap <Leader>bl :CtrlPBuffer<CR>
-nnoremap <Leader>p :CtrlPMRU<CR>
 
 "
 " windows
 "
-"nnoremap <C-h> <C-w>h " breaks ^H "last tab" mapping
 nnoremap <C-n> <C-w>j
 nnoremap <C-e> <C-w>k
-"nnoremap <C-i> <C-w>l " breaks ^i for jumping to next position in the change list
 nnoremap <Leader>wc <C-w>c
 
 " Remove trailing whitespace
 " http://vim.wikia.com/wiki/Remove_unwanted_spaces
-nnoremap <Leader>W :cal StripTrailingWhitespace()<CR>
+nnoremap <Leader>cw :cal StripTrailingWhitespace()<CR>
 function! StripTrailingWhitespace()
   if !&binary && &filetype != 'diff'
     normal mz
@@ -268,10 +259,6 @@ endfunction
 nnoremap <Leader>O O<Esc>
 " Blank line below
 nnoremap <Leader>o o<Esc>
-
-" Comment and uncomment out a section (uses marks 'a and 'b)
-nnoremap <Leader>z :'a,'b s/^/#/
-nnoremap <Leader>y :'a,'b s/#//
 
 " Duplicate line, comment original using vim-commentary
 nmap <Leader>n yyPgccj<Esc> " deliberate recursive map (nmap) to use vim-commentary
@@ -309,6 +296,12 @@ elseif has('gui_running') && has('mac')
   nmap <Leader>cl :let @*=expand("%:p")<CR>:echom expand("%:p") "copied to clipboard"<CR>
 endif
 
+" Other Spacemacs/Doom Emacs bindings
+nnoremap <Leader>tg :call gitgutter#buffer_toggle()<CR>
+" these toggle binds are copied from vim-unimpaired
+nnoremap <Leader>tn :setlocal <C-R>=<SNR>45_toggle("relativenumber")<CR><CR>:setlocal <C-R>=<SNR>45_toggle("number")<CR><CR>
+nnoremap <Leader>tt :setlocal <C-R>=<SNR>45_toggle("wrap")<CR><CR>
+
 " Section: Custom Commands {{{1
 " ---------------------
 
@@ -331,8 +324,8 @@ endfunction
 nnoremap <Leader>## :center 80<CR>hhv0r#A<Space><Esc>40A#<Esc>d80<Bar>YppVr#kk.
 
 " Quickly edit/reload the vimrc file
-nnoremap <Leader>ev :edit $MYVIMRC<CR>
-nnoremap <Leader>v :so $MYVIMRC<CR>
+nnoremap <Leader>fP :edit $MYVIMRC<CR>
+nnoremap <Leader>hR :source $MYVIMRC<CR>
 
 " Auto load .vimrc on write
 au! BufWritePost .source vimrc %
@@ -345,35 +338,17 @@ if &compatible
   set nocompatible               " Be iMproved
 endif
 
-" Required:
 set runtimepath+=~/.vim/plugins/repos/github.com/Shougo/dein.vim
-
-" Required:
 
 if dein#load_state('~/.vim/plugins')
     call dein#begin('~/.vim/plugins')
 
     " Let dein manage dein
-    " Required:
     call dein#add('~/.vim/plugins/repos/github.com/Shougo/dein.vim')
 
 
     " Add or remove your plugins here:
-    " My plugins here:
-    " DISABLED
-    "call dein#add('jooize/vim-colemak')
     "call dein#add('Lokaltog/vim-easymotion')
-    "call dein#add('jeetsukumaran/vim-filebeagle') " not really using
-    "call dein#add('haya14busa/incsearch.vim', { 'rev': 'dev'}) "dev branch for MacVim paste fix: https://github.com/haya14busa/incsearch.vim/issues/35#issuecomment-67504976
-    "call dein#add('haya14busa/incsearch.vim') "incsearch feature merged in VIM Patch 8.0.1238 ( https://github.com/vim/vim/commit/2e51d9a0972080b087d566608472928d5b7b35d7 )
-    "call dein#add('scrooloose/nerdtree')
-    "call dein#add('scrooloose/syntastic')
-    "call dein#add('sjl/gundo.vim.git')
-    "call dein#add('mikewest/vimroom') " not using
-    "call dein#add('gmarik/Vundle.vim')
-    "
-    "call dein#add('mattn/webapi-vim') "required for mattn/gist-vim
-    "call dein#add('mattn/gist-vim') " depends on mattn/webapi-vim; not using
     call dein#add('airblade/vim-gitgutter')
     call dein#add('altercation/vim-colors-solarized')
     call dein#add('bkad/CamelCaseMotion')
@@ -385,15 +360,13 @@ if dein#load_state('~/.vim/plugins')
       if isdirectory(fzf_plugin_dir)
           call dein#add(fzf_plugin_dir) " required for fzf.vim
           call dein#add('junegunn/fzf.vim')   " depends on fzf_plugin_dir
+          break
       endif
     endfor
     call dein#add('justinmk/vim-sneak')
-    call dein#add('kien/ctrlp.vim')
-    call dein#add('mbbill/undotree')
     call dein#add('michaeljsmith/vim-indent-object')
     call dein#add('mtth/scratch.vim')
     call dein#add('nelstrom/vim-visual-star-search')
-    call dein#add('reedes/vim-wordy')
     call dein#add('tpope/vim-abolish')
     call dein#add('tpope/vim-commentary')
     call dein#add('tpope/vim-eunuch')
@@ -431,22 +404,6 @@ endif
 " ---------------------
 
 "
-" CtrlP
-"
-let g:ctrlp_map = '<C-p>'
-let g:ctrlp_cmd = 'CtrlP' " quick buffer switching
-
-let g:ctrlp_user_command = {
-      \ 'types': {
-      \ 1: ['.git', 'cd %s && git ls-files'],
-      \ },
-      \ 'fallback': 'find %s -type f'
-      \ }
-
-" Use nearest .git dir
-let g:ctrlp_working_path_mode = 'ra'
-
-"
 " EasyMotion
 "
 "let g:EasyMotion_do_mapping = 0 " Disable default mappings
@@ -468,11 +425,6 @@ let g:ctrlp_working_path_mode = 'ra'
 "map <Leader>j <Plug>(easymotion-j)
 "map <Leader>k <Plug>(easymotion-k)
 
-"
-" filebeagle
-"
-autocmd BufNewFile filebeagle,filebeagle-? setlocal number " always show line numbers when using filebeagle
-
 " fzf
 "
 " Search and execute vim mappings
@@ -492,47 +444,23 @@ inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
 
 " Custom fzf mappings, inspired from
 " https://github.com/zenbro/dotfiles/blob/d3f4bd3136aab297191c062345dfc680abb1efac/.nvimrc#L225-L233
-nnoremap <silent> <leader><leader> :History<CR>
+nnoremap <silent> <leader><leader> :Files<CR>
 nnoremap <silent> <Leader>. :Files<CR>
-nnoremap <silent> <Leader>: :History:<CR>
+nnoremap <silent> <Leader>fr :History<CR>
+nnoremap <silent> <Leader>; :History:<CR>
 nnoremap <silent> <Leader>\ :History/<CR>
 nnoremap <silent> <Leader><space> :Buffers<CR>
-nnoremap <silent> <Leader>; :Commands<CR>
+nnoremap <silent> <Leader>: :Commands<CR>
 nnoremap <silent> <Leader>ll :Lines<CR>
 nnoremap <silent> <Leader>lb :BLines<CR>
 nnoremap <silent> <leader>/ :execute 'Rg ' . input('Rg/')<CR>
-
-"
-" gist-vim
-"
-if has("mac")
-  let g:gist_clip_command = 'pbcopy'
-end
+nnoremap <silent> <Leader>hk :Maps<CR>
 
 "
 " gitgutter
 "
 highlight clear SignColumn " For the same appearance as your line number column
 let g:gitgutter_map_keys = 0 " No default keys
-
-"
-" Gundo
-"
-"nnoremap <F5> :GundoToggle<CR>
-
-"
-" incsearch.vim (deprecated; see comment in plugin loading section above)
-"
-" map /  <Plug>(incsearch-forward)
-" map ?  <Plug>(incsearch-backward)
-" map g/ <Plug>(incsearch-stay)
-" let g:incsearch#auto_nohlsearch = 1
-" map n  <Plug>(incsearch-nohl-n)
-" map N  <Plug>(incsearch-nohl-N)
-" map *  <Plug>(incsearch-nohl-*)
-" map #  <Plug>(incsearch-nohl-#)
-" map g* <Plug>(incsearch-nohl-g*)
-" map g# <Plug>(incsearch-nohl-g#)
 
 "
 " Sneak
@@ -545,14 +473,16 @@ let g:sneak#use_ic_scs = 1
 " Solarized
 " Theme not accessible until Bundle command is run per
 " https://github.com/gmarik/Vundle.vim/issues/119#issuecomment-3089931
-call togglebg#map("<F4>")
-syntax enable
-" setting the following line makes iTerm vim color really strange (brown)
-"let g:solarized_termcolors=256
-if has('nvim') || has("gui_macvim")
-  colorscheme solarized-truecolor-only
-else
-  colorscheme solarized
+  if !has('nvim')
+  call togglebg#map("<F4>")
+  syntax enable
+  " setting the following line makes iTerm vim color really strange (brown)
+  "let g:solarized_termcolors=256
+  if has('nvim') || has("gui_macvim")
+    colorscheme solarized-truecolor-only
+  else
+    colorscheme solarized
+  endif
 endif
 
 "
@@ -607,22 +537,6 @@ augroup END
 
 " Timestamps
 " map ,t <Esc>o# Created: TIME<Esc>ASTAMP by foolishbrilliance<CR># Last Modified: TIME<Esc>ASTAMP by foolishbrilliance<Esc>
-
-"
-" for colemak-vim
-"
-" Fix for colemak.vim keymap collision. tpope/vim-fugitive's maps y<C-g>
-" and colemak.vim maps 'y' to 'w' (word). In combination this stalls 'y'
-" because Vim must wait to see if the user wants to press <C-g> as well.
-"augroup RemoveFugitiveMappingForColemak
-"    autocmd!
-"    autocmd BufEnter * silent! execute "nunmap <buffer> <silent> y<C-g>"
-"augroup END
-
-" It is recommended to load colemak.vim after all other Vim scripts. If you
-" use Vundle or Pathogen, I suggest adding a line to reload the script at the
-" bottom of your Vim configuration file.
-"silent! source "$HOME/.vim/bundle/vim-colemak/plugin/colemak.vim"
 
 if filereadable(expand("~/.vimrc.local"))
   source ~/.vimrc.local
