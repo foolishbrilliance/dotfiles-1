@@ -479,14 +479,13 @@ map T <Plug>Sneak_T
 " https://github.com/gmarik/Vundle.vim/issues/119#issuecomment-3089931
 if !has('nvim')
   call togglebg#map("<F4>")
-  syntax enable
-  " setting the following line makes iTerm vim color really strange (brown)
-  "let g:solarized_termcolors=256
-  if has('nvim') || has("gui_macvim")
-    colorscheme solarized-truecolor-only
-  else
-    colorscheme solarized
-  endif
+endif
+" setting the following line makes iTerm vim color really strange (brown)
+"let g:solarized_termcolors=256
+if has('nvim') || has("gui_macvim")
+  colorscheme solarized-truecolor-only
+else
+  colorscheme solarized
 endif
 
 "
