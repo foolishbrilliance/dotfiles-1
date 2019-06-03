@@ -11,8 +11,7 @@
   (interactive)
   (avy--generic-jump "https?://" nil 'pre))
 
-;; Variables
-(setq doom-font (font-spec :family "Source Code Pro" :size 18)
+(setq doom-font (font-spec :family "Inconsolata" :size 18)
       split-width-threshold 100 ;; split windows if the window's max width <100
       evil-escape-key-sequence ";y"
       evil-escape-unordered-key-sequence t
@@ -70,6 +69,7 @@
 (map!
  ;; Global bindings
  :gnvime [A-backspace] #'backward-kill-word
+ :n "DEL" #'evil-switch-to-windows-last-buffer
  :m "\\" nil ;; by default this is evil-execute-in-emacs-state, which I never use. TODO: This doesn't work
  :i "A-SPC"            #'+company/complete ;; I use C-SPC for Spotlight com
 
