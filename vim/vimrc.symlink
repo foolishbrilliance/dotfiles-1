@@ -328,58 +328,58 @@ endif
 set runtimepath+=~/.vim/plugins/repos/github.com/Shougo/dein.vim
 
 if dein#load_state('~/.vim/plugins')
-    call dein#begin('~/.vim/plugins')
+  call dein#begin('~/.vim/plugins')
 
-    " Let dein manage dein
-    call dein#add('~/.vim/plugins/repos/github.com/Shougo/dein.vim')
+  " Let dein manage dein
+  call dein#add('~/.vim/plugins/repos/github.com/Shougo/dein.vim')
 
 
-    " Add or remove your plugins here:
-    "call dein#add('Lokaltog/vim-easymotion')
-    call dein#add('airblade/vim-gitgutter')
-    call dein#add('altercation/vim-colors-solarized')
-    call dein#add('bkad/CamelCaseMotion')
-    call dein#add('bling/vim-airline')
-    call dein#add('elzr/vim-json')
-    call dein#add('flazz/vim-colorschemes')
-    call dein#add('frankier/neovim-colors-solarized-truecolor-only') " for solarized in neovim
-    for fzf_plugin_dir in ['/usr/local/opt/fzf', '/usr/local/brew/opt/fzf', '/home/linuxbrew/.linuxbrew/opt/fzf', $HOME.'/.fzf']
-      if isdirectory(fzf_plugin_dir)
-          call dein#add(fzf_plugin_dir) " required for fzf.vim
-          call dein#add('junegunn/fzf.vim')   " depends on fzf_plugin_dir
-          break
-      endif
-    endfor
-    call dein#add('justinmk/vim-sneak')
-    call dein#add('machakann/vim-highlightedyank')
-    call dein#add('michaeljsmith/vim-indent-object')
-    call dein#add('mtth/scratch.vim')
-    call dein#add('nelstrom/vim-visual-star-search')
-    call dein#add('ntpeters/vim-better-whitespace')
-    call dein#add('terryma/vim-expand-region')
-    call dein#add('tpope/vim-abolish')
-    call dein#add('tpope/vim-commentary')
-    call dein#add('tpope/vim-eunuch')
-    call dein#add('tpope/vim-fugitive')
-    call dein#add('tpope/vim-jdaddy')
-    call dein#add('tpope/vim-repeat')
-    call dein#add('tpope/vim-sensible')
-    call dein#add('tpope/vim-sleuth')
-    call dein#add('tpope/vim-surround')
-    call dein#add('tpope/vim-unimpaired')
-    "call dein#add('tpope/vim-vinegar')
-    call dein#add('vim-airline/vim-airline-themes')
-    call dein#add('kana/vim-textobj-indent')
-    call dein#add('kana/vim-textobj-line')
-    call dein#add('kana/vim-textobj-user') " required for mattn/vim-textobj-url
-    call dein#add('mattn/vim-textobj-url') " depends on kana/vim-textobj-user
+  " Add or remove your plugins here:
+  "call dein#add('Lokaltog/vim-easymotion')
+  call dein#add('airblade/vim-gitgutter')
+  call dein#add('altercation/vim-colors-solarized')
+  call dein#add('bkad/CamelCaseMotion')
+  call dein#add('bling/vim-airline')
+  call dein#add('elzr/vim-json')
+  call dein#add('flazz/vim-colorschemes')
+  call dein#add('frankier/neovim-colors-solarized-truecolor-only') " for solarized in neovim
+  for fzf_plugin_dir in ['/usr/local/opt/fzf', '/usr/local/brew/opt/fzf', '/home/linuxbrew/.linuxbrew/opt/fzf', $HOME.'/.fzf']
+    if isdirectory(fzf_plugin_dir)
+      call dein#add(fzf_plugin_dir) " required for fzf.vim
+      call dein#add('junegunn/fzf.vim')   " depends on fzf_plugin_dir
+      break
+    endif
+  endfor
+  call dein#add('justinmk/vim-sneak')
+  call dein#add('machakann/vim-highlightedyank')
+  call dein#add('michaeljsmith/vim-indent-object')
+  call dein#add('mtth/scratch.vim')
+  call dein#add('nelstrom/vim-visual-star-search')
+  call dein#add('ntpeters/vim-better-whitespace')
+  call dein#add('terryma/vim-expand-region')
+  call dein#add('tpope/vim-abolish')
+  call dein#add('tpope/vim-commentary')
+  call dein#add('tpope/vim-eunuch')
+  call dein#add('tpope/vim-fugitive')
+  call dein#add('tpope/vim-jdaddy')
+  call dein#add('tpope/vim-repeat')
+  call dein#add('tpope/vim-sensible')
+  call dein#add('tpope/vim-sleuth')
+  call dein#add('tpope/vim-surround')
+  call dein#add('tpope/vim-unimpaired')
+  "call dein#add('tpope/vim-vinegar')
+  call dein#add('vim-airline/vim-airline-themes')
+  call dein#add('kana/vim-textobj-indent')
+  call dein#add('kana/vim-textobj-line')
+  call dein#add('kana/vim-textobj-user') " required for mattn/vim-textobj-url
+  call dein#add('mattn/vim-textobj-url') " depends on kana/vim-textobj-user
 
-    " You can specify revision/branch/tag.
-    "call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
+  " You can specify revision/branch/tag.
+  "call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
 
-    " Required:
-    call dein#end()
-    call dein#save_state()
+  " Required:
+  call dein#end()
+  call dein#save_state()
 endif
 
 " Required:
@@ -420,9 +420,9 @@ endif
 " fzf
 "
 " Search and execute vim mappings
-nmap <leader><tab> <plug>(fzf-maps-n)
-xmap <leader><tab> <plug>(fzf-maps-x)
-omap <leader><tab> <plug>(fzf-maps-o)
+nmap <Leader><tab> <plug>(fzf-maps-n)
+xmap <Leader><tab> <plug>(fzf-maps-x)
+omap <Leader><tab> <plug>(fzf-maps-o)
 
 " Insert mode completion
 imap <c-x><c-k> <plug>(fzf-complete-word)
@@ -436,7 +436,7 @@ inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
 
 " Custom fzf mappings, inspired from
 " https://github.com/zenbro/dotfiles/blob/d3f4bd3136aab297191c062345dfc680abb1efac/.nvimrc#L225-L233
-nnoremap <silent> <leader><leader> :Files<CR>
+nnoremap <silent> <Leader><leader> :Files<CR>
 nnoremap <silent> <Leader>. :Files<CR>
 nnoremap <silent> <Leader>fr :History<CR>
 nnoremap <silent> <Leader>; :History:<CR>
@@ -445,7 +445,7 @@ nnoremap <silent> <Leader><space> :Buffers<CR>
 nnoremap <silent> <Leader>: :Commands<CR>
 nnoremap <silent> <Leader>ll :Lines<CR>
 nnoremap <silent> <Leader>lb :BLines<CR>
-nnoremap <silent> <leader>/ :execute 'Rg ' . input('Rg/')<CR>
+nnoremap <silent> <Leader>/ :execute 'Rg ' . input('Rg/')<CR>
 nnoremap <silent> <Leader>hk :Maps<CR>
 
 "
@@ -470,7 +470,7 @@ map T <Plug>Sneak_T
 " Solarized
 " Theme not accessible until Bundle command is run per
 " https://github.com/gmarik/Vundle.vim/issues/119#issuecomment-3089931
-  if !has('nvim')
+if !has('nvim')
   call togglebg#map("<F4>")
   syntax enable
   " setting the following line makes iTerm vim color really strange (brown)
@@ -499,13 +499,13 @@ let g:airline_theme='solarized'
 "
 " Extend the global default
 if !has('nvim')
-    call expand_region#custom_text_objects({
-        \ 'a]' :1,
-        \ 'ab' :1,
-        \ 'aB' :1,
-        \ 'ii' :0,
-        \ 'ai' :0,
-        \ })
+  call expand_region#custom_text_objects({
+    \ 'a]' :1,
+    \ 'ab' :1,
+    \ 'aB' :1,
+    \ 'ii' :0,
+    \ 'ai' :0,
+    \ })
 endif
 
 
