@@ -126,18 +126,17 @@ endif
 " Section: Custom Keybindings {{{1
 " ---------------------
 
-" change the mapleader from \ to , (mapleader will be used for custom mappings)
-let mapleader=","
+" downsides to <space> as leader, it is used to toggle folds by default?
+let mapleader=" "
 
 " Use space instead of : to save pinkies
-noremap <Space> :
+"noremap <Space> :
 
 " use :wq! instead
 nnoremap ZZ <Nop>
 nnoremap <C-s> :update<CR>
 
 " avoid <Esc>
-inoremap <Leader>m <Esc>`^
 inoremap jj <Esc>`^
 inoremap <C-c> <Esc>`^
 " Not sure if it's a bad idea to remap <Esc>
@@ -149,6 +148,8 @@ noremap! <F1>   <Esc>
 "inoremap zne <Esc>:update<CR>`^i
 inoremap zne <Esc>:update<CR>
 nnoremap zne <Esc>:update<CR>
+nnoremap <Leader>fs <Esc>:update<CR>
+nnoremap <Leader>bs <Esc>:update<CR>
 
 " call actions from other modes
 inoremap <M-o>      <C-o>o
@@ -242,7 +243,7 @@ nnoremap <Leader>wc <C-w>c
 
 " Remove trailing whitespace
 " http://vim.wikia.com/wiki/Remove_unwanted_spaces
-nnoremap <Leader>W :cal StripTrailingWhitespace()<CR>
+nnoremap <Leader>cw :cal StripTrailingWhitespace()<CR>
 function! StripTrailingWhitespace()
   if !&binary && &filetype != 'diff'
     normal mz
@@ -295,6 +296,12 @@ elseif has('gui_running') && has('mac')
   nmap <Leader>cl :let @*=expand("%:p")<CR>:echom expand("%:p") "copied to clipboard"<CR>
 endif
 
+" Other Spacemacs/Doom Emacs bindings
+nnoremap <Leader>tg :call gitgutter#buffer_toggle()<CR>
+" these toggle binds are copied from vim-unimpaired
+nnoremap <Leader>tn :setlocal <C-R>=<SNR>45_toggle("relativenumber")<CR><CR>:setlocal <C-R>=<SNR>45_toggle("number")<CR><CR>
+nnoremap <Leader>tt :setlocal <C-R>=<SNR>45_toggle("wrap")<CR><CR>
+
 " Section: Custom Commands {{{1
 " ---------------------
 
@@ -317,8 +324,8 @@ endfunction
 nnoremap <Leader>## :center 80<CR>hhv0r#A<Space><Esc>40A#<Esc>d80<Bar>YppVr#kk.
 
 " Quickly edit/reload the vimrc file
-nnoremap <Leader>ev :edit $MYVIMRC<CR>
-nnoremap <Leader>v :so $MYVIMRC<CR>
+nnoremap <Leader>fP :edit $MYVIMRC<CR>
+nnoremap <Leader>hR :source $MYVIMRC<CR>
 
 " Auto load .vimrc on write
 au! BufWritePost .source vimrc %
@@ -437,15 +444,17 @@ inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
 
 " Custom fzf mappings, inspired from
 " https://github.com/zenbro/dotfiles/blob/d3f4bd3136aab297191c062345dfc680abb1efac/.nvimrc#L225-L233
-nnoremap <silent> <leader><leader> :History<CR>
+nnoremap <silent> <leader><leader> :Files<CR>
 nnoremap <silent> <Leader>. :Files<CR>
-nnoremap <silent> <Leader>: :History:<CR>
+nnoremap <silent> <Leader>fr :History<CR>
+nnoremap <silent> <Leader>; :History:<CR>
 nnoremap <silent> <Leader>\ :History/<CR>
 nnoremap <silent> <Leader><space> :Buffers<CR>
-nnoremap <silent> <Leader>; :Commands<CR>
+nnoremap <silent> <Leader>: :Commands<CR>
 nnoremap <silent> <Leader>ll :Lines<CR>
 nnoremap <silent> <Leader>lb :BLines<CR>
 nnoremap <silent> <leader>/ :execute 'Rg ' . input('Rg/')<CR>
+nnoremap <silent> <Leader>hk :Maps<CR>
 
 "
 " gitgutter
