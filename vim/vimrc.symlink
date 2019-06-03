@@ -44,7 +44,7 @@ set autoindent
 set autowrite
 set backspace=2         " allow backspace beyond insertion point
 set backspace=indent,eol,start
-set cmdheight=2 " for long file names
+set cmdheight=2         " for long file names
 set display=lastline
 set fileformats=unix,dos,mac
 if executable('ag')
@@ -340,7 +340,6 @@ if dein#load_state('~/.vim/plugins')
   call dein#add('airblade/vim-gitgutter')
   call dein#add('altercation/vim-colors-solarized')
   call dein#add('bkad/CamelCaseMotion')
-  call dein#add('bling/vim-airline')
   call dein#add('elzr/vim-json')
   call dein#add('flazz/vim-colorschemes')
   call dein#add('frankier/neovim-colors-solarized-truecolor-only') " for solarized in neovim
@@ -352,6 +351,7 @@ if dein#load_state('~/.vim/plugins')
     endif
   endfor
   call dein#add('justinmk/vim-sneak')
+  call dein#add('itchyny/lightline.vim')
   call dein#add('machakann/vim-highlightedyank')
   call dein#add('michaeljsmith/vim-indent-object')
   call dein#add('mtth/scratch.vim')
@@ -368,8 +368,7 @@ if dein#load_state('~/.vim/plugins')
   call dein#add('tpope/vim-sleuth')
   call dein#add('tpope/vim-surround')
   call dein#add('tpope/vim-unimpaired')
-  "call dein#add('tpope/vim-vinegar')
-  call dein#add('vim-airline/vim-airline-themes')
+  call dein#add('tpope/vim-vinegar')
   call dein#add('kana/vim-textobj-indent')
   call dein#add('kana/vim-textobj-line')
   call dein#add('kana/vim-textobj-user') " required for mattn/vim-textobj-url
@@ -456,6 +455,13 @@ highlight clear SignColumn " For the same appearance as your line number column
 let g:gitgutter_map_keys = 0 " No default keys
 
 "
+" lightline
+"
+let g:lightline = {
+  \ 'colorscheme': 'solarized',
+  \ }
+
+"
 " Sneak
 "
 let g:sneak#streak = 1
@@ -482,18 +488,6 @@ if !has('nvim')
     colorscheme solarized
   endif
 endif
-
-"
-" vim-airline
-"
-" Enable the list of buffers
-let g:airline#extensions#tabline#enabled = 1
-
-" Show just the filename
-let g:airline#extensions#tabline#fnamemod = ':t'
-
-let g:airline_theme='solarized'
-" let g:airline_powerline_fonts = 1
 
 "
 " vim-expand-region
