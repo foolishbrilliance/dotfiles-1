@@ -17,9 +17,9 @@ if !isdirectory(expand('~/.vim.private/swap/', 1))
   silent call mkdir(expand('~/.vim.private/swap', 1), 'p')
 endif
 
-" Turn on persistent undo per: github.com/mikewadsten/dotfiles/
+" Turn on persistent undo per: http://github.com/mikewadsten/dotfiles/
 if has('persistent_undo')
-  set undodir=~/.vim.private/undo//
+  set undodir=~/.vim.private/undo
   set undofile
   set undolevels=1000
   set undoreload=10000
@@ -502,7 +502,6 @@ if !has('nvim')
     \ 'ai' :0,
     \ })
 endif
-
 
 "
 " vim-highlightedyank
