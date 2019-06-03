@@ -161,8 +161,7 @@ noremap! <C-j>      <Down>
 noremap! <C-k><C-k> <Up>
 
 nnoremap Y  y$
-nnoremap vv V
-nnoremap V <C-V>$
+nnoremap vv <C-V>$
 
 nnoremap gs :%s/
 xnoremap gs :s/
@@ -176,6 +175,7 @@ cnoremap <C-o>      <Up>
 nnoremap <Leader>S i<CR><Esc>^mwgk:silent! s/\v +$//<CR>:noh<CR>
 
 " visually select the last paste or change
+" from https://vim.fandom.com/wiki/Selecting_your_pasted_text
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 
 " Unhighlight the last search pattern on Enter
@@ -351,6 +351,7 @@ if dein#load_state('~/.vim/plugins')
       endif
     endfor
     call dein#add('justinmk/vim-sneak')
+    call dein#add('machakann/vim-highlightedyank')
     call dein#add('michaeljsmith/vim-indent-object')
     call dein#add('mtth/scratch.vim')
     call dein#add('nelstrom/vim-visual-star-search')
@@ -484,6 +485,11 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 
 let g:airline_theme='solarized'
 " let g:airline_powerline_fonts = 1
+
+"
+" vim-highlightedyank
+"
+let g:highlightedyank_highlight_duration = 200
 
 "
 " vim-json
