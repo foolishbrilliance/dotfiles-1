@@ -284,7 +284,7 @@ endif
 
 " Other Spacemacs/Doom Emacs bindings
 nnoremap <Leader>cw :StripWhitespace<CR>
-nnoremap <Leader>qq :q
+nnoremap <Leader>qq :q<CR>
 nnoremap <Leader>tg :call gitgutter#buffer_toggle()<CR>
 " these toggle binds are copied from vim-unimpaired
 nnoremap <Leader>tn :setlocal <C-R>=<SNR>45_toggle("relativenumber")<CR><CR>:setlocal <C-R>=<SNR>45_toggle("number")<CR><CR>
@@ -431,10 +431,6 @@ imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file)
 imap <c-x><c-l> <plug>(fzf-complete-line)
-
-" Advanced customization using autoload functions
-" Complete word from dictionary
-inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
 
 " Custom fzf mappings, inspired from
 " https://github.com/zenbro/dotfiles/blob/d3f4bd3136aab297191c062345dfc680abb1efac/.nvimrc#L225-L233
