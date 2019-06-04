@@ -438,18 +438,18 @@ inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
 
 " Custom fzf mappings, inspired from
 " https://github.com/zenbro/dotfiles/blob/d3f4bd3136aab297191c062345dfc680abb1efac/.nvimrc#L225-L233
-nnoremap <silent> <Leader><Leader> :Files<CR>
-nnoremap <silent> <Leader>. :Find<CR>
-nnoremap <silent> <Leader>fr :History<CR>
-nnoremap <silent> <Leader>' :History:<CR>  " :Command history'
-nnoremap <silent> <Leader>; :History:<CR>
-nnoremap <silent> <Leader>// :History/<CR>
-nnoremap <silent> <Leader>: :Commands<CR>
-nnoremap <silent> <Leader>hf :Commands<CR>
-nnoremap <silent> <Leader>ll :Lines<CR>
-nnoremap <silent> <Leader>lb :BLines<CR>
-nnoremap <silent> <Leader>/d :execute 'Rg ' . input('Rg/')<CR>
-nnoremap <silent> <Leader>hk :Maps<CR>
+nnoremap <silent> <Leader><Leader>  :Files<CR>
+nnoremap <silent> <Leader>.         :Find<CR>
+nnoremap <silent> <Leader>fr        :History<CR>
+nnoremap <silent> <Leader>'         :History:<CR>  " :Command history'
+nnoremap <silent> <Leader>;         :History:<CR>
+nnoremap <silent> <Leader>//        :History/<CR>
+nnoremap <silent> <Leader>:         :Commands<CR>
+nnoremap <silent> <Leader>hf        :Commands<CR>
+nnoremap <silent> <Leader>ll        :Lines<CR>
+nnoremap <silent> <Leader>lb        :BLines<CR>
+nnoremap <silent> <Leader>/d        :execute 'Rg ' . input('Rg/')<CR>
+nnoremap <silent> <Leader>hk        :Maps<CR>
 
 " custom rg command
 command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --smart-case --max-columns=150 --max-columns-preview --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
