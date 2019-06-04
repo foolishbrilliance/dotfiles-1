@@ -448,8 +448,8 @@ nnoremap <silent> <Leader>lb :BLines<CR>
 nnoremap <silent> <Leader>/ :execute 'Rg ' . input('Rg/')<CR>
 nnoremap <silent> <Leader>hk :Maps<CR>
 
-" non-recursive rg
-command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --smart-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
+" custom rg command
+command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --smart-case --max-columns=150 --max-columns-preview --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
 
 "
 " gitgutter
