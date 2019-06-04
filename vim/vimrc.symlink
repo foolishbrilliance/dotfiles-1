@@ -337,7 +337,6 @@ if dein#load_state('~/.vim/plugins')
 
   " Add or remove your plugins here:
   "call dein#add('Lokaltog/vim-easymotion')
-  call dein#add('airblade/vim-gitgutter')
   call dein#add('altercation/vim-colors-solarized')
   call dein#add('bkad/CamelCaseMotion')
   call dein#add('elzr/vim-json')
@@ -353,6 +352,7 @@ if dein#load_state('~/.vim/plugins')
   call dein#add('justinmk/vim-sneak')
   call dein#add('itchyny/lightline.vim')
   call dein#add('machakann/vim-highlightedyank')
+  call dein#add('mhinz/vim-signify')
   call dein#add('michaeljsmith/vim-indent-object')
   call dein#add('mtth/scratch.vim')
   call dein#add('nathanaelkane/vim-indent-guides')
@@ -452,12 +452,6 @@ nnoremap <silent> <Leader>hk :Maps<CR>
 command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --smart-case --max-columns=150 --max-columns-preview --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
 
 "
-" gitgutter
-"
-highlight clear SignColumn " For the same appearance as your line number column
-let g:gitgutter_map_keys = 0 " No default keys
-
-"
 " lightline
 "
 let g:lightline = {
@@ -514,6 +508,15 @@ let g:highlightedyank_highlight_duration = 200
 " vim-json
 "
 let g:vim_json_syntax_conceal = 0
+
+"
+" vim-signify
+"
+let g:signify_vcs_list = [ 'git', 'perforce', 'hg' ]
+" fix SignColumn color per
+" https://github.com/mhinz/vim-signify/blob/ac23bd95d5fe0c7a7bf4a331e9d37eb72697c46e/doc/signify.txt#L602
+autocmd ColorScheme *
+  \ highlight SignColumn ctermbg=NONE cterm=NONE guibg=NONE gui=NONE
 
 " Section: AutoCommands {{{1
 " ---------------------
