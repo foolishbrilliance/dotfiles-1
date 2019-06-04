@@ -284,6 +284,7 @@ endif
 
 " Other Spacemacs/Doom Emacs bindings
 nnoremap <Leader>cw :StripWhitespace<CR>
+nnoremap <Leader>qq :q
 nnoremap <Leader>tg :call gitgutter#buffer_toggle()<CR>
 " these toggle binds are copied from vim-unimpaired
 nnoremap <Leader>tn :setlocal <C-R>=<SNR>45_toggle("relativenumber")<CR><CR>:setlocal <C-R>=<SNR>45_toggle("number")<CR><CR>
@@ -312,7 +313,7 @@ endfunction
 nnoremap <Leader>## :center 80<CR>hhv0r#A<Space><Esc>40A#<Esc>d80<Bar>YppVr#kk.
 
 " Quickly edit/reload the vimrc file
-nnoremap <Leader>fP :edit $MYVIMRC<CR>
+nnoremap <Leader>fp :edit $MYVIMRC<CR>
 nnoremap <Leader>hR :source $MYVIMRC<CR>
 
 " Auto load .vimrc on write
@@ -440,12 +441,14 @@ inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
 nnoremap <silent> <Leader><Leader> :Files<CR>
 nnoremap <silent> <Leader>. :Find<CR>
 nnoremap <silent> <Leader>fr :History<CR>
+nnoremap <silent> <Leader>' :History:<CR>  " :Command history'
 nnoremap <silent> <Leader>; :History:<CR>
-nnoremap <silent> <Leader>\ :History/<CR>
+nnoremap <silent> <Leader>// :History/<CR>
 nnoremap <silent> <Leader>: :Commands<CR>
+nnoremap <silent> <Leader>hf :Commands<CR>
 nnoremap <silent> <Leader>ll :Lines<CR>
 nnoremap <silent> <Leader>lb :BLines<CR>
-nnoremap <silent> <Leader>/ :execute 'Rg ' . input('Rg/')<CR>
+nnoremap <silent> <Leader>/d :execute 'Rg ' . input('Rg/')<CR>
 nnoremap <silent> <Leader>hk :Maps<CR>
 
 " custom rg command
