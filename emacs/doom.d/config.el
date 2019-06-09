@@ -60,8 +60,11 @@
 
 ;; Snipe
 (evil-snipe-override-mode 1)  ;; enable 1-char snipes
+(setq evil-snipe-scope 'buffer)  ;; snipe rest of buffer after cursor
 ;; Disable 1-char snipes in magit because conflicts
 (add-hook 'magit-mode-hook 'turn-off-evil-snipe-override-mode)
+;; To map [ to any opening parentheses or bracket in all modes:
+(push '(?\[ "[[{(]") evil-snipe-aliases)
 
 ;; set default regex builder for all commands
 ;; (setq ivy-re-builders-alist '((t . ivy--regex-ignore-order)))
