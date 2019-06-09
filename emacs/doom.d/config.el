@@ -33,6 +33,8 @@
       ((deft-current-files (-take 30 deft-current-files)))
     (apply orig-fun args)))
 (advice-add 'deft-buffer-setup :around #'anks-deft-limiting-fn)
+;; auto refresh after clearing filter
+(advice-add #'deft-filter-clear :after #'deft-refresh)
 
 ;; Org mode
 (setq
