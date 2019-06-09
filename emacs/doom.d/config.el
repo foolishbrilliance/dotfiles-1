@@ -137,7 +137,6 @@
  ;; markdown
  (:after markdown-mode
    (:map markdown-mode-map
-       :nv [tab]     #'markdown-cycle
      (:localleader
        ;; Movement
        :nv "{"   #'markdown-backward-paragraph
@@ -160,54 +159,56 @@
        :n "P"   #'markdown-previous-link
        :n "<RET>" #'markdown-jump
 
-       ;; Buffer-wide commands
-       :nv "c]"  #'markdown-complete-buffer
-       :nv "cc"  #'markdown-check-refs
-       :nv "ce"  #'markdown-export
-       :nv "cm"  #'markdown-other-window
-       :nv "cn"  #'markdown-cleanup-list-numbers
-       :nv "co"  #'markdown-open
-       :nv "cp"  #'markdown-preview
-       :nv "cv"  #'markdown-export-and-preview
-       :nv "cw"  #'markdown-kill-ring-save
+       (:prefix ("c" . "complete buffer")
+         ;; Buffer-wide commands
+         :nv "]"  #'markdown-complete-buffer
+         :nv "c"  #'markdown-check-refs
+         :nv "e"  #'markdown-export
+         :nv "m"  #'markdown-other-window
+         :nv "n"  #'markdown-cleanup-list-numbers
+         :nv "o"  #'markdown-open
+         :nv "p"  #'markdown-preview
+         :nv "v"  #'markdown-export-and-preview
+         :nv "w"  #'markdown-kill-ring-save)
 
-       ;; headings
-       :nv "hi"  #'markdown-insert-header-dwim
-       :nv "hI"  #'markdown-insert-header-setext-dwim
-       :nv "h1"  #'markdown-insert-header-atx-1
-       :nv "h2"  #'markdown-insert-header-atx-2
-       :nv "h3"  #'markdown-insert-header-atx-3
-       :nv "h4"  #'markdown-insert-header-atx-4
-       :nv "h5"  #'markdown-insert-header-atx-5
-       :nv "h6"  #'markdown-insert-header-atx-6
-       :nv "h!"  #'markdown-insert-header-setext-1
-       :nv "h@"  #'markdown-insert-header-setext-2
+       (:prefix ("h" . "headings")
+         :nv "i"  #'markdown-insert-header-dwim
+         :nv "I"  #'markdown-insert-header-setext-dwim
+         :nv "1"  #'markdown-insert-header-atx-1
+         :nv "2"  #'markdown-insert-header-atx-2
+         :nv "3"  #'markdown-insert-header-atx-3
+         :nv "4"  #'markdown-insert-header-atx-4
+         :nv "5"  #'markdown-insert-header-atx-5
+         :nv "6"  #'markdown-insert-header-atx-6
+         :nv "!"  #'markdown-insert-header-setext-1
+         :nv "@"  #'markdown-insert-header-setext-2)
 
-       ;; Insertion of common elements
-       :nv "-"   #'markdown-insert-hr
-       :nv "if"  #'markdown-insert-footnote
-       :nv "ii"  #'markdown-insert-image
-       ;;:nv "ik"  #'spacemacs/insert-keybinding-markdown
-       :nv "iI"  #'markdown-insert-reference-image
-       :nv "il"  #'markdown-insert-link
-       :nv "iL"  #'markdown-insert-reference-link-dwim
-       :nv "iw"  #'markdown-insert-wiki-link
-       :nv "iu"  #'markdown-insert-uri
+       (:prefix ("i" . "insert")
+         ;; Insertion of common elements
+         ;;:nv "ik"  #'spacemacs/insert-keybinding-markdown
+         :nv "-"   #'markdown-insert-hr
+         :nv "f"  #'markdown-insert-footnote
+         :nv "i"  #'markdown-insert-image
+         :nv "I"  #'markdown-insert-reference-image
+         :nv "l"  #'markdown-insert-link
+         :nv "L"  #'markdown-insert-reference-link-dwim
+         :nv "w"  #'markdown-insert-wiki-link
+         :nv "u"  #'markdown-insert-uri)
 
-       ;; List editing
-       :nv "li"  #'markdown-insert-list-item
-       :nv "lc"  #'markdown-insert-gfm-checkbox
-       :nv "lt"  #'markdown-toggle-gfm-checkbox
+       (:prefix ("l" . "lists")
+         :nv "i"  #'markdown-insert-list-item
+         :nv "c"  #'markdown-insert-gfm-checkbox
+         :nv "t"  #'markdown-toggle-gfm-checkbox)
 
-       ;; region manipulation
-       :nv "xb"  #'markdown-insert-bold
-       :nv "xi"  #'markdown-insert-italic
-       :nv "xc"  #'markdown-insert-code
-       :nv "xC"  #'markdown-insert-gfm-code-block
-       :nv "xq"  #'markdown-insert-blockquote
-       :nv "xQ"  #'markdown-blockquote-region
-       :nv "xp"  #'markdown-insert-pre
-       :nv "xP"  #'markdown-pre-region))))
+       (:prefix ("x" . "region manipulation")
+         :nv "b"  #'markdown-insert-bold
+         :nv "i"  #'markdown-insert-italic
+         :nv "c"  #'markdown-insert-code
+         :nv "C"  #'markdown-insert-gfm-code-block
+         :nv "q"  #'markdown-insert-blockquote
+         :nv "Q"  #'markdown-blockquote-region
+         :nv "p"  #'markdown-insert-pre
+         :nv "P"  #'markdown-pre-region)))))
 
 (after! magit
   ;; Load magit in split frame
