@@ -144,6 +144,9 @@
        ;; Element removal
        :nv "k"   #'markdown-kill-thing-at-point
 
+       ;; Do something sensible based on context
+       :nv "d"   #'markdown-do
+
        ;; Following and Jumping
        :n "N"   #'markdown-next-link
        :n "f"   #'markdown-follow-thing-at-point
