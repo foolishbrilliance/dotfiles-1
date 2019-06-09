@@ -100,7 +100,7 @@
                                                  (find-file (expand-file-name file pdir))))
 
    ;; Prefix bindings
-   (:desc "avy" :prefix "j"
+   (:prefix ("j" . "avy")
      :nv "b" #'avy-pop-mark
      :nv "j" #'evil-avy-goto-char
      :nv "J" #'evil-avy-goto-char-2
@@ -108,11 +108,11 @@
      :nv "u" #'+joe/avy-goto-url
      :nv "w" #'evil-avy-goto-word-or-subword-1)
 
-   (:desc "toggle" :prefix "t"
+   (:prefix ("t" . "toggle")
      :desc "Truncate lines"           :n "t" #'toggle-truncate-lines)
 
    ;; Custom prefix - (e)xtended
-   (:desc "extended" :prefix "e"
+   (:prefix ("e" . "extended")
        :nv "o" #'link-hint-open-link
        :nv "y" #'link-hint-copy-link))
 
