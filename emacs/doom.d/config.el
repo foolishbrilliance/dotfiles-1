@@ -58,6 +58,11 @@
 (add-to-list 'ivy-re-builders-alist '(counsel-M-x . ivy--regex-ignore-order))
 (add-to-list 'ivy-re-builders-alist '(counsel-describe-function . ivy--regex-ignore-order))
 
+;; Snipe
+(evil-snipe-override-mode 1)  ;; enable 1-char snipes
+;; Disable 1-char snipes in magit because conflicts
+(add-hook 'magit-mode-hook 'turn-off-evil-snipe-override-mode)
+
 ;; set default regex builder for all commands
 ;; (setq ivy-re-builders-alist '((t . ivy--regex-ignore-order)))
 
