@@ -158,16 +158,7 @@ install_dotfiles () {
 }
 
 setup_vim () {
-  info 'installing dein'
-  DEIN_DIR=~/.vim/plugins/repos/github.com/Shougo/dein.vim
-  if [[ ! -d $DEIN_DIR ]]; then
-    curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh |tee /tmp/dein-installer.sh
-    chmod +x /tmp/dein-installer.sh
-    /tmp/dein-installer.sh ~/.vim/plugins
-    success "dein installed"
-  else
-    success "skipping. dein already installed"
-  fi
+  info 'setting up vim'
 }
 
 # Required for other install-Darwin.sh scripts
