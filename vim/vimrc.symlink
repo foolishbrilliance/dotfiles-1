@@ -338,6 +338,7 @@ if dein#load_state('~/.vim/plugins')
 
   " Add or remove your plugins here:
   "call dein#add('Lokaltog/vim-easymotion')
+  call dein#add('alok/notational-fzf-vim')
   call dein#add('altercation/vim-colors-solarized')
   call dein#add('bkad/CamelCaseMotion')
   call dein#add('elzr/vim-json')
@@ -456,6 +457,14 @@ command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-h
 let g:lightline = {
   \ 'colorscheme': 'solarized',
   \ }
+
+"
+" notational-fzf-vim
+"
+nnoremap <silent> <c-s> :NV<CR>
+let g:nv_search_paths = ['~/Google Drive/Notational Velocity', '~/Dropbox/Notational Velocity']
+let g:nv_use_short_pathnames = 1
+
 
 "
 " Sneak
