@@ -155,6 +155,7 @@
 
        ;; Do something sensible based on context
        :nv "d"   #'markdown-do
+       :nv "t"   #'markdown-do  ;; mirror Org (t)odo bind
 
        ;; Following and Jumping
        :n "N"   #'markdown-next-link
