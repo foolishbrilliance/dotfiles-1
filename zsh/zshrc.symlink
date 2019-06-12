@@ -115,9 +115,7 @@ bindkey '^I' $fzf_default_completion
 # - fd (https://github.com/sharkdp/fd)
 # - rg (https://github.com/BurntSushi/ripgrep)
 if ((${+FZF_FORCE_DEFAULT_SEARCH})); then
-  # nop
-  # for some reason fd/rg seems slower than find on network mounts, so disabling
-  # don't use find alternatives on some systems
+  # nop - i.e. use default file search, probably `find`
   # can set in ~/.zshrc.pre, which gets sourced by grml config
 elif check_com -c fd; then
   # Setting fd as the default source for fzf
@@ -141,9 +139,9 @@ elif check_com -c rg; then
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 fi
 
-if check_com -c highlight; then
-  # using highlight (http://www.andre-simon.de/doku/highlight/en/highlight.html)
-  export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200' $FZF_CTRL_T_OPTS"
+if check_com -c bat; then
+  # preview using bat
+  export FZF_CTRL_T_OPTS="--ansi --preview-window 'right:60%' --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
 fi
 # Preview full command in CTRL+R with ?
 export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
