@@ -71,7 +71,7 @@ cd ~/.vim/plugins/repos/github.com/Shougo/dein.vim && git pull >/dev/null
 print_status2 $? ${MESSAGE}
 
 MESSAGE="update vim plugins"; print_status1 "${MESSAGE}"
-vim +'call dein#update()' +qall
+vim +slient +VimEnter +PlugInstall +qall
 print_status2 $? ${MESSAGE}
 
 # Tmux Plugin Manager (tpm) and plugins
