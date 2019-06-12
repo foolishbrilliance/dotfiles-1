@@ -350,6 +350,7 @@ Plug 'flazz/vim-colorschemes'
 Plug 'frankier/neovim-colors-solarized-truecolor-only' " for solarized in neovim
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'   " depends on fzf_plugin_dir
+Plug 'junegunn/vim-peekaboo'
 Plug 'justinmk/vim-sneak'
 Plug 'itchyny/lightline.vim'
 Plug 'machakann/vim-highlightedyank'
