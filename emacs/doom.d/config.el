@@ -38,10 +38,10 @@
 
 ;; Org mode
 (setq
-  org-directory "~/Google Drive/Notational Velocity"
-  org-default-notes-file (concat org-directory "/notes.org")
-  org-footnote-auto-adjust t ;; sort and renumber footnotes after every insert/delete
-  +workspaces-on-switch-project-behavior nil ;; make switch-project not open new workspace
+ org-directory "~/Google Drive/Notational Velocity"
+ org-default-notes-file (concat org-directory "/notes.org")
+ org-footnote-auto-adjust t ;; sort and renumber footnotes after every insert/delete
+ +workspaces-on-switch-project-behavior nil ;; make switch-project not open new workspace
  )
 ;; failback notes directory
 (unless (file-directory-p org-directory) (setq org-directory "~/Dropbox/Notes"))
@@ -118,8 +118,8 @@
 
    ;; Custom prefix - (e)xtended
    (:prefix ("e" . "extended")
-       :nv "o" #'link-hint-open-link
-       :nv "y" #'link-hint-copy-link))
+     :nv "o" #'link-hint-open-link
+     :nv "y" #'link-hint-copy-link))
 
  ;; deft
  (:after deft
