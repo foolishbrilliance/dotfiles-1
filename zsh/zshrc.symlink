@@ -52,40 +52,6 @@ unset config_files
 ################################################################################
 
 ################################################################################
-##################################### PATH #####################################
-################################################################################
-# Prefer GNU tools over BSD tools
-if check_com -c brew; then
-  # use over $(brew --prefix coreutils)/libexec/gnubin
-  local GNU_BIN=/usr/local/opt/coreutils/libexec/gnubin
-  if command -v $GNU_BIN/ls &>/dev/null ; then
-    export PATH=$GNU_BIN:$PATH # Use newer GNU core utilities (those that come with OS X are outdated)
-  fi
-fi
-
-if check_com -c brew; then
-  # For Cask per https://github.com/caskroom/homebrew-cask/blob/master/USAGE.md
-  # --appdir=/my/path changes the path where the symlinks to the applications (above) will be generated. This is commonly used to create the links in the root Applications directory instead of the home Applications directory by specifying --appdir=/Applications. Default is ~/Applications.
-  export HOMEBREW_CASK_OPTS="--appdir=/Applications"
-  export PATH=/usr/local/sbin:$PATH # Brew installs binaries here too
-  export MANPATH="/usr/local/man:$MANPATH"
-fi
-
-for d in \
-    $HOME/.fzf/bin \
-    $HOME/.cargo/bin `# rust` \
-    /usr/local/opt/python/libexec/bin \
-    $HOME/bin \
-    $HOME/bin.linux \
-    $HOME/bin.private \
-    $HOME/.dotfiles/bin \
-    ; do
-  if [ -d $d ]; then
-    export PATH=$d:$PATH
-  fi
-done
-
-################################################################################
 ################################# zsh options ##################################
 ################################################################################
 # To allow for ^s to fwd-i-search (opposite of ^r), disable XON/XOFF for interactive shells per https://stackoverflow.com/questions/791765/unable-to-forward-search-bash-history-similarly-as-with-ctrl-r#comment39602061_791800
@@ -124,6 +90,14 @@ fi
 ################################################################################
 ##################################### apps #####################################
 ################################################################################
+
+# Brew
+if check_com -c brew; then
+  # For Cask per https://github.com/caskroom/homebrew-cask/blob/master/USAGE.md
+  # --appdir=/my/path changes the path where the symlinks to the applications (above) will be generated. This is commonly used to create the links in the root Applications directory instead of the home Applications directory by specifying --appdir=/Applications. Default is ~/Applications.
+  export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+fi
+
 # Fzf - A command-line fuzzy finder written in Go -  https://github.com/junegunn/fzf#using-homebrew-or-linuxbrew
 xsource ~/.fzf.zsh
 export FZF_DEFAULT_OPTS='--height 40% --reverse --border --exact'
