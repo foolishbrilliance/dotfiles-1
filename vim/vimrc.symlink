@@ -350,7 +350,12 @@ Plug 'flazz/vim-colorschemes'
 Plug 'frankier/neovim-colors-solarized-truecolor-only' " for solarized in neovim
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'   " depends on fzf_plugin_dir
+Plug 'junegunn/vim-after-object'
+Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/vim-peekaboo'
+Plug 'junegunn/vim-slash'
+Plug 'junegunn/vim-pseudocl' " required for vim-fnr
+Plug 'junegunn/vim-fnr'     " depends on vim-pseudocl
 Plug 'justinmk/vim-sneak'
 Plug 'itchyny/lightline.vim'
 Plug 'machakann/vim-highlightedyank'
@@ -376,6 +381,7 @@ Plug 'kana/vim-textobj-indent'
 Plug 'kana/vim-textobj-line'
 Plug 'kana/vim-textobj-user' " required for mattn/vim-textobj-url
 Plug 'mattn/vim-textobj-url' " depends on kana/vim-textobj-user
+Plug 'vim-scripts/ReplaceWithRegister'
 
 " Initialize plugin system
 call plug#end()
