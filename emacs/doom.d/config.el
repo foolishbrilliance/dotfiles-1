@@ -214,7 +214,34 @@
          :nv "q"  #'markdown-insert-blockquote
          :nv "Q"  #'markdown-blockquote-region
          :nv "p"  #'markdown-insert-pre
-         :nv "P"  #'markdown-pre-region)))))
+         :nv "P"  #'markdown-pre-region))))
+
+ (:after org
+   (:map org-mode-map
+     (:localleader
+       ;; need to unbind keys that have already been mapped before mapping them
+       "," nil
+       ","  #'counsel-org-goto
+       "/" nil
+       (:prefix ("/" . "search")
+         "a"  #'helm-org-agenda-files-headings)
+       "h" nil
+       (:prefix ("h" . "heading")
+         "i"  #'org-insert-heading-after-current
+         "I"  #'org-insert-heading
+         "h"  #'org-toggle-heading
+         "s"  #'org-insert-subheading)
+       (:prefix ("g" . "goto")
+         "/"  #'counsel-org-goto
+         "j"  #'org-forward-heading-same-level
+         "k"  #'org-backward-heading-same-level
+         "l"  #'outline-next-visible-heading)
+       (:prefix ("S" . "subtree")
+         "j"  #'org-move-subtree-down
+         "k"  #'org-move-subtree-up
+         "h"  #'org-toggle-heading
+         "s"  #'org-insert-subheading))))
+ )
 
 (after! magit
   ;; Load magit in split frame
