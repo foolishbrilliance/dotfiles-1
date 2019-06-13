@@ -1,5 +1,5 @@
 # start with grml config
-source-file ~/.grml-etc-core/etc/tmux.conf
+if-shell "test -f ~/.grml-etc-core/etc/tmux.conf" "source-file ~/.grml-etc-core/etc/tmux.conf"
 
 # Reload tmux configuration
 bind C-r source-file ~/.tmux.conf \; display "Config reloaded"
@@ -37,7 +37,7 @@ set -g @plugin 'tmux-plugins/tmux-yank'
 # set -g @plugin 'git@github.com/user/plugin'
 # set -g @plugin 'git@bitbucket.com/user/plugin'
 
-source-file ~/.tmux.conf.local
+if-shell "test -f ~/.tmux.conf.local" "source-file ~/.tmux.conf.local"
 
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
 run -b '~/.tmux/plugins/tpm/tpm'
