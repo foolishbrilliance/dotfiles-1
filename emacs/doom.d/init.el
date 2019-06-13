@@ -161,4 +161,8 @@
        (default +bindings +evil-commands))
 
 (setq doom-localleader-key ",")
+
+(add-to-list 'exec-path "~/.fzf/bin")
+(add-to-list 'exec-path "~/.cargo/bin")
+
 (when (file-exists-p "~/.emacs.init.el") (load "~/.emacs.init.el"))
