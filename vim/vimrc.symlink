@@ -349,6 +349,7 @@ Plug 'elzr/vim-json'
 Plug 'fcpg/vim-osc52'
 Plug 'flazz/vim-colorschemes'
 Plug 'frankier/neovim-colors-solarized-truecolor-only' " for solarized in neovim
+Plug 'jeetsukumaran/vim-indentwise'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'   " depends on fzf_plugin_dir
 Plug 'junegunn/vim-after-object'
@@ -359,6 +360,7 @@ Plug 'junegunn/vim-pseudocl' " required for vim-fnr
 Plug 'junegunn/vim-fnr'     " depends on vim-pseudocl
 Plug 'justinmk/vim-sneak'
 Plug 'itchyny/lightline.vim'
+Plug 'markonm/traces.vim'
 Plug 'machakann/vim-highlightedyank'
 Plug 'mhinz/vim-signify'
 Plug 'michaeljsmith/vim-indent-object'
@@ -366,6 +368,7 @@ Plug 'mtth/scratch.vim'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'ntpeters/vim-better-whitespace'
+Plug 'tommcdo/vim-exchange'
 Plug 'terryma/vim-expand-region'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
