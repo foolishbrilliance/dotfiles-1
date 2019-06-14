@@ -346,6 +346,7 @@ Plug 'alok/notational-fzf-vim', { 'on':  'NV' }
 Plug 'altercation/vim-colors-solarized'
 Plug 'bkad/CamelCaseMotion'
 Plug 'elzr/vim-json'
+Plug 'fcpg/vim-osc52'
 Plug 'flazz/vim-colorschemes'
 Plug 'frankier/neovim-colors-solarized-truecolor-only' " for solarized in neovim
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -509,6 +510,11 @@ let g:highlightedyank_highlight_duration = 200
 " vim-json
 "
 let g:vim_json_syntax_conceal = 0
+
+"
+" vim-osc52
+"
+xmap <Leader>yy y:call SendViaOSC52(getreg('"'))<cr>
 
 "
 " vim-signify
