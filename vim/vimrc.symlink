@@ -342,8 +342,8 @@ else
 endif
 
 " general
-Plug 'elzr/vim-json'
 Plug 'alok/notational-fzf-vim', { 'on':  'NV' }
+Plug 'elzr/vim-json'
 Plug 'fcpg/vim-osc52' " copy from vim into system clipboard via terminal control char
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim' " depends on fzf_plugin_dir
@@ -363,12 +363,12 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'flazz/vim-colorschemes'
 Plug 'frankier/neovim-colors-solarized-truecolor-only' " for solarized in neovim
 Plug 'itchyny/lightline.vim'
+Plug 'machakann/vim-highlightedyank' " highlight yanks
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'ntpeters/vim-better-whitespace' " highlight trailing whitespace
-Plug 'machakann/vim-highlightedyank' " highlight yanks
 
 " find/replace
-Plug 'junegunn/vim-fnr' " depends on vim-pseudocl
+Plug 'junegunn/vim-fnr' " depends on vim-pseudocl, find and replace without regex
 Plug 'junegunn/vim-slash' " clear highlight after search, improved star search"
 Plug 'markonm/traces.vim' " substitution previews
 Plug 'nelstrom/vim-visual-star-search'
