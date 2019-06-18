@@ -341,51 +341,58 @@ else
   call plug#begin('~/.vim/plugged')
 endif
 
-"Plug 'Lokaltog/vim-easymotion'
-Plug 'alok/notational-fzf-vim', { 'on':  'NV' }
-Plug 'altercation/vim-colors-solarized'
-Plug 'bkad/CamelCaseMotion'
+" general
 Plug 'elzr/vim-json'
-Plug 'fcpg/vim-osc52'
+Plug 'alok/notational-fzf-vim', { 'on':  'NV' }
+Plug 'fcpg/vim-osc52' " copy from vim into system clipboard via terminal control char
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim' " depends on fzf_plugin_dir
+Plug 'junegunn/vim-peekaboo' " see contents of registers
+Plug 'junegunn/vim-pseudocl' " required for vim-fnr
+Plug 'mhinz/vim-signify' " another git gutter
+Plug 'mtth/scratch.vim'
+Plug 'tpope/vim-eunuch' " UNIX shell commands
+Plug 'tpope/vim-fugitive' " git in VIM
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-sleuth' " autodetect and apply indent settings
+Plug 'tpope/vim-unimpaired' " toggle bindings
+Plug 'tpope/vim-vinegar' " improved netrw
+
+" visuals
+Plug 'altercation/vim-colors-solarized'
 Plug 'flazz/vim-colorschemes'
 Plug 'frankier/neovim-colors-solarized-truecolor-only' " for solarized in neovim
-Plug 'jeetsukumaran/vim-indentwise'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'   " depends on fzf_plugin_dir
-Plug 'junegunn/vim-after-object'
-Plug 'junegunn/vim-easy-align'
-Plug 'junegunn/vim-peekaboo'
-Plug 'junegunn/vim-slash'
-Plug 'junegunn/vim-pseudocl' " required for vim-fnr
-Plug 'junegunn/vim-fnr'     " depends on vim-pseudocl
-Plug 'justinmk/vim-sneak'
 Plug 'itchyny/lightline.vim'
-Plug 'markonm/traces.vim'
-Plug 'machakann/vim-highlightedyank'
-Plug 'mhinz/vim-signify'
-Plug 'michaeljsmith/vim-indent-object'
-Plug 'mtth/scratch.vim'
 Plug 'nathanaelkane/vim-indent-guides'
+Plug 'ntpeters/vim-better-whitespace' " highlight trailing whitespace
+Plug 'machakann/vim-highlightedyank' " highlight yanks
+
+" find/replace
+Plug 'junegunn/vim-fnr' " depends on vim-pseudocl
+Plug 'junegunn/vim-slash' " clear highlight after search, improved star search"
+Plug 'markonm/traces.vim' " substitution previews
 Plug 'nelstrom/vim-visual-star-search'
-Plug 'ntpeters/vim-better-whitespace'
-Plug 'tommcdo/vim-exchange'
-Plug 'terryma/vim-expand-region'
 Plug 'tpope/vim-abolish'
+
+" editing
+Plug 'junegunn/vim-easy-align'
+Plug 'terryma/vim-expand-region'
+Plug 'tommcdo/vim-exchange'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-eunuch'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-jdaddy'
+Plug 'tpope/vim-jdaddy' " json editing and pretty printing
 Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-vinegar'
-Plug 'kana/vim-textobj-indent'
+Plug 'vim-scripts/ReplaceWithRegister'
+
+" obj and motions
+Plug 'bkad/CamelCaseMotion'
+Plug 'jeetsukumaran/vim-indentwise' " move by indentation levels
+Plug 'junegunn/vim-after-object'
+Plug 'justinmk/vim-sneak'
 Plug 'kana/vim-textobj-line'
 Plug 'kana/vim-textobj-user' " required for mattn/vim-textobj-url
 Plug 'mattn/vim-textobj-url' " depends on kana/vim-textobj-user
-Plug 'vim-scripts/ReplaceWithRegister'
+Plug 'michaeljsmith/vim-indent-object'
 
 " Initialize plugin system
 call plug#end()
