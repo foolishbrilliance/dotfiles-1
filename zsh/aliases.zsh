@@ -317,7 +317,7 @@ fasd_fzf_edit() {
 # rg for text, then fzf and open file with vim
 ripgrep_fzf_edit_vim() {
   local out file line col ignore tmp_status
-  out="$(rg -H --no-heading --no-messages --vimgrep --smart-case --follow --hidden -g '!.git' "$*" |fzf -1 -0 --no-sort)"
+  out="$(rg -H --no-heading --no-messages --vimgrep --max-columns 160 --color ansi --smart-case --follow --hidden -g '!.git' "$*" |fzf --ansi -0 --no-sort)"
   tmp_status=$?
   IFS=: read file line col ignore<<<"$out"
   if [[ $tmp_status == "0" ]]; then
