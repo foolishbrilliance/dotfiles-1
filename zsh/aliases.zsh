@@ -192,7 +192,7 @@ alias myip='curl -s checkip.amazonaws.com'
 alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to pasteboard.'"
 isdarwin && alias ql='qlmanage -p "$@" >& /dev/null'
 alias reload!='. ~/.zshrc && echo reloaded .zshrc'
-alias rg='rg --smart-case'
+alias rg="rg --smart-case --follow --hidden -g '!.git'"
 alias rs='screen -RD'
 alias sl='ls'
 isdarwin && alias ss="open /System/Library/Frameworks/ScreenSaver.framework/Versions/A/Resources/ScreenSaverEngine.app" # Start ScreenSaver. This will lock the screen if locking is enabled.
