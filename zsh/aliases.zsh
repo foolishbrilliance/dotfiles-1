@@ -193,6 +193,7 @@ alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to pa
 isdarwin && alias ql='qlmanage -p "$@" >& /dev/null'
 alias reload!='. ~/.zshrc && echo reloaded .zshrc'
 alias rg="rg --smart-case --follow --hidden -g '!.git'"
+alias rge=ripgrep_fzf_edit_vim
 alias rs='screen -RD'
 alias sl='ls'
 isdarwin && alias ss="open /System/Library/Frameworks/ScreenSaver.framework/Versions/A/Resources/ScreenSaverEngine.app" # Start ScreenSaver. This will lock the screen if locking is enabled.
@@ -311,6 +312,19 @@ fasd_fzf_file() {
 fasd_fzf_edit() {
     local file
     file="$(fasd -Rfl "$*" | fzf -1 -0 --no-sort +m)" && vi "${file}" || return 1
+}
+
+# rg for text, then fzf and open file with vim
+ripgrep_fzf_edit_vim() {
+  local out file line col ignore tmp_status
+  out="$(rg -H --no-heading --no-messages --vimgrep --smart-case --follow --hidden -g '!.git' "$*" |fzf -1 -0 --no-sort)"
+  tmp_status=$?
+  IFS=: read file line col ignore<<<"$out"
+  if [[ $tmp_status == "0" ]]; then
+    vim "$file:$line:$col"
+  else
+    echo "rg command exited with non-zero status..."
+  fi
 }
 
 # open best matched file using `fasd` if given argument, filter output of `fasd` using `fzf` else
