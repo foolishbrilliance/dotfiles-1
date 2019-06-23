@@ -109,6 +109,7 @@ export FZF_CTRL_T_OPTS="--select-1 --exit-0 $FZF_CTRL_T_OPTS"
 # > https://github.com/junegunn/fzf/wiki/Configuring-fuzzy-completion#dedicated-completion-key
 export FZF_COMPLETION_TRIGGER=''
 bindkey '^T' fzf-completion
+bindkey '^[f' fzf-completion
 bindkey '^I' $fzf_default_completion
 
 # Prefer the following (in order) over find, if available
