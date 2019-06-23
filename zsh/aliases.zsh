@@ -35,6 +35,24 @@ alias fcda='fzf_cd_all'
 alias fcdf='fzf_cd_file'
 alias fcdp='fzf_cd_parent'
 
+alias envf='env |fzf'
+alias cmdf='echo ${(k)commands} ${(k)aliases} ${(k)functions} |tr " " "\n" |fzf'
+alias whichf='which $(cmdf)'
+
+function runf {
+  local cmd choice
+  cmd=$(cmdf)
+  echo "About \`${cmd}\`..."
+  which ${cmd}
+  read -q "choice?Run \`$cmd\` ? (y/n): "
+  echo
+  if [[ "$choice" != "y" ]]; then
+    echo "aborting"
+    return
+  fi
+  $cmd
+}
+
 alias ..='cd ..'
 alias ...='cd ../../'
 alias ....='cd ../../../'
