@@ -62,6 +62,10 @@ MESSAGE="update zprezto config"; print_status1 "${MESSAGE}"
 cd ~/.zprezto && git pull >/dev/null
 print_status2 $? ${MESSAGE}
 
+MESSAGE="update zprezto submodules"; print_status1 "${MESSAGE}"
+cd ~/.zprezto && git submodule update --init --recursive
+print_status2 $? ${MESSAGE}
+
 
 if [[ ${FULL} != true ]]; then
   exit 0
