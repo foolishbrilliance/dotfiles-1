@@ -1,0 +1,12 @@
+# -*- mode: sh -*-
+
+# fzf_view {
+    local file
+    if [[ -e "$1" ]]; then
+        les "$1"
+    else
+        file=$(fzf --query="$1"\
+          --select-1 --exit-0)
+        [ -n "$file" ] && les "$file"
+    fi
+# }

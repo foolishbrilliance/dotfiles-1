@@ -1,0 +1,6 @@
+# -*- mode: sh -*-
+
+# Like `d` (directories), but select with fzf
+fasd_fzf_dir {
+  fasd -Rdl "$*"| fzf -1 -0 --no-sort -m
+}

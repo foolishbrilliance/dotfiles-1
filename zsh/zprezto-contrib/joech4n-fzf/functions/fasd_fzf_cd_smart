@@ -1,0 +1,9 @@
+# -*- mode: sh -*-
+
+# cd to best matched dir using `fasd` if given argument, filter output of `fasd` using `fzf` else
+
+# fasd_fzf_cd_smart {
+  [ $# -gt 0 ] && fasd_cd -d "$*" && return
+  local dir
+  dir="$(fasd -Rdl "$*" | fzf -1 -0 --no-sort +m)" && cd "${dir}" || return 1
+# }

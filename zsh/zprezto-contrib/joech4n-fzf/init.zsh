@@ -46,3 +46,4 @@ if check_com -c bat; then
 fi
 # Preview full command in CTRL+R with ?
 export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
+

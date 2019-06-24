@@ -1,0 +1,6 @@
+# -*- mode: sh -*-
+
+# Like `f` (files), but select with fzf
+# fasd_fzf_file {
+  fasd -Rfl "$*"| fzf -1 -0 --no-sort -m
+# }

@@ -1,0 +1,7 @@
+# -*- mode: sh -*-
+
+# fzf cd, but include hidden directories
+# fzf_cd_all {
+  local dir
+  dir=$(find ${1:-.} -type d 2> /dev/null | fzf +m) && cd "$dir"
+# }

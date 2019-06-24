@@ -1,0 +1,6 @@
+# -*- mode: sh -*-
+
+# fasd_fzf_edit_filtered {
+  local file
+  file="$(fasd -Rfl "$*" | fzf -1 -0 --no-sort +m)" && vi "${file}" || return 1
+# }

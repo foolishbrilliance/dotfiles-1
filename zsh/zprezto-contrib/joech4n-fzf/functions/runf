@@ -1,0 +1,15 @@
+# -*- mode: sh -*-
+
+# function runf {
+  local cmd choice
+  cmd=$(cmdf)
+  echo "About \`${cmd}\`..."
+  which ${cmd}
+  read -q "choice?Run \`$cmd\` ? (y/n): "
+  echo
+  if [[ "$choice" != "y" ]]; then
+    echo "aborting"
+    return
+  fi
+  $cmd
+# }
