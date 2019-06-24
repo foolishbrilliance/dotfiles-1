@@ -77,6 +77,9 @@ function xsource () {
 # from old grml config
 xsource .zshrc.pre .zshrc.local
 
+# load zprezto
+source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+
 ################################################################################
 ## BEGIN holman/dotfiles
 # shortcut to this dotfiles path is $ZSH
