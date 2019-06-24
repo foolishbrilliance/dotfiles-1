@@ -75,7 +75,7 @@ function xsource () {
 }
 
 # from old grml config
-xsource .zshrc.pre .zshrc.local
+xsource ${HOME}/.zshrc.pre ${HOME}/.zshrc.local
 
 # load zprezto
 source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
