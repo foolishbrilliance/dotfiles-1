@@ -57,6 +57,12 @@ MESSAGE="update grml config"; print_status1 "${MESSAGE}"
 cd ~/.grml-etc-core && git pull >/dev/null
 print_status2 $? ${MESSAGE}
 
+# zprezto config
+MESSAGE="update zprezto config"; print_status1 "${MESSAGE}"
+cd ~/.zprezto && git pull >/dev/null
+print_status2 $? ${MESSAGE}
+
+
 if [[ ${FULL} != true ]]; then
   exit 0
 fi
