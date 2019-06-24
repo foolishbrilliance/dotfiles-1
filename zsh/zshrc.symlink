@@ -98,8 +98,9 @@ do
   source $file
 done
 
-# load everything but the path and completion files
-for file in ${${config_files:#*/path.zsh}:#*/completion.zsh}
+# load everything but the path, completion, and prezto init.zsh files
+# the prezto files will be loaded by prezto, so don't load them twice
+for file in ${${${config_files:#*/path.zsh}:#*/completion.zsh}:#*/init.zsh}
 do
   source $file
 done
