@@ -127,5 +127,5 @@ export DISTCC_HOSTS="+zeroconf"
 # MAKEDEV should be usable on udev as well by default:
 export WRITE_ON_UDEV=yes
 
-[[ -r ~/.zshenv.local ]] && source ~/.zshenv.local
+[[ -r ~/.zprofile.local ]] && source ~/.zprofile.local
 ## END OF FILE #################################################################
