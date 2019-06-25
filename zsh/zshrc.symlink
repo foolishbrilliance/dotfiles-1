@@ -147,7 +147,7 @@ if ! zgen saved; then
   zgen load unixorn/warhol.plugin.zsh
 
   # prompt
-  zgen load mafredri/zsh-async
+  #zgen load mafredri/zsh-async
   #zgen load sindresorhus/pure
 
   # generate the init script from plugins above
