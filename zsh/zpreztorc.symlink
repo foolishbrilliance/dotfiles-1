@@ -127,6 +127,9 @@ zstyle ':prezto:module:prompt' theme 'pure'
 # return codes. This is not supported by all prompts.
 # zstyle ':prezto:module:prompt' show-return-val 'yes'
 
+# change default prompt color per https://github.com/sindresorhus/pure#colors
+zstyle ':prompt:pure:prompt:success' color green
+
 #
 # Python
 #
