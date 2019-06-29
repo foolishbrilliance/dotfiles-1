@@ -10,7 +10,6 @@ unset fasd_cache
 
 # fasd & fzf change directory - jump using to frecent dirs (from `fasd`) if
 # given argument, else filter frecent dirs using `fzf`
-#
 # unalias first, because fasd sets this by default
 unalias z; alias z='fasd_fzf_cd_smart'
 
@@ -30,6 +29,8 @@ alias f.e='fzf_edit_open_from_cwd'
 isdarwin && alias o='a -e open' # quick opening files in OSX
 alias fv='fzf_view'
 
+# cd. - fuzzy cd into subdirectory (non-recursive) within current directory
+alias cd.='cd $(find . -maxdepth 1 -type d |fzf)'
 alias fcd='fzf_cd'
 alias fcda='fzf_cd_all'
 alias fcdf='fzf_cd_file'
