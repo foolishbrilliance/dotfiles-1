@@ -343,6 +343,7 @@ endif
 
 " general
 Plug 'alok/notational-fzf-vim', { 'on':  'NV' }
+Plug 'bogado/file-line'
 Plug 'elzr/vim-json'
 Plug 'fcpg/vim-osc52' " copy from vim into system clipboard via terminal control char
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
