@@ -155,7 +155,7 @@ alias myip='curl -s checkip.amazonaws.com'
 alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to pasteboard.'"
 isdarwin && alias ql='qlmanage -p "$@" >& /dev/null'
 alias reload!='. ~/.zshrc && echo reloaded .zshrc'
-alias rg="rg --smart-case --follow --hidden -g '!.git'"
+alias rg="rg --hidden --smart-case --follow --no-messages"
 alias rge=ripgrep_fzf_edit_vim
 alias rs='screen -RD'
 alias sl='ls'
