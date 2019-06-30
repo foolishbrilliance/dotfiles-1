@@ -21,6 +21,9 @@
       deft-directory "~/Google Drive/Notational Velocity"
       deft-extensions '("md" "org" "txt")
       deft-use-filename-as-title t
+
+      ;; ffip
+      ffip-use-rust-fd t
       )
 
 ;; Default modes

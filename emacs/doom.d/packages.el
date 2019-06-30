@@ -15,6 +15,7 @@
 ;; (package! diminish-new :recipe (diminish :fetcher github :repo "emacsmirror/diminish"))
 
 (package! deft)
+(package! find-file-in-project)
 (package! helm-fzf :recipe (:fetcher github :repo "ibmandura/helm-fzf"))
 (package! link-hint)
 (package! lua-mode)
