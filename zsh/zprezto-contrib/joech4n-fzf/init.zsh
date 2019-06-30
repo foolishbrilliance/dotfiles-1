@@ -21,8 +21,8 @@ if ((${+FZF_FORCE_DEFAULT_SEARCH})); then
 elif check_com -c fd; then
   # Setting fd as the default source for fzf
   export FZF_DEFAULT_COMMAND="fd --type file --follow --hidden"
-  export FZF_CTRL_T_COMMAND="fd --type file"
-  export FZF_ALT_C_COMMAND="fd --type d"
+  export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
+  export FZF_ALT_C_COMMAND="fd --type d --follow --hidden"
 
   # Use fd for listing path candidates.
   # - The first argument to the function ($1) is the base path to start traversal
@@ -36,7 +36,7 @@ elif check_com -c fd; then
     fd --type d --hidden --follow --exclude ".git" . "$1"
   }
 elif check_com -c rg; then
-  export FZF_DEFAULT_COMMAND="rg --files --follow --hidden"
+  export FZF_DEFAULT_COMMAND="rg --files --follow --hidden --no-messages"
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 fi
 
