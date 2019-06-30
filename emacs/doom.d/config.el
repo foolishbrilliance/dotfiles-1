@@ -24,6 +24,7 @@
 
       ;; ffip
       ffip-use-rust-fd t
+
       )
 
 ;; Default modes
@@ -49,12 +50,17 @@
 ;; failback notes directory
 (unless (file-directory-p org-directory) (setq org-directory "~/Dropbox/Notes"))
 
+;; use fd per https://github.com/abo-abo/swiper/issues/1926#issuecomment-462026310
+(if (executable-find "fd") (setq find-program "fd"
+                                 counsel-file-jump-args "--hidden")
+  (if (executable-find "rg") (setq find-program "rg"
+                                   counsel-file-jump-args "--files --hidden --no-messages") nil))
 ;; make projectile faster
 (after! projectile
   (if (executable-find "fd") (setq projectile-generic-command "fd . -0"
-                                   projectile-git-command "fd . -0")
-    (if (executable-find "rg") (setq projectile-generic-command "rg --files -0 ."
-                                     projectile-git-command "rg --files -0 .") nil))
+                                      projectile-git-command "fd . -0")
+    (if (executable-find "rg") (setq projectile-generic-command "rg --files -0 --no-messages ."
+                                     projectile-git-command "rg --files -0 --no-messages .") nil))
   (setq projectile-switch-project-action 'projectile-find-file-dwim))
 
 ;; Ivy
