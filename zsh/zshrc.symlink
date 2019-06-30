@@ -1,14 +1,12 @@
 # -*- mode: sh; -*-
 # vim: filetype=zsh
+# For interactive shells
 
 # Fix Emacs TRAMP per https://www.emacswiki.org/emacs/TrampMode#toc7
 [ $TERM = "dumb" ] && unsetopt zle && PS1='$ ' && return
 
 # utility functions
 autoload -Uz is-at-least
-
-# grml functions used after this point
-# check_com, isdarwin, is-at-least, xsource
 
 # copied from https://github.com/grml/grml-etc-core/blob/ffe57c8786bf71c015d948eff4253089725b9f8e/etc/zsh/zshrc#L458
 # this function checks if a command exists and returns either true
@@ -139,18 +137,10 @@ xsource "${HOME}/.zgen/zgen.zsh" # load zgen
 
 # if the init scipt doesn't exist
 if ! zgen saved; then
-
-  # specify plugins here
   zgen load djui/alias-tips
   zgen load zdharma/fast-syntax-highlighting
   zgen load peterhurford/up.zsh
   zgen load unixorn/warhol.plugin.zsh
-
-  # prompt
-  #zgen load mafredri/zsh-async
-  #zgen load sindresorhus/pure
-
-  # generate the init script from plugins above
   zgen save
 fi
 
@@ -159,34 +149,31 @@ fi
 ################################################################################
 
 # Brew
-if check_com -c brew; then
+if (( $+commands[brew] )); then
   # For Cask per https://github.com/caskroom/homebrew-cask/blob/master/USAGE.md
   # --appdir=/my/path changes the path where the symlinks to the applications (above) will be generated. This is commonly used to create the links in the root Applications directory instead of the home Applications directory by specifying --appdir=/Applications. Default is ~/Applications.
   export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 fi
+
+# chruby
+xsource /usr/local/share/chruby/chruby.sh \
+  /usr/local/share/chruby/auto.sh
 
 # GPG: You should always add the following lines to your .bashrc or whatever initialization file is used for all shell invocations. Per https://www.gnupg.org/documentation/manuals/gnupg/Invoking-GPG_002dAGENT.html
 export GPG_TTY=$(tty)
 
 # GNU ls colors
 if [ -e ~/.dir_colors ]; then
-  check_com -c dircolors && eval $(dircolors -b ~/.dir_colors)
+  (( $+commands[dircolors] )) && eval $(dircolors -b ~/.dir_colors)
 else
   curl https://raw.githubusercontent.com/huyz/dircolors-solarized/master/dircolors.ansi-universal -o ~/.dir_colors
 fi
 
 # For gtags per https://github.com/syl20bnr/spacemacs/tree/master/layers/%2Btags/gtags#install-on-osx-using-homebrew
-check_com -c pygments && export GTAGSLABEL=pygments
+(( $+commands[pygments] )) && export GTAGSLABEL=pygments
 
 # nvim
-check_com -c nvim && export NVIM_TUI_ENABLE_TRUE_COLOR=1
-
-################################################################################
-#################################### Prompt ####################################
-################################################################################
-
-xsource /usr/local/share/chruby/chruby.sh \
-  /usr/local/share/chruby/auto.sh
+(( $+commands[nvim] )) && export NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 # iterm2
 # if running in tmux, enable iterm2 integration and badge support
