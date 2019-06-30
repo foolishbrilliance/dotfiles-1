@@ -1,131 +1,74 @@
-# Initially copied from https://github.com/grml/grml-etc-core/blob/ffe57c8786bf71c015d948eff4253089725b9f8e/etc/zsh/zshenv
-# Global Order: zshenv, zprofile, zshrc, zlogin
-################################################################################
+# -*- mode: sh -*-
+# Copied from https://github.com/sorin-ionescu/prezto/blob/09e83ed2829d13b8102af1bf660efbf99e0f896b/runcoms/zprofile
+# Executes commands at login pre-zshrc.
+#
+# Authors:
+#   Sorin Ionescu <sorin.ionescu@gmail.com>
+#
 
-# language settings (read in /etc/environment before /etc/default/locale as
-# the latter one is the default on Debian nowadays)
-# no xsource() here because it's only created in zshrc! (which is good)
-[[ -r /etc/environment ]] && source /etc/environment
+#
+# Browser
+#
 
-# set environment variables (important for autologin on tty)
-export HOSTNAME=${HOSTNAME:-$(hostname)}
-
-# make sure /usr/bin/id is available
-if [[ -x /usr/bin/id ]] ; then
-    [[ -z "$USER" ]]          && export USER=$(/usr/bin/id -un)
-    [[ $LOGNAME == LOGIN ]] && LOGNAME=$(/usr/bin/id -un)
+if [[ "$OSTYPE" == darwin* ]]; then
+  export BROWSER='open'
 fi
 
-# workaround for live-cd mode as $HOME is not set via rungetty
-if [[ -f /etc/grml_cd ]] ; then
-    if (( EUID == 0 )); then
-        export HOME=/root
-    else
-        export HOME=/home/$USER
-    fi
+#
+# Editors
+#
+
+export EDITOR='vi'
+export VISUAL="$EDITOR"
+export PAGER='less'
+
+#
+# Language
+#
+
+if [[ -z "$LANG" ]]; then
+  export LANG='en_US.UTF-8'
 fi
 
-## set $PATH
-# gentoo users have to source /etc/profile.env
-if [[ -r /etc/gentoo-release ]] ; then
-    [[ -r /etc/profile.env ]] && source /etc/profile.env
+#
+# Paths
+#
+
+# Ensure path arrays do not contain duplicates.
+typeset -gU cdpath fpath mailpath path
+
+# Set the list of directories that cd searches.
+# cdpath=(
+#   $cdpath
+# )
+
+# Set the list of directories that Zsh searches for programs.
+path=(
+  $HOME/bin
+  $HOME/bin{.private,.linux}
+  $HOME/{.dotfiles,.fzf}/bin
+  $HOME/.cargo/bin
+  ${GOPATH//://bin:}/bin
+  /usr/local/{bin,sbin}
+  /usr/{bin,sbin}
+  /{bin,sbin}
+  $path
+)
+
+#
+# Less
+#
+
+# Set the default Less options.
+# Mouse-wheel scrolling has been disabled by -X (disable screen clearing).
+# Remove -X and -F (exit if the content fits on one screen) to enable it.
+export LESS='-F -g -i -M -R -S -w -X -z-4'
+
+# Set the Less input preprocessor.
+# Try both `lesspipe` and `lesspipe.sh` as either might exist on a system.
+if (( $#commands[(i)lesspipe(|.sh)] )); then
+  export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
 fi
-
-# support extra scripts/software in special directory outside of squashfs environment in live mode
-if [[ -f /etc/grml_cd ]] ; then
-  [[ -r /run/live/medium/scripts ]] && ADDONS='/run/live/medium/scripts'
-  [[ -r /etc/grml/my_path ]] && ADDONS="$(cat /etc/grml/my_path)"
-fi
-
-if [[ -f /usr/local/bin/brew ]] ; then
-  BREW_BIN='/usr/local/brew/bin'
-  BREW_SBIN='/usr/local/brew/sbin'
-  # $(brew --prefix coreutils)/libexec/gnubin is too slow so hard code path
-  local GNU_BIN=/usr/local/opt/coreutils/libexec/gnubin
-  if command -v $GNU_BIN/ls &>/dev/null ; then
-    BREW_GNU_BIN=$GNU_BIN # Use newer GNU core utilities (those that come with OS X are outdated)
-  fi
-
-  export MANPATH="/usr/local/man:$MANPATH"
-fi
-
-# Solaris
-case $(uname 2>/dev/null) in
-  SunOS)
-    path=(
-      /usr/bin
-      /usr/sbin
-      /usr/ccs/bin
-      /opt/SUNWspro/bin
-      /usr/ucb
-      /usr/sfw/bin
-      /usr/gnu/bin
-      /usr/openwin/bin
-      /opt/csw/bin
-      /sbin
-      ~/bin
-    )
-esac
-
-# generic $PATH handling
-if (( EUID != 0 )); then
-  path=(
-    $HOME/bin
-    $HOME/bin.private
-    $HOME/bin.linux
-    $HOME/.dotfiles/bin
-    $HOME/.fzf/bin
-    "${BREW_GNU_BIN}"
-    "${BREW_BIN}"
-    "${BREW_SBIN}"
-    $HOME/.cargo/bin
-    /usr/local/bin
-    /usr/bin
-    /bin
-    /usr/local/sbin
-    /usr/sbin
-    /sbin
-    /usr/local/games
-    /usr/games
-    "${ADDONS}"
-    "${path[@]}"
-  )
-else
-  path=(
-    $HOME/bin
-    /usr/local/sbin
-    /usr/local/bin
-    /sbin
-    /bin
-    /usr/sbin
-    /usr/bin
-    "${ADDONS}"
-    "${path[@]}"
-  )
-fi
-
-# remove empty components to avoid '::' ending up + resulting in './' being in $PATH
-path=( "${path[@]:#}" )
-
-typeset -U path
-
-# less (:=pager) options:
-#  export LESS=C
-typeset -a lp; lp=( ${^path}/lesspipe(N) )
-if (( $#lp > 0 )) && [[ -x $lp[1] ]] ; then
-    export LESSOPEN="|lesspipe %s"
-elif [[ -x /usr/bin/lesspipe.sh ]] ; then
-    export LESSOPEN="|lesspipe.sh %s"
-fi
-unset lp
-
-export READNULLCMD=${PAGER:-/usr/bin/pager}
-
-# allow zeroconf for distcc
-export DISTCC_HOSTS="+zeroconf"
-
-# MAKEDEV should be usable on udev as well by default:
-export WRITE_ON_UDEV=yes
 
 [[ -r ~/.zprofile.local ]] && source ~/.zprofile.local
 ## END OF FILE #################################################################
