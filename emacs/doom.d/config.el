@@ -92,7 +92,7 @@
    :desc "Switch buffer"            :n "bb" #'+ivy/switch-buffer  ;; swap default switch-buffer binds as I don't use workspaces often
    :desc "Switch workspace buffer"  :n "bB" #'+ivy/switch-workspace-buffer
    :desc "Switch workspace buffer"  :n "bw" #'+ivy/switch-workspace-buffer  ;; easier
-   :desc "Find file in project"     :n "SPC" #'+ivy/projectile-find-file
+   :desc "Find file in project"     :n "SPC" #'find-file-in-project
 
    ;; Recursive find-file in a target directory
    :desc "Find file in directory" :n "f/" (lambda! (counsel-file-jump nil (read-directory-name "From directory: ")))
