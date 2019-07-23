@@ -47,6 +47,7 @@ alias .....='cd ../../../../'
 alias ......='cd ../../../../../'
 
 alias ax="chmod a+x"
+alias bail='tail -f $@ |bat --paging=never -l log'
 alias calc='bc <<<'
 
 alias copylastoutput="fc -e -|pbcopy && echo Copied output of last command to clipboard"
@@ -140,14 +141,7 @@ alias js='jekyll serve --limit_posts 10 -w'
 alias krbcurl='curl --negotiate -u :'
 listcert() { openssl s_client -showcerts -connect $1:443 </dev/null 2>/dev/null | openssl x509 -inform PEM -text } # Usage: listcert google.com
 alias lscert=listcert
-
-les() {
-    ftype=$(pygmentize -N "$1")
-    pygmentize -l "$ftype"\
-      -f terminal "$1" |\
-        less -R
-}
-
+alias les=bat
 alias mt='truecrypt ~/Dropbox/random.things /media/truecrypt1'
 alias msgviewer='java -jar ~/Dropbox/Thumbdrive/PortableApps/MSGViewer-1.9/MSGViewer.jar'
 alias myip='curl -s checkip.amazonaws.com'
