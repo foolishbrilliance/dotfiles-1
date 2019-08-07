@@ -348,7 +348,8 @@ Plug 'elzr/vim-json'
 Plug 'fcpg/vim-osc52' " copy from vim into system clipboard via terminal control char
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim' " depends on fzf_plugin_dir
-Plug 'junegunn/vim-peekaboo' " see contents of registers
+"Plug 'junegunn/vim-peekaboo' " see contents of registers (incompatible with
+"some version of YouCompleteMe)
 Plug 'junegunn/vim-pseudocl' " required for vim-fnr
 Plug 'mhinz/vim-signify' " another git gutter
 Plug 'mtth/scratch.vim'
