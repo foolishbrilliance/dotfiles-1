@@ -30,6 +30,9 @@
 ;; Default modes
 (add-to-list 'auto-mode-alist '("\\.txt\\'" . markdown-mode)) ;; default mode for .txt files
 
+;; UTF8 per http://ergoemacs.org/emacs/emacs_encoding_decoding_faq.html
+(set-language-environment "UTF-8")
+
 ;; deft
 ;; Overwrite `deft-current-files` for the `deft-buffer-setup` and limit it to 30 entries: https://github.com/jrblevin/deft/issues/43#issuecomment-350198825
 (defun anks-deft-limiting-fn (orig-fun &rest args)
