@@ -42,6 +42,9 @@
 (advice-add 'deft-buffer-setup :around #'anks-deft-limiting-fn)
 ;; auto refresh after clearing filter
 (advice-add #'deft-filter-clear :after #'deft-refresh)
+(setq deft-file-naming-rules
+      '((noslash . "-")
+        (case-fn . downcase)))
 
 ;; Org mode
 (setq
