@@ -16,6 +16,7 @@
 
 (package! deft)
 (package! find-file-in-project)
+(package! graphviz-dot-mode)
 (package! helm-fzf :recipe (:fetcher github :repo "ibmandura/helm-fzf"))
 (package! link-hint)
 (package! lua-mode)
