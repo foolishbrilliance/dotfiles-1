@@ -78,6 +78,19 @@ etransfer() {
 # fuzzy find clipboard Alfred history (sort by timestamp in sqlite, then don't sort in fzf)
 isdarwin && alias fclip='sqlite3 -header -csv ~/Library/Application\ Support/Alfred\ 3/Databases/clipboard.alfdb "select item from clipboard order by ts desc" |fzf |pbcopy'
 
+# https://brettterpstra.com/2019/08/29/shell-tricks-a-random-selection/#faster-command-history-substitutions
+fix() {
+	local cmd=$(fc -ln -1|sed -e 's/^ +//'|sed -e "s/$1/$2/")
+    local choice
+    read -q "choice?Run \`$cmd\`? (Y/n)"
+    echo
+    if [[ "$choice" != "Y" ]]; then
+      echo "aborting"
+      return
+    fi
+	eval $cmd
+}
+
 alias fpath='perl -MCwd -e "print Cwd::abs_path shift"' # cpath is another alias, think "canonical path"
 
 # Git aliases from zprezto: https://github.com/sorin-ionescu/prezto/blob/master/modules/git/alias.zsh
