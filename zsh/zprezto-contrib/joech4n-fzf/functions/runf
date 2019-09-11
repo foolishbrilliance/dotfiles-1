@@ -5,9 +5,9 @@
   cmd=$(cmdf)
   echo "About \`${cmd}\`..."
   which ${cmd}
-  read -q "choice?Run \`$cmd\` ? (y/n): "
+  read -q "choice?Run \`$cmd\` ? (Y/n): "
   echo
-  if [[ "$choice" != "y" ]]; then
+  if [[ "$choice" != "Y" ]]; then
     echo "aborting"
     return
   fi
