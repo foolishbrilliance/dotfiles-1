@@ -58,9 +58,15 @@ cd ~/.grml-etc-core && git pull >/dev/null
 print_status2 $? ${MESSAGE}
 
 # zprezto config
-MESSAGE="update zprezto config"; print_status1 "${MESSAGE}"
-cd ~/.zprezto && git pull >/dev/null
-print_status2 $? ${MESSAGE}
+if [ ! -d "${HOME}/.zprezto" ]; then
+  MESSAGE="install zprezto"; print_status1 "${MESSAGE}"
+  git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+  print_status2 $? ${MESSAGE}
+else
+  MESSAGE="update zprezto config"; print_status1 "${MESSAGE}"
+  cd ~/.zprezto && git pull >/dev/null
+  print_status2 $? ${MESSAGE}
+fi
 
 MESSAGE="update zprezto submodules"; print_status1 "${MESSAGE}"
 cd ~/.zprezto && git submodule update --init --recursive
