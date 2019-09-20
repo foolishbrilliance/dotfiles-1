@@ -7,7 +7,7 @@
   tmp_status=$?
   IFS=: read file line col ignore<<<"$out"
   if [[ $tmp_status == "0" ]]; then
-    vim "$file:$line:$col"
+    print -s vim "$file:$line:$col" && vim "$file:$line:$col"
   else
     echo "rg command exited with non-zero status..."
   fi
