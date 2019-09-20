@@ -396,6 +396,12 @@ Plug 'kana/vim-textobj-user' " required for mattn/vim-textobj-url
 Plug 'mattn/vim-textobj-url' " depends on kana/vim-textobj-user
 Plug 'michaeljsmith/vim-indent-object'
 
+" Load plugins from another file
+" https://github.com/junegunn/vim-plug/issues/300#issuecomment-149173517
+if !empty(glob("$HOME/.vim-plug.local"))
+  source $HOME/.vim-plug.local
+endif
+
 " Initialize plugin system
 call plug#end()
 
