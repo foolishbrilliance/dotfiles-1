@@ -361,9 +361,8 @@ Plug 'tpope/vim-unimpaired' " toggle bindings
 Plug 'tpope/vim-vinegar' " improved netrw
 
 " visuals
-Plug 'altercation/vim-colors-solarized'
+Plug 'morhetz/gruvbox'
 Plug 'flazz/vim-colorschemes'
-Plug 'frankier/neovim-colors-solarized-truecolor-only' " for solarized in neovim
 Plug 'itchyny/lightline.vim'
 Plug 'machakann/vim-highlightedyank' " highlight yanks
 Plug 'nathanaelkane/vim-indent-guides'
@@ -464,13 +463,6 @@ nnoremap <silent> <Leader>hk        :Maps<CR>
 command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --smart-case --max-columns=150 --max-columns-preview --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
 
 "
-" lightline
-"
-let g:lightline = {
-  \ 'colorscheme': 'solarized',
-  \ }
-
-"
 " notational-fzf-vim
 "
 nnoremap <silent> <c-s> :NV<CR>
@@ -490,17 +482,9 @@ map F <Plug>Sneak_F
 map t <Plug>Sneak_t
 map T <Plug>Sneak_T
 
-"
-" Solarized
 " Theme not accessible until Bundle command is run per
 " https://github.com/gmarik/Vundle.vim/issues/119#issuecomment-3089931
-" setting the following line makes iTerm vim color really strange (brown)
-"let g:solarized_termcolors=256
-if has('nvim') || has("gui_macvim")
-  colorscheme solarized-truecolor-only
-else
-  colorscheme solarized
-endif
+colorscheme gruvbox
 
 "
 " vim-expand-region
