@@ -252,17 +252,6 @@ nmap <Leader>n yyPgccj<Esc> " deliberate recursive map (nmap) to use vim-comment
 " Insert timestamps
 inoremap <silent> <C-g><C-t> <C-r>=repeat(complete(col('.'),map(["%Y-%m-%d %H:%M:%S","%a, %d %b %Y %H:%M:%S %z","%Y %b %d","%d-%b-%y","%a %b %d %T %Z %Y"],'strftime(v:val)')+[localtime()]),0)<CR>
 
-" " Automatically set paste mode in Vim when pasting in insert mode per
-" " https://coderwall.com/p/if9mda/automatically-set-paste-mode-in-vim-when-pasting-in-insert-mode
-" let &t_SI .= "\<Esc>[?2004h"
-" let &t_EI .= "\<Esc>[?2004l"
-" inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
-" function! XTermPasteBegin()
-"     set pastetoggle=<Esc>[201~
-"     set paste
-"     return ""
-" endfunction
-
 " change textwidth
 nnoremap <Leader>tw :set textwidth=
 
@@ -294,14 +283,6 @@ nnoremap <Leader>ww <C-w><C-w>
 " Section: Custom Commands {{{1
 " ---------------------
 
-command! -bar -nargs=1 -complete=file E :exe "edit ".substitute(<q-args>,'\(.*\):\(\d\+\):\=$','+\2 \1','')
-command! -bar -nargs=? -bang Scratch :silent enew<bang>|set buftype=nofile bufhidden=hide noswapfile buflisted filetype=<args> modifiable
-function! s:scratch_maps() abort
-  nnoremap <silent> <buffer> == :Scratch<CR>
-  nnoremap <silent> <buffer> =" :Scratch<Bar>put<Bar>1delete _<Bar>filetype detect<CR>
-  nnoremap <silent> <buffer> =* :Scratch<Bar>put *<Bar>1delete _<Bar>filetype detect<CR>
-  nnoremap          <buffer> =f :Scratch<Bar>setfiletype<Space>
-endfunction
 
 " Run this on a word, like "INIT", and you will get:
 " ################################################################################
@@ -408,28 +389,6 @@ call plug#end()
 
 " Section: Plugin configs {{{2
 " ---------------------
-
-"
-" EasyMotion
-"
-"let g:EasyMotion_do_mapping = 0 " Disable default mappings
-"
-"" Bi-directional find motion
-"" Jump to anywhere you want with minimal keystrokes, with just one key binding.
-"" `s{char}{label}`
-"nmap s <Plug>(easymotion-s2)
-"nmap t <Plug>(easymotion-t2)
-"
-"" `s{char}{char}{label}`
-"" Need one more keystroke, but on average, it may be more comfortable.
-""nmap s <Plug>(easymotion-s2)
-"
-"" Turn on case sensitive feature
-"let g:EasyMotion_smartcase = 1
-"
-"" JK motions: Line motions
-"map <Leader>j <Plug>(easymotion-j)
-"map <Leader>k <Plug>(easymotion-k)
 
 " fzf
 "
@@ -562,6 +521,48 @@ augroup END
 
 " Timestamps
 " map ,t <Esc>o# Created: TIME<Esc>ASTAMP by foolishbrilliance<CR># Last Modified: TIME<Esc>ASTAMP by foolishbrilliance<Esc>
+
+"
+" EasyMotion
+"
+"let g:EasyMotion_do_mapping = 0 " Disable default mappings
+"
+"" Bi-directional find motion
+"" Jump to anywhere you want with minimal keystrokes, with just one key binding.
+"" `s{char}{label}`
+"nmap s <Plug>(easymotion-s2)
+"nmap t <Plug>(easymotion-t2)
+"
+"" `s{char}{char}{label}`
+"" Need one more keystroke, but on average, it may be more comfortable.
+""nmap s <Plug>(easymotion-s2)
+"
+"" Turn on case sensitive feature
+"let g:EasyMotion_smartcase = 1
+"
+"" JK motions: Line motions
+"map <Leader>j <Plug>(easymotion-j)
+"map <Leader>k <Plug>(easymotion-k)
+
+" command! -bar -nargs=1 -complete=file E :exe "edit ".substitute(<q-args>,'\(.*\):\(\d\+\):\=$','+\2 \1','')
+" command! -bar -nargs=? -bang Scratch :silent enew<bang>|set buftype=nofile bufhidden=hide noswapfile buflisted filetype=<args> modifiable
+" function! s:scratch_maps() abort
+"   nnoremap <silent> <buffer> == :Scratch<CR>
+"   nnoremap <silent> <buffer> =" :Scratch<Bar>put<Bar>1delete _<Bar>filetype detect<CR>
+"   nnoremap <silent> <buffer> =* :Scratch<Bar>put *<Bar>1delete _<Bar>filetype detect<CR>
+"   nnoremap          <buffer> =f :Scratch<Bar>setfiletype<Space>
+" endfunction
+
+" " Automatically set paste mode in Vim when pasting in insert mode per
+" " https://coderwall.com/p/if9mda/automatically-set-paste-mode-in-vim-when-pasting-in-insert-mode
+" let &t_SI .= "\<Esc>[?2004h"
+" let &t_EI .= "\<Esc>[?2004l"
+" inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
+" function! XTermPasteBegin()
+"     set pastetoggle=<Esc>[201~
+"     set paste
+"     return ""
+" endfunction
 
 if filereadable(expand("~/.vimrc.local"))
   source ~/.vimrc.local
