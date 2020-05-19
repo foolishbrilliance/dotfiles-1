@@ -26,6 +26,9 @@ set-option -g mouse off
 setw -g window-status-format "#I:#{=10:window_name}#F"
 setw -g window-status-current-style fg=black,bg=white
 
+# OSC52 clipboard per https://github.com/tmux-plugins/tmux-yank
+set -g set-clipboard on
+
 # List of plugins
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-copycat'
