@@ -18,6 +18,9 @@ bind R command-prompt -I "#{session_name}" "rename-session '%%'"
 bind | split-window -h -c "#{pane_current_path}"
 bind _ split-window -v -c "#{pane_current_path}"
 
+# Prevent accidental paste, as it's too close to [
+unbind ]
+
 # Don't use mouse mode because it copies newline characters where the line
 # wraps
 set-option -g mouse off
