@@ -18,7 +18,7 @@ fi
 # Editors
 #
 
-export EDITOR="${HOME}/.dotfiles/bin/vims"
+export EDITOR='vi'
 export VISUAL="$EDITOR"
 export PAGER='less'
 
