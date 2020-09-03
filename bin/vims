@@ -1,0 +1,3 @@
+#!/bin/sh
+
+vim -u ~/.dotfiles/vim/vimrc.basic.symlink -- "$@"
