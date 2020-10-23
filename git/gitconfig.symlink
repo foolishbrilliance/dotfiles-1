@@ -42,3 +42,5 @@
 [include]
 	# Include a per-machine .gitconfig
 	path = ~/.gitconfig.local
+[pull]
+	rebase = false
