@@ -1,46 +1,45 @@
-[hub]
-	protocol = https
-[user]
-	name = Joe Chan
-	email = joech4n@users.noreply.github.com
-[credential]
-	helper = osxkeychain
 [alias]
-	ci								= commit
-	co								= checkout
-	count							= !git shortlog -sn
-	dag								= log --graph --format	='format:%C(yellow)%h%C(reset) %C(blue)\"%an\" <%ae>%C(reset) %C(magenta)%ar%C(reset)%C(auto)%d%C(reset)%n%s' --date-order
-	promote						= !$ZSH/bin/git-promote
-	rank-contributors = !$ZSH/bin/git-rank-contributors
-	st								= status
-	wtf								= !$ZSH/bin/git-wtf
-[color]
-	diff = auto
-	status = auto
-	branch = auto
-	ui = true
-[core]
-	excludesfile = ~/.gitignore
-	editor = vim
+    ci = commit
+    co = checkout
+    count = !git shortlog -sn
+    dag
+    promote = !$ZSH/bin/git-promote
+    rank-contributors = !$ZSH/bin/git-rank-contributors
+    st = status
+    wtf = !$ZSH/bin/git-wtf
 [apply]
-	whitespace = nowarn
-[mergetool]
-	keepBackup = false
+    whitespace = nowarn
+[color]
+    branch = auto
+    diff = auto
+    status = auto
+    ui = true
+[core]
+    editor = vim
+    excludesfile = ~/.gitignore
+[credential]
+    helper = osxkeychain
 [difftool]
-	prompt = false
+    prompt = false
 [help]
-	autocorrect = 1
-[push]
-	# See `git help config` (search for push.default)
-	# for more information on different options of the below setting.
-	#
-	# Setting to git 2.0 default to surpress warning message
-	default = simple
-[rerere]
-	# Reuse recorded resolution of conflicted merges
-  enabled = true
+    autocorrect = 1
+[hub]
+    protocol = https
 [include]
-	# Include a per-machine .gitconfig
-	path = ~/.gitconfig.local
+    # Include a per-machine .gitconfig
+    path = ~/.gitconfig.local
+[mergetool]
+    keepBackup = false
 [pull]
-	rebase = false
+    ff = only
+[push]
+    # See `git help config` (search for push.default)
+    # for more information on different options of the below setting.
+    # Setting to git 2.0 default to surpress warning message
+    default = simple
+[rerere]
+    # Reuse recorded resolution of conflicted merges
+    enabled = true
+[user]
+    email = joech4n@users.noreply.github.com
+    name = Joe Chan
