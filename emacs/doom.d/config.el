@@ -108,8 +108,9 @@
 
    ;; Recursive find-file in a target directory
    :desc "Find file in directory" :n "f/" (lambda! (counsel-file-jump nil (read-directory-name "From directory: ")))
-   ;; Recursive grep in target directory
-   :desc "Target directory" :n "//" (lambda! (+ivy/rg nil nil (read-directory-name "From directory: ")))
+   ;; Recursive grep in target directory (broken as of 2021-03-03)
+   ;; :n "/" nil
+   ;; :desc "Target directory" :n "//" (lambda! (+ivy/rg nil nil (read-directory-name "From directory: ")))
    :desc "Find file in subdirectory" :n "ff"  (lambda!
                                                (let* ((proot (read-directory-name "From parent directory: "))
                                                       (pdir (expand-file-name (projectile-complete-dir proot)
