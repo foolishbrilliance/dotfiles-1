@@ -51,6 +51,7 @@
        dired             ; making dired pretty [functional]
        electric          ; smarter, keyword-based electric-indent
        ;;eshell            ; a consistent, cross-platform shell (WIP)
+       undo
        vc                ; version-control and Emacs, sitting in a tree
 
        :term
