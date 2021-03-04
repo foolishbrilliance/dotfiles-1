@@ -73,7 +73,7 @@ function xsource () {
 }
 
 # from old grml config
-xsource ${HOME}/.zshrc.pre ${HOME}/.zshrc.local
+xsource ${HOME}/.zshrc.pre
 
 # load zprezto
 source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
@@ -196,6 +196,8 @@ case "$TERM" in
 esac
 [[ -f ~/.iterm2_shell_integration.zsh ]] || curl -L https://iterm2.com/shell_integration/zsh -o ~/.iterm2_shell_integration.zsh ||'ERROR: failed to download iterm2 shell integration'
 xsource ~/.iterm2_shell_integration.zsh
+
+xsource ${HOME}/.zshrc.local
 
 xsource ~/.zshrc.secret # last, for secrets
 
