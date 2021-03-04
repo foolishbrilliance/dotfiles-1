@@ -1,2 +1,3 @@
-source plugin/sensible.vim
-source plugin/sleuth.vim
+source ~/.dotfiles/vim/vim.symlink/plugged/vim-sensible/plugin/sensible.vim
+source ~/.dotfiles/vim/vim.symlink/plugged/vim-sleuth/plugin/sleuth.vim
+source ~/.dotfiles/vim/vim.symlink/plugged/vim-sneak/plugin/sneak.vim
