@@ -39,9 +39,7 @@ zstyle ':prezto:load' pmodule \
   'joech4n-fzf' \
   'archive' \
   'osx' \
-  'syntax-highlighting' \
   'history-substring-search' \
-  'autosuggestions' \
   'completion' \
   'prompt'
 
