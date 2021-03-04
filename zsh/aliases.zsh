@@ -49,7 +49,7 @@ alias ......='cd ../../../../../'
 alias ax="chmod a+x"
 alias bail='tail -f $@ |bat --paging=never -l log'
 alias calc='bc <<<'
-
+alias ch='fzf_chrome_history'
 alias copylastoutput="fc -e -|pbcopy && echo Copied output of last command to clipboard"
 isdarwin && alias clitxt='curl -sF "upfile=@-" https://clitxt.com |tee /dev/tty | pbcopy'
 

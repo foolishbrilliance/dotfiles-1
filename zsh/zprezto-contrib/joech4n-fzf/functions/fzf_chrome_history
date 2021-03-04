@@ -1,14 +1,16 @@
 # -*- mode: sh -*-
 
-# chrome_bookmarks {
+# fzf_chrome_history {
   local cols sep google_history open
   cols=$(( COLUMNS / 3 ))
   sep='{::}'
 
   if [ "$(uname)" = "Darwin" ]; then
     google_history="$HOME/Library/Application Support/Google/Chrome/Default/History"
-    open=open
+    open=/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome
+    args=(--args --profile-directory=Default)
   else
+    exit
     google_history="$HOME/.config/google-chrome/Default/History"
     open=xdg-open
   fi
@@ -17,5 +19,5 @@
     "select substr(title, 1, $cols), url
   from urls order by last_visit_time desc" |
     awk -F $sep '{printf "%-'$cols's  \x1b[36m%s\x1b[m\n", $1, $2}' |
-    fzf --ansi --multi | sed 's#.*\(https*://\)#\1#' | xargs $open > /dev/null 2> /dev/null
+    fzf --ansi --multi | sed 's#.*\(https*://\)#\1#' | xargs $open $args[*] > /dev/null 2> /dev/null
 # }
