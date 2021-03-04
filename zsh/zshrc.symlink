@@ -112,6 +112,14 @@ case "$-" in; *i*) stty -ixon;; esac # POSIX
 ## Apps
 ################################################################################
 
+if (( $+commands[bat] )); then
+  batdiff() {
+    git diff --name-only --diff-filter=d | xargs bat --diff
+  }
+  alias cat='bat --paging=never'
+  export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+fi
+
 # Brew
 if (( $+commands[brew] )); then
   # For Cask per https://github.com/caskroom/homebrew-cask/blob/master/USAGE.md
