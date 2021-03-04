@@ -87,7 +87,8 @@ cursor_stop_blinking_after 15.0
 
 #: Scrollback {{{
 
-# scrollback_lines 2000
+scrollback_lines 10000
+scrollback_pager_history_size 1024
 
 #: Number of lines of history to keep in memory for scrolling back.
 #: Memory is allocated on demand.
@@ -130,6 +131,8 @@ open_url_modifiers kitty_mod
 #: URL handler.
 
 copy_on_select yes
+
+strip_trailing_spaces smart
 
 #: Copy to clipboard on select. With this enabled, simply selecting
 #: text with the mouse will cause the text to be copied to clipboard.
@@ -480,6 +483,7 @@ bell_on_tab yes
 #: in the path are expanded.
 
 # clipboard_control write-clipboard write-primary
+clipboard_control write-clipboard write-primary no-append
 
 #: Allow programs running in kitty to read and write from the
 #: clipboard. You can control exactly which actions are allowed. The
@@ -489,7 +493,7 @@ bell_on_tab yes
 #: functionality is a security risk as it means that any program, even
 #: one running on a remote server via SSH can read your clipboard.
 
-term xterm-256color
+# term xterm-256color
 
 #: The value of the TERM environment variable to set. Changing this
 #: can break many terminal programs, only change it if you know what
@@ -640,7 +644,7 @@ map alt+right send_text all \x1b\x66
 # map kitty_mod+page_down scroll_page_down
 # map kitty_mod+home      scroll_home
 # map kitty_mod+end       scroll_end
-# map kitty_mod+h         show_scrollback
+map kitty_mod+p>h         show_scrollback
 
 #: You can send the contents of the current screen + history buffer as
 #: stdin to an arbitrary program using the placeholders @text (which
@@ -799,7 +803,7 @@ map kitty_mod+p>w kitten hints --type word --program -
 # map kitty_mod+f11    toggle_fullscreen
 # map kitty_mod+u      kitten unicode_input
 # map kitty_mod+f2     edit_config_file
-# map kitty_mod+escape kitty_shell window
+map kitty_mod+escape kitty_shell window
 
 #: Open the kitty shell in a new window/tab/overlay/os_window to
 #: control kitty using commands.
@@ -848,6 +852,10 @@ map kitty_mod+p>w kitten hints --type word --program -
 
 # }}}
 #
+
+map f1 create_marker
+map f2 remove_marker
+map f3 create_marker text 3 ❯
 
 # BEGIN COPY OF THEME
 # Inspired from https://github.com/rsaihe/gruvbox-material-kitty/blob/master/colors/gruvbox-material-dark-medium.conf
