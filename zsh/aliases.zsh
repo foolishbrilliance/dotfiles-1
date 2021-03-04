@@ -243,6 +243,7 @@ upto() {
 
 alias utc='date -u'
 
+alias vless='vim -Ru ~/.dotfiles/vim/vimrc.basic.symlink -'
 alias vi='vim'
 if check_com -c vimr ; then
   vimr () { # from https://github.com/grml/grml-etc-core/blob/master/etc/zsh/zshrc#L3130
