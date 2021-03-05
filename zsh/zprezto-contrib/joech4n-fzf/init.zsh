@@ -1,6 +1,6 @@
 # Fzf - A command-line fuzzy finder written in Go -  https://github.com/junegunn/fzf#using-homebrew-or-linuxbrew
 xsource ~/.fzf.zsh
-export FZF_DEFAULT_OPTS='--height 90% --reverse --border --exact'
+export FZF_DEFAULT_OPTS="--height 99% --reverse --inline-info --border --exact --preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
 # auto select if only 1 result, exit if no results
 export FZF_CTRL_T_OPTS="--select-1 --exit-0 $FZF_CTRL_T_OPTS"
 
