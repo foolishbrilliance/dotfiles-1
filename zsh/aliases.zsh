@@ -49,12 +49,11 @@ alias ......='cd ../../../../../'
 alias ax="chmod a+x"
 alias bail='tail -f $@ |bat --paging=never -l log'
 alias calc='bc <<<'
+isdarwin && alias clitxt='curl -sF "upfile=@-" https://clitxt.com |tee /dev/tty | pbcopy'
 alias ch='fzf_chrome_history'
 alias copylastoutput="fc -e -|pbcopy && echo Copied output of last command to clipboard"
-isdarwin && alias clitxt='curl -sF "upfile=@-" https://clitxt.com |tee /dev/tty | pbcopy'
-
-# count uniq
 alias count='sort | uniq -c | sort -rn'
+alias cpath='python -c "import os; import sys; print(os.path.realpath(sys.argv[1]))"'
 
 edownload() {
     if [ $# -ne 2 ];
@@ -91,7 +90,6 @@ fix() {
 	eval $cmd
 }
 
-alias fpath='perl -MCwd -e "print Cwd::abs_path shift"' # cpath is another alias, think "canonical path"
 
 # Git aliases from zprezto: https://github.com/sorin-ionescu/prezto/blob/master/modules/git/alias.zsh
 
