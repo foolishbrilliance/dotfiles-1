@@ -92,7 +92,8 @@ xsource "${HOME}/.zgen/zgen.zsh" # load zgen
 # if the init scipt doesn't exist
 if ! zgen saved; then
   zgen load djui/alias-tips
-  zgen load zdharma/fast-syntax-highlighting
+  # disable fast-syntax-highlighting until I figure out the `man` delay issue https://www.reddit.com/r/zsh/comments/fkcjfq/catalina_users_out_there_4_second_pause_whenever/fks88gj/
+  #zgen load zdharma/fast-syntax-highlighting
   zgen load peterhurford/up.zsh
   zgen load unixorn/warhol.plugin.zsh
   zgen save
