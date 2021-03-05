@@ -1,16 +1,18 @@
 # Fzf - A command-line fuzzy finder written in Go -  https://github.com/junegunn/fzf#using-homebrew-or-linuxbrew
+xsource /usr/share/doc/fzf/examples/key-bindings.zsh
+xsource /usr/share/doc/fzf/examples/completion.zsh
 xsource ~/.fzf.zsh
-export FZF_DEFAULT_OPTS="--height 99% --reverse --inline-info --border --exact --preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
-# auto select if only 1 result, exit if no results
-export FZF_CTRL_T_OPTS="--select-1 --exit-0 $FZF_CTRL_T_OPTS"
 
-# Dedicated completion key
-# > Instead of using `TAB` key with a trigger sequence (`**<TAB>`), you can assign a dedicated key for fuzzy completion while retaining the default behavior of `TAB` key.
-# > https://github.com/junegunn/fzf/wiki/Configuring-fuzzy-completion#dedicated-completion-key
-export FZF_COMPLETION_TRIGGER=''
-bindkey '^T' fzf-completion
-bindkey '^[r' fzf-completion
-bindkey '^I' $fzf_default_completion
+export FZF_DEFAULT_OPTS="--height 99% --reverse --inline-info --cycle \
+    --color hl:reverse,hl+:reverse \
+    --exact \
+    --preview-window down:3:hidden:wrap --preview 'echo {}' \
+    --bind 'ctrl-a:select-all+accept,ctrl-y:execute(echo {+} | pbcopy),?:toggle-preview'"
+# auto select if only 1 result, exit if no results
+export FZF_CTRL_T_OPTS="--select-1 --exit-0 \
+    --preview-window 'right:60%' \
+    --preview '[[ \$(file --mime {}) =~ binary ]] && echo Binary: {} || (bat --style=full --color=always {} || cat {}) 2>/dev/null | head -300'"
+export FZF_ALT_C_OPTS="--select-1 --exit-0"
 
 # Prefer the following (in order) over find, if available
 # - fd (https://github.com/sharkdp/fd)
@@ -20,9 +22,9 @@ if ((${+FZF_FORCE_DEFAULT_SEARCH})); then
   # can set in ~/.zshrc.pre, which gets sourced by grml config
 elif check_com -c fd; then
   # Setting fd as the default source for fzf
-  export FZF_DEFAULT_COMMAND="fd --type file --follow --hidden"
-  export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
-  export FZF_ALT_C_COMMAND="fd --type d --follow --hidden"
+  FD_OPTS="--hidden --follow --exclude .git"
+  export FZF_DEFAULT_COMMAND="fd --type file $FD_OPTS"
+  export FZF_ALT_C_COMMAND="fd --type d $FD_OPTS"
 
   # Use fd for listing path candidates.
   # - The first argument to the function ($1) is the base path to start traversal
@@ -37,13 +39,5 @@ elif check_com -c fd; then
   }
 elif check_com -c rg; then
   export FZF_DEFAULT_COMMAND="rg --files --follow --hidden --no-messages"
-  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 fi
-
-if check_com -c bat; then
-  # preview using bat
-  export FZF_CTRL_T_OPTS="--ansi --preview-window 'right:60%' --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
-fi
-# Preview full command in CTRL+R with ?
-export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
-
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
