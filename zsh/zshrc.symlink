@@ -56,7 +56,7 @@ function check_com () {
 }
 
 function isdarwin () {
-  [[ "$OSTYPE" != darwin* ]]
+  [[ "$OSTYPE" == darwin* ]]
 }
 
 # Check if we can read given files and source those we can.
