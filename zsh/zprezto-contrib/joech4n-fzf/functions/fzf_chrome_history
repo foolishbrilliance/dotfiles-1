@@ -10,7 +10,6 @@
     open=/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome
     args=(--args --profile-directory=Default)
   else
-    exit
     google_history="$HOME/.config/google-chrome/Default/History"
     open=xdg-open
   fi
