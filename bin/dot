@@ -80,16 +80,6 @@ fi
 ##########################################################
 ##### Full Update ########################################
 ##########################################################
-
-# Vim
-MESSAGE="update vim plugin manager (Dein)"; print_status1 "${MESSAGE}"
-cd ~/.vim/plugins/repos/github.com/Shougo/dein.vim && git pull >/dev/null
-print_status2 $? ${MESSAGE}
-
-MESSAGE="update vim plugins"; print_status1 "${MESSAGE}"
-vim +slient +VimEnter +PlugInstall +qall
-print_status2 $? ${MESSAGE}
-
 # Tmux Plugin Manager (tpm) and plugins
 if [ ! -d "${HOME}/.tmux/plugins/tpm" ]; then
   if [ -L "${HOME}/.tmux" ]; then
@@ -100,9 +90,22 @@ if [ ! -d "${HOME}/.tmux/plugins/tpm" ]; then
   print_status2 $? ${MESSAGE}
 else
   MESSAGE="update tpm and plugins"; print_status1 "${MESSAGE}"
-  ~/.tmux/plugins/tpm/bin/update_plugins all >/dev/null
+  if [ -z "$TMUX" ]; then
+    print_status2 1 "${MESSAGE}: Not in tmux session."
+    exit 1
+  fi
+  ~/.tmux/plugins/tpm/bin/update_plugins all
   print_status2 $? ${MESSAGE}
 fi
+
+# Vim
+MESSAGE="update vim plugin manager (vim-plugged)"; print_status1 "${MESSAGE}"
+vim +PlugUpgrade +qall
+print_status2 $? ${MESSAGE}
+
+MESSAGE="update vim plugins"; print_status1 "${MESSAGE}"
+vim +PlugInstall +qall
+print_status2 $? ${MESSAGE}
 
 # zsh zgen plugins
 ZGEN="$HOME/.zgen"
@@ -113,7 +116,7 @@ print_status2 $? ${MESSAGE}
 
 # Doom Emacs
 MESSAGE="update Doom Emacs"; print_status1 "${MESSAGE}"
-~/.emacs.d/bin/doom -y upgrade &>/dev/null && ~/.emacs.d/bin/doom -y a &>/dev/null
+~/.emacs.d/bin/doom -y upgrade
 print_status2 $? ${MESSAGE}
 
 ################################################################################
@@ -128,7 +131,6 @@ if [[ "$(uname)" == "Darwin" ]]; then
   brew update
   brew upgrade
   brew cleanup -s
-  brew cask cleanup
   # Diagnotics
   brew doctor
   brew missing
@@ -140,10 +142,8 @@ if [[ "$(uname)" == "Darwin" ]]; then
   gem update && clr_green "Updated Ruby gems." || clr_red "Ruby gem update failed."
 
   # Python
-  python3 -m pip install --upgrade pip
-  python2 -m pip install --upgrade pip
-  python3 -m pip install --upgrade setuptools
-  python2 -m pip install --upgrade setuptools
+  python3 -m pip install --upgrade pip setuptools
+  python2 -m pip install --upgrade pip setuptools
   #pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U && clr_green "Updated pip packages." || clr_red "pip packages update failed."
   pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip3 install -U && clr_green "Updated pip3 packages." || clr_red "pip3 packages update failed."
   pip2 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip2 install -U && clr_green "Updated pip2 packages." || clr_red "pip2 packages update failed."
