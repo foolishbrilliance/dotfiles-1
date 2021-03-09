@@ -5,6 +5,10 @@
        ;;debugger          ; FIXME stepping through code, to help you add bugs
        ;; file-templates    ; auto-snippets for empty files
 
+       :checkers
+       spell
+       syntax
+
        :completion
        (company          ; the ultimate code completion backend
         +auto)           ; as-you-type code completion
@@ -63,8 +67,6 @@
        editorconfig      ; let someone else argue about tabs vs spaces
        eval              ; run code, run (also, repls)
        ;;ein               ; tame Jupyter notebooks with emacs
-       flycheck          ; tasing you for every semicolon you forget
-       flyspell          ; tasing you for misspelling mispelling
        ;;gist              ; interacting with github gists
        (lookup           ; helps you navigate your code and documentation
         +docsets)        ; ...or in Dash docsets locally
