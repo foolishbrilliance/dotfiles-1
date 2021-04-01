@@ -3,7 +3,7 @@ xsource /usr/share/doc/fzf/examples/key-bindings.zsh
 xsource /usr/share/doc/fzf/examples/completion.zsh
 xsource ~/.fzf.zsh
 
-export FZF_DEFAULT_OPTS="--height 99% --reverse --inline-info --cycle \
+export FZF_DEFAULT_OPTS="--height 90% --reverse --inline-info --cycle \
     --color hl:reverse,hl+:reverse \
     --exact \
     --preview-window down:3:hidden:wrap --preview 'echo {}' \
