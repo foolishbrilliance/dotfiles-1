@@ -31,6 +31,14 @@ if [[ -z "$LANG" ]]; then
 fi
 
 #
+# Timezone
+#
+#
+if [[ -z "$TZ" ]]; then
+  export TZ='America/Los_Angeles'
+fi
+
+#
 # Paths
 #
 
