@@ -76,7 +76,7 @@ cask "1password"
 cask "alfred"
 cask "appcleaner"
 cask "awareness"
-cask "bartender"
+#cask "bartender" # Bartender 3 last supported in OSX Catalina 10.15
 cask "betterzip"
 cask "bitbar"
 cask "cord"
